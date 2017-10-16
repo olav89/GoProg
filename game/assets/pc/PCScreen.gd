@@ -33,7 +33,7 @@ func button_pressed(pressed):
 	
 	# if the code has not yet been selected add it and build output
 	selection.append(selected)
-	var output = ""
+	var output = "Terminal:\n"
 	for s in selection:
 		output += ">>> " + s + "\n"
 	get_node("Panel/CodeSelected").set_text(output)

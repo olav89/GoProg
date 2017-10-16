@@ -5,15 +5,15 @@
 
 extends TextureFrame
 
-var PATH_LEVELS = "res://assets/levels/"
+var PATH_LEVELS = "res://assets/levels/Level"
 
-var num_levels = 1
+var num_levels = 30
 
 func _ready():
 	var box = get_node("Levels") # Vertical Box Container
 	for i in range(1, num_levels + 1):
 		var b = Button.new()
-		b.set_text("Level" + str(i))
+		b.set_text(str(i))
 		box.add_child(b) # add button to box, no need to adjust positions
 		b.connect("pressed", self, "button_pressed", [b])
 
