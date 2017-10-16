@@ -1,0 +1,129 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://assets/pc/PCScreen.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/black.png" type="Texture" id=3]
+
+[node name="PCScreen" type="Control"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1023.0
+margin/bottom = 594.0
+script/script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+
+visibility/behind_parent = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1039.0
+margin/bottom = 616.0
+
+[node name="CodeBtn" type="VBoxContainer" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 681.0
+margin/top = 55.0
+margin/right = 1006.0
+margin/bottom = 498.0
+alignment = 0
+
+[node name="Status" type="Label" parent="Panel"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 321.0
+margin/top = 14.0
+margin/right = 708.0
+margin/bottom = 28.0
+text = "Select code by pressing the buttons on the right."
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="btnEnter" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 843.0
+margin/top = 507.0
+margin/right = 994.0
+margin/bottom = 577.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Enter"
+icon = ExtResource( 2 )
+flat = false
+align = 0
+
+[node name="CodeSelected" type="Label" parent="Panel"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 71.0
+margin/top = 120.0
+margin/right = 570.0
+margin/bottom = 460.0
+custom_colors/font_color = Color( 0.0914783, 0.855469, 0.0668335, 1 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TextureFrame" type="TextureFrame" parent="Panel/CodeSelected"]
+
+visibility/behind_parent = true
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -17.0
+margin/top = -35.0
+margin/right = 514.0
+margin/bottom = 367.0
+texture = ExtResource( 3 )
+modulate = Color( 0.0078125, 0.00753784, 0.00753784, 1 )
+expand = true
+stretch_mode = 0
+
+[node name="btnClear" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 92.0
+margin/top = 547.0
+margin/right = 161.0
+margin/bottom = 583.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Clear"
+flat = false
+
+[connection signal="pressed" from="Panel/btnEnter" to="." method="_on_btnEnter_pressed"]
+
+[connection signal="pressed" from="Panel/btnClear" to="." method="_on_btnClear_pressed"]
+
+

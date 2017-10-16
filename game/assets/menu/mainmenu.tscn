@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://assets/art/wall.jpg" type="Texture" id=1]
+[ext_resource path="res://assets/menu/mainmenu.gd" type="Script" id=2]
+
+[node name="Background" type="TextureFrame"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1031.0
+margin/bottom = 608.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 0
+script/script = ExtResource( 2 )
+
+[node name="btnStart" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 453.0
+margin/top = 257.0
+margin/right = 568.0
+margin/bottom = 316.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Start"
+flat = false
+
+[node name="btnQuit" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 453.0
+margin/top = 371.0
+margin/right = 568.0
+margin/bottom = 430.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Exit"
+flat = false
+
+[connection signal="pressed" from="btnStart" to="." method="_on_btnStart_pressed"]
+
+[connection signal="pressed" from="btnQuit" to="." method="_on_btnQuit_pressed"]
+
+
