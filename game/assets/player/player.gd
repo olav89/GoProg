@@ -6,6 +6,10 @@
 extends KinematicBody
 
 var PATH_STATUS_BAR = "StatusBar"
+var PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
+var PATH_PC_TO_SCREEN = "PCScreen" # path relative to pc node
+var PATH_INGAME_MENU = "IngameMenu"
+
 var status_bar_time_remaining = 0
 
 var pc_is_interactable = false
@@ -89,13 +93,13 @@ func _input(event):
 	if (event.type == InputEvent.KEY):
 		if Input.is_action_pressed("interact") and pc_is_interactable:
 			pc_node = pc_near_node # last pc close to player
-			pc_node.get_node("PCScreen").show()
+			pc_node.get_node(PATH_PC_TO_SCREEN).show()
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		elif Input.is_action_pressed("activate_code"):
 			# Sends a notification to the scripts which are affected by an execute of selected code
 			get_tree().call_group(0, "execute_code_group", "execute_code")
 		elif Input.is_action_pressed("ingame_menu"):
-			get_node("IngameMenu").show()
+			get_node(PATH_INGAME_MENU).show()
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 # Collision in front of player
@@ -115,6 +119,6 @@ func _on_Area_body_exit( body ):
 		pc_is_interactable = false
 
 func change_status(text, time):
-	status_bar.get_node("Label").set_text(text)
+	status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
 	status_bar.show()
 	status_bar_time_remaining = time

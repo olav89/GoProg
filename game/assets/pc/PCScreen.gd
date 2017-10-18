@@ -8,6 +8,8 @@ extends Control
 var selection = [] # contains code user has selected
 
 var PATH_PLAYER = "../../Player"
+var PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
+var PATH_SELECTION_LABEL = "Panel/CodeSelected"
 
 func _ready():
 	pass
@@ -16,7 +18,7 @@ func _ready():
 # Input: code_array
 # Output: Creates buttons for each element in the input array
 func create_codes(code_array):
-	var box = get_node("Panel/CodeBtn") # Vertical Box Container
+	var box = get_node(PATH_BUTTON_CONTAINER) 
 	for code in code_array:
 		var b = Button.new()
 		b.set_text(code)
@@ -38,7 +40,7 @@ func button_pressed(pressed):
 	var output = "Terminal:\n"
 	for s in selection:
 		output += ">>> " + s + "\n"
-	get_node("Panel/CodeSelected").set_text(output)
+	get_node(PATH_SELECTION_LABEL).set_text(output)
 
 # Event for the Enter button
 func _on_btnEnter_pressed():
@@ -49,4 +51,4 @@ func _on_btnEnter_pressed():
 # Event for the Clear button
 func _on_btnClear_pressed():
 	selection = [] # clear selection
-	get_node("Panel/CodeSelected").set_text("Terminal:\n") # remove the shown selection
+	get_node(PATH_SELECTION_LABEL).set_text("Terminal:\n") # remove the shown selection
