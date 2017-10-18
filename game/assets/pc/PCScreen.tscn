@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://assets/pc/PCScreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/Screen.tex" type="Texture" id=2]
-[ext_resource path="res://assets/theme/btn_theme.tres" type="Theme" id=3]
 
 [node name="PCScreen" type="Control"]
 
@@ -30,6 +29,7 @@ margin/right = 1023.0
 margin/bottom = 600.0
 texture = ExtResource( 2 )
 expand = true
+stretch_mode = 0
 
 [node name="CodeBtn" type="GridContainer" parent="Panel"]
 
@@ -56,7 +56,7 @@ margin/bottom = 557.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Enter"
+text = "Compile"
 flat = false
 
 [node name="CodeSelected" type="Label" parent="Panel"]
@@ -81,7 +81,6 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
 margin/left = 941.0
 margin/top = 527.0
 margin/right = 991.0

@@ -3,10 +3,6 @@
 [ext_resource path="res://assets/room/floor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/room/wall.tscn" type="PackedScene" id=2]
 
-
-
-
-
 [node name="Room" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
