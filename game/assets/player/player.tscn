@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://assets/player/player.gd" type="Script" id=1]
-[ext_resource path="res://assets/art/crosshair.png" type="Texture" id=2]
-[ext_resource path="res://assets/menu/ingamemenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/art/notification_bar.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/crosshair.png" type="Texture" id=3]
+[ext_resource path="res://assets/menu/ingamemenu.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -20,7 +21,7 @@ input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform( 0.762909, 0, 0, 0, -1.24294e-07, -0.762909, 0, 0.762909, -1.24294e-07, 0, -0.271997, -0.110604 )
+shapes/0/transform = Transform( 0.762909, 0, 0, 0, -1.24294e-07, -0.762909, 0, 0.762909, -1.24294e-07, 0, -0.271997, 0.0337921 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -48,21 +49,39 @@ v_offset = 0.0
 [node name="Body" type="CollisionShape" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.762909, 0, 0, 0, -1.24294e-07, -0.762909, 0, 0.762909, -1.24294e-07, 0, -0.271997, -0.110604 )
+transform/local = Transform( 0.762909, 0, 0, 0, -1.24294e-07, -0.762909, 0, 0.762909, -1.24294e-07, 0, -0.271997, 0.0337921 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="StatusBar" type="Label" parent="."]
+[node name="StatusBar" type="TextureFrame" parent="."]
+
+visibility/visible = false
+visibility/opacity = 0.8
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 362.0
+margin/top = 10.0
+margin/right = 662.0
+margin/bottom = 40.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="StatusBar"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 14.0
+margin/left = 9.0
+margin/top = 4.0
+margin/right = 290.0
+margin/bottom = 25.0
+align = 1
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -101,7 +120,7 @@ _update_shape_index = 0
 [node name="Sprite3D" type="Sprite3D" parent="Area"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.059852 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15382 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
@@ -129,14 +148,14 @@ flags/shaded = false
 flags/double_sided = true
 flags/on_top = false
 flags/alpha_cut = 0
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 1
 hframes = 1
 frame = 0
 region = false
 region_rect = Rect2( 0, 0, 0, 0 )
 
-[node name="IngameMenu" parent="." instance=ExtResource( 3 )]
+[node name="IngameMenu" parent="." instance=ExtResource( 4 )]
 
 [connection signal="body_enter" from="Area" to="." method="_on_Area_body_enter"]
 

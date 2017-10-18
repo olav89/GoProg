@@ -7,6 +7,8 @@ extends Control
 
 var selection = [] # contains code user has selected
 
+var PATH_PLAYER = "../../Player"
+
 func _ready():
 	pass
 
@@ -42,8 +44,9 @@ func button_pressed(pressed):
 func _on_btnEnter_pressed():
 	hide() # hide pc screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) # capture mouse
+	get_node(PATH_PLAYER).change_status("Press F to activate the code", 2)
 
 # Event for the Clear button
 func _on_btnClear_pressed():
 	selection = [] # clear selection
-	get_node("Panel/CodeSelected").set_text("") # remove the shown selection
+	get_node("Panel/CodeSelected").set_text("Terminal:\n") # remove the shown selection
