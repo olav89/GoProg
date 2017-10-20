@@ -7,7 +7,6 @@ extends Control
 
 var selection = [] # contains code user has selected
 
-var PATH_PLAYER = "../../Player"
 var PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
 var PATH_SELECTION_LABEL = "Panel/CodeSelected"
 
@@ -46,7 +45,7 @@ func button_pressed(pressed):
 func _on_btnEnter_pressed():
 	hide() # hide pc screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) # capture mouse
-	get_node(PATH_PLAYER).change_status("Press F to activate the code", 2)
+	get_tree().call_group(0, "player", "change_status_activate")
 
 # Event for the Clear button
 func _on_btnClear_pressed():

@@ -94,7 +94,7 @@ input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Transform( 0.275202, 0, 0, 0, 0.275202, 0, 0, 0, 0.275202, 0, 0, 0 )
+shapes/0/transform = Transform( 0.314226, 0, 0, 0, 0.314226, 0, 0, 0, 0.314226, 0, 0, 0 )
 shapes/0/trigger = false
 space_override = 0
 gravity_point = false
@@ -112,7 +112,7 @@ collision/mask = 1
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.275202, 0, 0, 0, 0.275202, 0, 0, 0, 0.275202, 0, 0, 0 )
+transform/local = Transform( 0.314226, 0, 0, 0, 0.314226, 0, 0, 0, 0.314226, 0, 0, 0 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
@@ -156,6 +156,10 @@ region = false
 region_rect = Rect2( 0, 0, 0, 0 )
 
 [node name="IngameMenu" parent="." instance=ExtResource( 4 )]
+
+[connection signal="area_enter" from="Area" to="." method="_on_Area_area_enter"]
+
+[connection signal="area_exit" from="Area" to="." method="_on_Area_area_exit"]
 
 [connection signal="body_enter" from="Area" to="." method="_on_Area_body_enter"]
 

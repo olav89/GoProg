@@ -10,13 +10,21 @@ var PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
 var PATH_PC_TO_SCREEN = "PCScreen" # path relative to pc node
 var PATH_INGAME_MENU = "IngameMenu"
 
-var status_bar_time_remaining = 0
+var is_level_won = false
 
+var victory_pad_is_interactable = false
 var pc_is_interactable = false
 var pc_node = null # the active pc node 
 var pc_near_node = null # the nearest pc node
 
 var status_bar = null # link to the status bar
+var status_bar_time_remaining = 0
+var STATUS_INTERACT = "Press E to interact"
+var STATUS_INTERACT_TIME = 1
+var STATUS_ACTIVATE = "Press F to activate your code"
+var STATUS_ACTIVATE_TIME = 2
+var STATUS_WON = "Proceed to the elevator"
+var STATUS_WON_TIME = 15
 
 var gravity_direction = -1 # direction of the Y-component in gravity vector
 
@@ -31,6 +39,7 @@ func _ready():
 	set_process(true)
 	set_fixed_process(true)
 	status_bar = get_node(PATH_STATUS_BAR)
+	add_to_group("player")
 
 func _process(delta):
 	if status_bar_time_remaining > 0:
@@ -91,7 +100,10 @@ func _input(event):
 		pass
 	# Handles key events besides the player movement
 	if (event.type == InputEvent.KEY):
-		if Input.is_action_pressed("interact") and pc_is_interactable:
+		if Input.is_action_pressed("interact") and victory_pad_is_interactable:
+			is_level_won = true
+			change_status(STATUS_WON, STATUS_WON_TIME)
+		elif Input.is_action_pressed("interact") and pc_is_interactable:
 			pc_node = pc_near_node # last pc close to player
 			pc_node.get_node(PATH_PC_TO_SCREEN).show()
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -102,13 +114,21 @@ func _input(event):
 			get_node(PATH_INGAME_MENU).show()
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+func change_status(text, time):
+	status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
+	status_bar.show()
+	status_bar_time_remaining = time
+
+func change_status_activate():
+	change_status(STATUS_ACTIVATE, STATUS_ACTIVATE_TIME)
+
 # Collision in front of player
 func _on_Area_body_enter( body ):
 	var body_id = body.get_instance_ID()
 	var node = get_node("../PC/StaticBody")
 	if node != null and body_id == node.get_instance_ID():
 		pc_near_node = get_node("../PC")
-		change_status("Press E to use the computer.", 2)
+		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 		pc_is_interactable = true
 
 # Collision object no longer colliding
@@ -118,7 +138,9 @@ func _on_Area_body_exit( body ):
 	if node != null and body_id == node.get_instance_ID():
 		pc_is_interactable = false
 
-func change_status(text, time):
-	status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
-	status_bar.show()
-	status_bar_time_remaining = time
+func _on_Area_area_enter( area ):
+	victory_pad_is_interactable = true
+	change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
+
+func _on_Area_area_exit( area ):
+	victory_pad_is_interactable = false

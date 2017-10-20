@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://assets/levels/Level2.gd" type="Script" id=1]
 [ext_resource path="res://assets/meshes/Map.msh" type="Mesh" id=2]
-[ext_resource path="res://assets/art/Planked_Wood_Seamless.jpg" type="Texture" id=3]
-[ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=4]
 
 [sub_resource type="PlaneShape" id=1]
 
@@ -38,7 +37,6 @@ params/shader_param = 0.5
 params/glow = 0
 params/point_size = 1.0
 uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse = ExtResource( 3 )
 textures/diffuse_tc = 0
 textures/detail_tc = 0
 textures/specular_tc = 0
@@ -99,11 +97,11 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="PC" parent="Room" instance=ExtResource( 4 )]
+[node name="PC" parent="Room" instance=ExtResource( 3 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.919, 1.06785, 0 )
 
-[node name="Player" parent="Room" instance=ExtResource( 5 )]
+[node name="Player" parent="Room" instance=ExtResource( 4 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.59033, 3.71786, 0 )
 

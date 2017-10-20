@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://assets/levels/Level1.gd" type="Script" id=1]
 [ext_resource path="res://assets/room/room.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/objects/victory_pad.tscn" type="PackedScene" id=6]
 
 [node name="Level1" type="Spatial"]
 
@@ -24,5 +25,33 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32156, 0 )
 [node name="Crate" parent="Room" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.70094, 1.86313, -1.83897 )
+
+[node name="VictoryPad" parent="Room/Crate" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.298701, 0.00656736 )
+
+[node name="Crate 2" parent="Room" instance=ExtResource( 5 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87406, 1.3655, 0 )
+
+[node name="Crate3" parent="Room" instance=ExtResource( 5 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87406, 1.3655, 3.49168 )
+
+[node name="Crate4" parent="Room" instance=ExtResource( 5 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65362, 1.3655, 3.49168 )
+
+[node name="Crate5" parent="Room" instance=ExtResource( 5 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65362, 1.3655, -4.02075 )
+
+[node name="Crate6" parent="Room" instance=ExtResource( 5 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65362, 1.3655, -0.345286 )
+
+[node name="Crate7" parent="Room" instance=ExtResource( 5 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.56393, 1.3655, -2.47529 )
 
 
