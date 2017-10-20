@@ -9,6 +9,7 @@ var PATH_STATUS_BAR = "StatusBar"
 var PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
 var PATH_PC_TO_SCREEN = "PCScreen" # path relative to pc node
 var PATH_INGAME_MENU = "IngameMenu"
+var PATH_SAMPLE_PLAYER = "SamplePlayer"
 
 var is_level_won = false
 
@@ -26,6 +27,9 @@ var STATUS_ACTIVATE_TIME = 2
 var STATUS_WON = "Proceed to the elevator"
 var STATUS_WON_TIME = 15
 
+var sample_player = null
+var id_voice_walking = 0
+
 var gravity_direction = -1 # direction of the Y-component in gravity vector
 
 var view_sensitivity = 0.2
@@ -39,6 +43,7 @@ func _ready():
 	set_process(true)
 	set_fixed_process(true)
 	status_bar = get_node(PATH_STATUS_BAR)
+	sample_player = get_node(PATH_SAMPLE_PLAYER)
 	add_to_group("player")
 
 func _process(delta):
@@ -69,7 +74,8 @@ func _fixed_process(delta):
 		velocity -= looking_at[0]
 	if Input.is_action_pressed("player_right"):
 		velocity += looking_at[0]
-	
+	if velocity.z != 0 or velocity.x != 0:
+		play_sample_walking()
 	velocity = velocity * movement_speed
 
 	var motion = velocity * delta
@@ -121,6 +127,12 @@ func change_status(text, time):
 
 func change_status_activate():
 	change_status(STATUS_ACTIVATE, STATUS_ACTIVATE_TIME)
+
+func play_sample_walking():
+	if !sample_player.is_voice_active(id_voice_walking):
+		id_voice_walking = sample_player.play("walking")
+func play_sample_typing():
+	sample_player.play("typing")
 
 # Collision in front of player
 func _on_Area_body_enter( body ):

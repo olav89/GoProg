@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://assets/player/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/notification_bar.png" type="Texture" id=2]
 [ext_resource path="res://assets/art/crosshair.png" type="Texture" id=3]
 [ext_resource path="res://assets/menu/ingamemenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/sound/typing.smp" type="Sample" id=5]
+[ext_resource path="res://assets/sound/walking.smp" type="Sample" id=6]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -13,6 +15,21 @@ height = 1.0
 [sub_resource type="BoxShape" id=2]
 
 extents = Vector3( 1, 1, 1 )
+
+[sub_resource type="SampleLibrary" id=3]
+
+samples/typing = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
+samples/walking = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 6 )
+}
 
 [node name="Player" type="KinematicBody"]
 
@@ -57,7 +74,6 @@ _update_shape_index = 0
 [node name="StatusBar" type="TextureFrame" parent="."]
 
 visibility/visible = false
-visibility/opacity = 0.8
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -77,7 +93,7 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 9.0
-margin/top = 4.0
+margin/top = 6.0
 margin/right = 290.0
 margin/bottom = 25.0
 align = 1
@@ -120,7 +136,7 @@ _update_shape_index = 0
 [node name="Sprite3D" type="Sprite3D" parent="Area"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15382 )
+transform/local = Transform( 0.231387, 0, 0, 0, 0.231387, 0, 0, 0, 0.231387, 0, 0, 0.714594 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
@@ -156,6 +172,17 @@ region = false
 region_rect = Rect2( 0, 0, 0, 0 )
 
 [node name="IngameMenu" parent="." instance=ExtResource( 4 )]
+
+[node name="SamplePlayer" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 2
+config/samples = SubResource( 3 )
+config/pitch_random = 0.0
 
 [connection signal="area_enter" from="Area" to="." method="_on_Area_area_enter"]
 

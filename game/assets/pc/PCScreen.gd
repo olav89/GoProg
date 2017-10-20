@@ -21,6 +21,7 @@ func create_codes(code_array):
 	for code in code_array:
 		var b = Button.new()
 		b.set_text(code)
+		b.set_theme(load("res://assets/theme/theme_btn_menu.tres"))
 		box.add_child(b)
 		b.connect("pressed", self, "button_pressed", [b])
 
@@ -33,6 +34,8 @@ func button_pressed(pressed):
 	for s in selection:
 		if s == selected:
 			return
+	
+	get_tree().call_group(0, "player", "play_sample_typing")
 	
 	# if the code has not yet been selected add it and build output
 	selection.append(selected)

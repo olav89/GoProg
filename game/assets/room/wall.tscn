@@ -1,9 +1,7 @@
 [gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://assets/meshes/wall.msh" type="Mesh" id=1]
-[ext_resource path="res://assets/art/wall.jpg" type="Texture" id=2]
-
-
+[ext_resource path="res://assets/art/Brick_10_UV_H_CM_1.jpg" type="Texture" id=2]
 
 [sub_resource type="FixedMaterial" id=1]
 
