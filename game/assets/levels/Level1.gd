@@ -1,5 +1,10 @@
 extends Spatial
 
+var PATH_PLAYER = "Room/Player"
+var PATH_PC_SCREEN = "Room/PC/PCScreen"
+var PATH_PAD = "Room/Crate/VictoryPad"
+
+
 var codes = [
 "player.invert_gravity()",
 "room.invert_gravity()"
@@ -16,8 +21,12 @@ var gravity_direction_player = -1
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
+	# setup scripts
+	get_node(PATH_PLAYER).setup(get_node(PATH_PAD))
+	get_node(PATH_PC_SCREEN).setup(get_node(PATH_PLAYER))
+	
 	# add codes for all pcs in scene
-	get_node("Room/PC/PCScreen").create_codes(codes)
+	get_node(PATH_PC_SCREEN).create_codes(codes)
 	
 	# adds to group so it gets notified when player wants to execute code
 	add_to_group("execute_code_group")
@@ -40,7 +49,7 @@ func _fixed_process(delta):
 	
 
 func execute_code():
-	pc_node = get_node("Room/Player").pc_node
+	pc_node = get_node(PATH_PLAYER).pc_node
 	if pc_node == null:
 		return
 	selection = pc_node.get_node("PCScreen").selection

@@ -13,7 +13,9 @@ var PATH_SAMPLE_PLAYER = "SamplePlayer"
 
 var is_level_won = false
 
+var victory_pad_node = null
 var victory_pad_is_interactable = false
+
 var pc_is_interactable = false
 var pc_node = null # the active pc node 
 var pc_near_node = null # the nearest pc node
@@ -38,13 +40,15 @@ var pitch = 0
 var movement_speed = 10
 var velocity = null
 
+func setup(victory_pad):
+	victory_pad_node = victory_pad
+
 func _ready():
 	set_process_input(true)
 	set_process(true)
 	set_fixed_process(true)
 	status_bar = get_node(PATH_STATUS_BAR)
 	sample_player = get_node(PATH_SAMPLE_PLAYER)
-	add_to_group("player")
 
 func _process(delta):
 	if status_bar_time_remaining > 0:
@@ -151,8 +155,10 @@ func _on_Area_body_exit( body ):
 		pc_is_interactable = false
 
 func _on_Area_area_enter( area ):
-	victory_pad_is_interactable = true
-	change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
+	if area.get_instance_ID() == victory_pad_node.get_instance_ID():
+		victory_pad_is_interactable = true
+		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 
 func _on_Area_area_exit( area ):
-	victory_pad_is_interactable = false
+	if area.get_instance_ID() == victory_pad_node.get_instance_ID():
+		victory_pad_is_interactable = false
