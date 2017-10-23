@@ -26,7 +26,7 @@ func create_codes(code_array):
 	for code in code_array:
 		var b = Button.new()
 		b.set_text(code)
-		b.set_theme(load("res://assets/theme/theme_btn_menu.tres"))
+		#b.set_theme(load("res://assets/theme/theme_btn_menu.tres"))
 		box.add_child(b)
 		b.connect("pressed", self, "button_pressed", [b])
 
