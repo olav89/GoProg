@@ -3,7 +3,9 @@ extends Spatial
 var PATH_PLAYER = "Room/Player"
 var PATH_PC_SCREEN = "Room/PC/PCScreen"
 var PATH_PAD = "Room/Crate/VictoryPad"
+var PATH_ELEVATOR_DOOR = "Room/Doorframe"
 
+var is_level_won = false
 
 var codes = [
 "player.invert_gravity()",
@@ -22,8 +24,9 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	# setup scripts
-	get_node(PATH_PLAYER).setup(get_node(PATH_PAD))
+	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_PAD))
 	get_node(PATH_PC_SCREEN).setup(get_node(PATH_PLAYER))
+	get_node(PATH_ELEVATOR_DOOR).setup(get_node("."))
 	
 	# add codes for all pcs in scene
 	get_node(PATH_PC_SCREEN).create_codes(codes)
@@ -31,6 +34,12 @@ func _ready():
 	# adds to group so it gets notified when player wants to execute code
 	add_to_group("execute_code_group")
 	set_fixed_process(true)
+	
+func won():
+	is_level_won = true
+
+func is_won():
+	return is_level_won
 
 func _fixed_process(delta):
 	if is_queued:

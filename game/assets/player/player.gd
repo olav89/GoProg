@@ -11,7 +11,7 @@ var PATH_PC_TO_SCREEN = "PCScreen" # path relative to pc node
 var PATH_INGAME_MENU = "IngameMenu"
 var PATH_SAMPLE_PLAYER = "SamplePlayer"
 
-var is_level_won = false
+var level_node = null
 
 var victory_pad_node = null
 var victory_pad_is_interactable = false
@@ -40,7 +40,8 @@ var pitch = 0
 var movement_speed = 10
 var velocity = null
 
-func setup(victory_pad):
+func setup(level, victory_pad):
+	level_node = level
 	victory_pad_node = victory_pad
 
 func _ready():
@@ -111,7 +112,7 @@ func _input(event):
 	# Handles key events besides the player movement
 	if (event.type == InputEvent.KEY):
 		if Input.is_action_pressed("interact") and victory_pad_is_interactable:
-			is_level_won = true
+			level_node.won()
 			change_status(STATUS_WON, STATUS_WON_TIME)
 		elif Input.is_action_pressed("interact") and pc_is_interactable:
 			pc_node = pc_near_node # last pc close to player

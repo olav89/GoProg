@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://assets/meshes/doorframe.msh" type="Mesh" id=1]
 [ext_resource path="res://assets/art/wall.jpg" type="Texture" id=2]
-[ext_resource path="res://assets/room/door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/room/doorframe.gd" type="Script" id=3]
+[ext_resource path="res://assets/room/door.tscn" type="PackedScene" id=4]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -42,10 +43,18 @@ textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
-[node name="Frame" type="MeshInstance"]
+[sub_resource type="BoxShape" id=2]
+
+extents = Vector3( 1, 0.15, 1 )
+
+[sub_resource type="BoxShape" id=3]
+
+extents = Vector3( 0.5, 1, 1 )
+
+[node name="Doorframe" type="MeshInstance"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, -0.92198 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
@@ -63,14 +72,18 @@ geometry/baked_light_tex_id = 0
 mesh/mesh = ExtResource( 1 )
 mesh/skeleton = NodePath("..")
 material/0 = SubResource( 1 )
+script/script = ExtResource( 3 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 
-editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.895112, -1.45833e-07 )
 input/ray_pickable = true
 input/capture_on_drag = false
-shape_count = 0
+shape_count = 1
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0018512, 0, 0 )
+shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 friction = 1.0
@@ -78,14 +91,48 @@ bounce = 0.0
 constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
-[node name="CollisionShape" type="CollisionPolygon" parent="StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-build_mode = 0
-depth = 1.0
-polygon = Vector2Array(  )
-shape_range = Vector2( -1, -1 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0018512, 0, 0 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
 
-[node name="Door" parent="." instance=ExtResource( 3 )]
+[node name="Door" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00533938, 8.69903e-10 )
+
+[node name="Area" type="Area" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.894113, -1.4567e-07 )
+input/ray_pickable = false
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision/layers = 1
+collision/mask = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[connection signal="body_enter" from="Area" to="." method="_on_Area_body_enter"]
 
 
