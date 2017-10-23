@@ -5,7 +5,11 @@
 
 extends Control
 
+var TERMINAL = "Terminal:\n"
+
 var selection = [] # contains code user has selected
+var output_current = TERMINAL
+var output_target = TERMINAL
 
 var PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
 var PATH_SELECTION_LABEL = "Panel/CodeSelected"
@@ -16,7 +20,12 @@ func setup(player):
 	player_node = player
 
 func _ready():
-	pass
+	set_process(true)
+
+func _process(delta):
+	if output_current.length() != output_target.length():
+		output_current = output_target.substr(0, output_current.length() + 1)
+		get_node(PATH_SELECTION_LABEL).set_text(output_current)
 
 # Initializer function called by the Level-script
 # Input: code_array
@@ -44,10 +53,8 @@ func button_pressed(pressed):
 	
 	# if the code has not yet been selected add it and build output
 	selection.append(selected)
-	var output = "Terminal:\n"
-	for s in selection:
-		output += ">>> " + s + "\n"
-	get_node(PATH_SELECTION_LABEL).set_text(output)
+	output_target += ">>> " + selected + "\n"
+	
 
 # Event for the Enter button
 func _on_btnEnter_pressed():
@@ -58,4 +65,6 @@ func _on_btnEnter_pressed():
 # Event for the Clear button
 func _on_btnClear_pressed():
 	selection = [] # clear selection
-	get_node(PATH_SELECTION_LABEL).set_text("Terminal:\n") # remove the shown selection
+	output_current = TERMINAL
+	output_target = TERMINAL
+	get_node(PATH_SELECTION_LABEL).set_text(output_current)
