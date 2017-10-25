@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://assets/meshes/wall2.msh" type="Mesh" id=1]
-[ext_resource path="res://assets/art/WoodenSeamless.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/meshes/floor2.msh" type="Mesh" id=1]
+[ext_resource path="res://assets/art/wall.jpg" type="Texture" id=2]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -14,7 +14,7 @@ flags/lightmap_on_uv2 = true
 flags/colarray_is_srgb = true
 params/blend_mode = 0
 params/depth_draw = 1
-params/line_width = 6.30584e-44
+params/line_width = 1.62551e-43
 fixed_flags/use_alpha = false
 fixed_flags/use_color_array = false
 fixed_flags/use_point_size = false
@@ -43,9 +43,9 @@ textures/shade_param_tc = 0
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 0.01, 2, 5 )
+extents = Vector3( 5, 0.1, 5 )
 
-[node name="Wall" type="MeshInstance"]
+[node name="Roof" type="MeshInstance"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )

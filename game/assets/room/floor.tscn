@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://assets/meshes/floor.msh" type="Mesh" id=1]
-[ext_resource path="res://assets/art/Planked_Wood_Seamless_2.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/meshes/floor2.msh" type="Mesh" id=1]
+[ext_resource path="res://assets/art/floor.jpg" type="Texture" id=2]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -43,11 +43,12 @@ textures/shade_param_tc = 0
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 10, 0.3, 8 )
+extents = Vector3( 5, 0.01, 5 )
 
 [node name="Floor" type="MeshInstance"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null

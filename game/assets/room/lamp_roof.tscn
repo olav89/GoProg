@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://assets/meshes/wall2.msh" type="Mesh" id=1]
-[ext_resource path="res://assets/art/WoodenSeamless.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/meshes/lamp_roof.msh" type="Mesh" id=1]
+[ext_resource path="res://assets/art/lamp_roof.png" type="Texture" id=2]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -14,7 +14,7 @@ flags/lightmap_on_uv2 = true
 flags/colarray_is_srgb = true
 params/blend_mode = 0
 params/depth_draw = 1
-params/line_width = 6.30584e-44
+params/line_width = 0.0
 fixed_flags/use_alpha = false
 fixed_flags/use_color_array = false
 fixed_flags/use_point_size = false
@@ -31,8 +31,8 @@ params/shader_param = 0.5
 params/glow = 0
 params/point_size = 1.0
 uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse = ExtResource( 2 )
 textures/diffuse_tc = 0
+textures/detail = ExtResource( 2 )
 textures/detail_tc = 0
 textures/specular_tc = 0
 textures/emission_tc = 0
@@ -43,12 +43,11 @@ textures/shade_param_tc = 0
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 0.01, 2, 5 )
+extents = Vector3( 2, 0.1, 0.5 )
 
-[node name="Wall" type="MeshInstance"]
+[node name="Lamp_Roof" type="MeshInstance"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
@@ -89,5 +88,27 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
+
+[node name="OmniLight" type="OmniLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.446615, 0 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 2.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.001
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+params/radius = 26.1518
+params/attenuation = 1.0
 
 

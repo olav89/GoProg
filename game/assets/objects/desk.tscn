@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://assets/meshes/wall2.msh" type="Mesh" id=1]
-[ext_resource path="res://assets/art/WoodenSeamless.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/meshes/desk.msh" type="Mesh" id=1]
+[ext_resource path="res://assets/art/crate.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/art/WoodenSeamless.jpg" type="Texture" id=3]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -14,7 +15,7 @@ flags/lightmap_on_uv2 = true
 flags/colarray_is_srgb = true
 params/blend_mode = 0
 params/depth_draw = 1
-params/line_width = 6.30584e-44
+params/line_width = 1.875
 fixed_flags/use_alpha = false
 fixed_flags/use_color_array = false
 fixed_flags/use_point_size = false
@@ -41,14 +42,51 @@ textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="FixedMaterial" id=2]
 
-extents = Vector3( 0.01, 2, 5 )
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = false
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = true
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 0.0
+fixed_flags/use_alpha = false
+fixed_flags/use_color_array = false
+fixed_flags/use_point_size = false
+fixed_flags/discard_alpha = false
+fixed_flags/use_xy_normalmap = false
+params/diffuse = Color( 1, 1, 1, 1 )
+params/specular = Color( 0, 0, 0, 1 )
+params/emission = Color( 0, 0, 0, 1 )
+params/specular_exp = 40
+params/detail_mix = 1.0
+params/normal_depth = 1
+params/shader = 0
+params/shader_param = 0.5
+params/glow = 0
+params/point_size = 1.0
+uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+textures/diffuse = ExtResource( 3 )
+textures/diffuse_tc = 0
+textures/detail_tc = 0
+textures/specular_tc = 0
+textures/emission_tc = 0
+textures/specular_exp_tc = 0
+textures/glow_tc = 0
+textures/normal_tc = 0
+textures/shade_param_tc = 0
 
-[node name="Wall" type="MeshInstance"]
+[sub_resource type="BoxShape" id=3]
+
+extents = Vector3( 1, 0.8, 1 )
+
+[node name="Desk" type="MeshInstance"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
@@ -66,6 +104,7 @@ geometry/baked_light_tex_id = 0
 mesh/mesh = ExtResource( 1 )
 mesh/skeleton = NodePath("..")
 material/0 = SubResource( 1 )
+material/1 = SubResource( 2 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 
@@ -73,8 +112,8 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.451034, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -86,7 +125,8 @@ constant_angular_velocity = Vector3( 0, 0, 0 )
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 2 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.451034, 0 )
+shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
