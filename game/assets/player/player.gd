@@ -38,7 +38,8 @@ var view_sensitivity = 0.2
 var yaw = 0
 var pitch = 0
 var movement_speed = 10
-var velocity = null
+var velocity = Vector3(0,0,0)
+var jump_cd = 0
 
 func setup(level, victory_pad):
 	level_node = level
@@ -52,6 +53,8 @@ func _ready():
 	sample_player = get_node(PATH_SAMPLE_PLAYER)
 
 func _process(delta):
+	if jump_cd > 0:
+		jump_cd -= delta
 	if status_bar_time_remaining > 0:
 		status_bar_time_remaining -= delta
 	elif not status_bar.is_hidden():
@@ -68,8 +71,9 @@ func _process(delta):
 # Function handles player movement
 func _fixed_process(delta):
 	var looking_at = get_global_transform().basis
-	velocity = Vector3(0,0,0)
-	velocity.y += delta * 200 * gravity_direction
+	velocity.x = 0
+	velocity.z = 0
+	velocity.y += delta * 9.8 * gravity_direction
 	
 	if Input.is_action_pressed("player_forward"):
 		velocity -= looking_at[2]
@@ -79,17 +83,21 @@ func _fixed_process(delta):
 		velocity -= looking_at[0]
 	if Input.is_action_pressed("player_right"):
 		velocity += looking_at[0]
+	if Input.is_action_pressed("player_jump") and jump_cd <= 0:
+		velocity.y += -6*gravity_direction
+		jump_cd = 2
 	if velocity.z != 0 or velocity.x != 0:
 		play_sample_walking()
-	velocity = velocity * movement_speed
+	velocity.x = velocity.x * movement_speed
+	velocity.z = velocity.z * movement_speed
 
 	var motion = velocity * delta
 	move(motion)
 	if (is_colliding()):
-        var n = get_collision_normal()
-        motion = n.slide(motion)
-        velocity = n.slide(velocity)
-        move(motion)
+		var n = get_collision_normal()
+		motion = n.slide(motion)
+		velocity = n.slide(velocity)
+		move(motion)
 
 func _input(event):
 	# Handles mouse movement

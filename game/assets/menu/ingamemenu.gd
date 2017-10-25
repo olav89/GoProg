@@ -8,7 +8,12 @@ extends Control
 var PATH_MAIN_MENU = "res://assets/menu/mainmenu.tscn"
 
 func _ready():
-	pass
+	set_process_input(true)
+
+func _input(event):
+	if Input.is_action_pressed("ingame_menu") and is_visible():
+		hide()
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 # Event for the Reset button
 func _on_btnReset_pressed():
