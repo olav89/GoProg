@@ -12,6 +12,7 @@ var PATH_INGAME_MENU = "IngameMenu"
 var PATH_SAMPLE_PLAYER = "SamplePlayer"
 
 var is_in_menu = false
+var is_in_pc_screen = false
 
 var level_node = null
 
@@ -61,12 +62,9 @@ func _process(delta):
 		status_bar_time_remaining -= delta
 	elif not status_bar.is_hidden():
 		status_bar.hide()
-	# Disable processes if a menu is open
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE and not is_in_menu:
-		is_in_menu = true
-	# Enable processes if menus were closed
-	elif Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and is_in_menu:
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		is_in_menu = false
+		is_in_pc_screen = false
 
 # Function handles player movement
 func _fixed_process(delta):
@@ -75,7 +73,7 @@ func _fixed_process(delta):
 	velocity.z = 0
 	velocity.y += delta * 9.8 * gravity_direction
 	
-	if not is_in_menu:
+	if not is_in_menu and not is_in_pc_screen:
 		if Input.is_action_pressed("player_forward"):
 			velocity.x -= looking_at[2].x
 			velocity.z -= looking_at[2].z
@@ -106,7 +104,7 @@ func _fixed_process(delta):
 
 func _input(event):
 	# Handles mouse movement
-	if (event.type == InputEvent.MOUSE_MOTION) and not is_in_menu:
+	if (event.type == InputEvent.MOUSE_MOTION) and not is_in_menu and not is_in_pc_screen:
 		var motion = event.relative_pos
 		yaw -= motion.x * view_sensitivity
 		pitch += motion.y * view_sensitivity
@@ -132,11 +130,13 @@ func _input(event):
 			elif Input.is_action_pressed("interact") and pc_is_interactable:
 				pc_node = pc_near_node # last pc close to player
 				pc_node.get_node(PATH_PC_TO_SCREEN)._show()
+				is_in_pc_screen = true
 			elif Input.is_action_pressed("activate_code"):
 				# Sends a notification to the scripts which are affected by an execute of selected code
 				get_tree().call_group(0, "execute_code_group", "execute_code")
-			elif Input.is_action_pressed("ingame_menu"):
+			elif Input.is_action_pressed("ingame_menu") and not is_in_pc_screen:
 				get_node(PATH_INGAME_MENU)._show()
+				is_in_menu = true
 
 func change_status(text, time):
 	status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
