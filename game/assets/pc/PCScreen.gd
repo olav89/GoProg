@@ -56,10 +56,17 @@ func button_pressed(pressed):
 	output_target += ">>> " + selected + "\n"
 	
 
+func _show():
+	show() 
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func _hide():
+	hide()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 # Event for the Enter button
 func _on_btnEnter_pressed():
-	hide() # hide pc screen
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) # capture mouse
+	_hide()
 	player_node.change_status_activate() # notify player node to change status
 
 # Event for the Clear button

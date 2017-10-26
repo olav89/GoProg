@@ -8,12 +8,15 @@ extends Control
 var PATH_MAIN_MENU = "res://assets/menu/mainmenu.tscn"
 
 func _ready():
-	set_process_input(true)
+	pass
 
-func _input(event):
-	if Input.is_action_pressed("ingame_menu") and is_visible():
-		hide()
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+func _show():
+	show()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func _hide():
+	hide()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 # Event for the Reset button
 func _on_btnReset_pressed():
@@ -27,5 +30,4 @@ func _on_btnExit_pressed():
 
 # Event for the Continue button
 func _on_btnContinue_pressed():
-	hide() # Hide the ingame menu from user
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) # Capture mouse cursor
+	_hide()

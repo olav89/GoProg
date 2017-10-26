@@ -11,6 +11,8 @@ var PATH_PC_TO_SCREEN = "PCScreen" # path relative to pc node
 var PATH_INGAME_MENU = "IngameMenu"
 var PATH_SAMPLE_PLAYER = "SamplePlayer"
 
+var is_in_menu = false
+
 var level_node = null
 
 var victory_pad_node = null
@@ -60,13 +62,11 @@ func _process(delta):
 	elif not status_bar.is_hidden():
 		status_bar.hide()
 	# Disable processes if a menu is open
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE and is_processing_input():
-		set_process_input(false)
-		set_fixed_process(false)
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE and not is_in_menu:
+		is_in_menu = true
 	# Enable processes if menus were closed
-	elif Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and !is_processing_input():
-		set_process_input(true)
-		set_fixed_process(true)
+	elif Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and is_in_menu:
+		is_in_menu = false
 
 # Function handles player movement
 func _fixed_process(delta):
@@ -75,17 +75,22 @@ func _fixed_process(delta):
 	velocity.z = 0
 	velocity.y += delta * 9.8 * gravity_direction
 	
-	if Input.is_action_pressed("player_forward"):
-		velocity -= looking_at[2]
-	if Input.is_action_pressed("player_backward"):
-		velocity += looking_at[2]
-	if Input.is_action_pressed("player_left"):
-		velocity -= looking_at[0]
-	if Input.is_action_pressed("player_right"):
-		velocity += looking_at[0]
-	if Input.is_action_pressed("player_jump") and jump_cd <= 0:
-		velocity.y += -6*gravity_direction
-		jump_cd = 2
+	if not is_in_menu:
+		if Input.is_action_pressed("player_forward"):
+			velocity.x -= looking_at[2].x
+			velocity.z -= looking_at[2].z
+		if Input.is_action_pressed("player_backward"):
+			velocity.x += looking_at[2].x
+			velocity.z += looking_at[2].z
+		if Input.is_action_pressed("player_left"):
+			velocity.x -= looking_at[0].x
+			velocity.z -= looking_at[0].z
+		if Input.is_action_pressed("player_right"):
+			velocity.x += looking_at[0].x
+			velocity.z += looking_at[0].z
+		if Input.is_action_pressed("player_jump") and jump_cd <= 0:
+			velocity.y += -6*gravity_direction
+			jump_cd = 2
 	if velocity.z != 0 or velocity.x != 0:
 		play_sample_walking()
 	velocity.x = velocity.x * movement_speed
@@ -101,12 +106,10 @@ func _fixed_process(delta):
 
 func _input(event):
 	# Handles mouse movement
-	if (event.type == InputEvent.MOUSE_MOTION):
+	if (event.type == InputEvent.MOUSE_MOTION) and not is_in_menu:
 		var motion = event.relative_pos
-
 		yaw -= motion.x * view_sensitivity
 		pitch += motion.y * view_sensitivity
-
 		var e = 0.001
 		if pitch > 90-e:
 			pitch = 90-e
@@ -119,19 +122,21 @@ func _input(event):
 		pass
 	# Handles key events besides the player movement
 	if (event.type == InputEvent.KEY):
-		if Input.is_action_pressed("interact") and victory_pad_is_interactable:
-			level_node.won()
-			change_status(STATUS_WON, STATUS_WON_TIME)
-		elif Input.is_action_pressed("interact") and pc_is_interactable:
-			pc_node = pc_near_node # last pc close to player
-			pc_node.get_node(PATH_PC_TO_SCREEN).show()
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		elif Input.is_action_pressed("activate_code"):
-			# Sends a notification to the scripts which are affected by an execute of selected code
-			get_tree().call_group(0, "execute_code_group", "execute_code")
-		elif Input.is_action_pressed("ingame_menu"):
-			get_node(PATH_INGAME_MENU).show()
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if is_in_menu:
+			if Input.is_action_pressed("ingame_menu"):
+				get_node(PATH_INGAME_MENU)._hide()
+		else:
+			if Input.is_action_pressed("interact") and victory_pad_is_interactable:
+				level_node.won()
+				change_status(STATUS_WON, STATUS_WON_TIME)
+			elif Input.is_action_pressed("interact") and pc_is_interactable:
+				pc_node = pc_near_node # last pc close to player
+				pc_node.get_node(PATH_PC_TO_SCREEN)._show()
+			elif Input.is_action_pressed("activate_code"):
+				# Sends a notification to the scripts which are affected by an execute of selected code
+				get_tree().call_group(0, "execute_code_group", "execute_code")
+			elif Input.is_action_pressed("ingame_menu"):
+				get_node(PATH_INGAME_MENU)._show()
 
 func change_status(text, time):
 	status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
