@@ -86,7 +86,7 @@ geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
 mesh/mesh = ExtResource( 2 )
-mesh/skeleton = NodePath("..")
+mesh/skeleton = NodePath("")
 material/0 = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Room"]
