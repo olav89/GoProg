@@ -1,9 +1,18 @@
 extends Spatial
 
+
+var PATH_PLAYER = "Room/Player"
+var PATH_PC_SCREEN = "Room/PC/PCScreen"
+var PATH_PAD = "Room/Crate/VictoryPad"
+var PATH_ELEVATOR_DOOR = "Room/Doorframe"
+
+
 var codes = [
 "player.invert_gravity()",
 "room.invert_gravity()",
-"test.test()"
+"player.move_x()",
+"box.move_y()",
+"box.move_z()"
 ]
 
 var selection = []
@@ -16,6 +25,11 @@ var gravity_direction_player = -1
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# setup scripts
+	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_PAD))
+	get_node(PATH_PC_SCREEN).setup(get_node(PATH_PLAYER))
+	#get_node(PATH_ELEVATOR_DOOR).setup(get_node("."))
 	
 	# add codes for all pcs in scene
 	get_node("Room/PC/PCScreen").create_codes(codes)
@@ -30,6 +44,8 @@ func _fixed_process(delta):
 			gravity_direction_player *= -1
 		if codes[1] in selection:
 			gravity_direction_room *= -1
+		if codes[2] in selection:
+			get_node("Room/VictoryPad/AnimationPlayer").play("MoveX")
 			
 		is_queued = false
 	
