@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://assets/mapscns/Level3.scn" type="PackedScene" id=1]
+[ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/objects/desk.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=4]
+
+[node name="Level3" type="Spatial"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Level3" parent="." instance=ExtResource( 1 )]
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2237, 12.1682, 6.33499 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.948396, -0.0234071, 0.316222, -0.310635, 0.131579, 0.941378, -0.0636432, -0.991029, 0.117518, 3.75018, 5.62333, 8.89054 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 1.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.05
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+shadow/mode = 0
+shadow/max_distance = 0.0
+shadow/split_weight = 0.5
+shadow/zoffset_scale = 2.0
+
+[node name="Desk" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.65975, 0, 5.65159 )
+
+[node name="PC" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75153, 1.76303, 5.6171 )
+
+[node name="DirectionalLight 2" type="DirectionalLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( -0.844061, -0.493619, -0.209528, -0.5362, 0.782079, 0.317556, 0.00711544, 0.380386, -0.924801, 0.437131, 6.98847, 4.73468 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 1.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.05
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+shadow/mode = 0
+shadow/max_distance = 0.0
+shadow/split_weight = 0.5
+shadow/zoffset_scale = 2.0
+
+
