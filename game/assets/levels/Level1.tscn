@@ -26,19 +26,11 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32156, 0 )
 
 [node name="Crate" parent="Room" instance=ExtResource( 5 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.41863, 1.46637, -2.01448 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.41863, 1.46637, -6.63418 )
 
 [node name="VictoryPad" parent="Room/Crate" instance=ExtResource( 6 )]
 
 transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.299419, 0.00656748 )
-
-[node name="Crate 2" parent="Room" instance=ExtResource( 5 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87406, 1.3655, 0 )
-
-[node name="Crate3" parent="Room" instance=ExtResource( 5 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87406, 1.3655, 3.49168 )
 
 [node name="Doorframe" parent="Room" instance=ExtResource( 7 )]
 
