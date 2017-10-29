@@ -1,9 +1,9 @@
 extends Spatial
 
-var PATH_PLAYER = "Room/Player"
-var PATH_PC_SCREEN = "Room/PC/PCScreen"
-var PATH_PAD = "Room/Crate/VictoryPad"
-var PATH_ELEVATOR_DOOR = "Room/Doorframe"
+var PATH_PLAYER = "Player"
+var PATH_PC_SCREEN = "PC/PCScreen"
+var PATH_PAD = "Crate/VictoryPad"
+var PATH_ELEVATOR_DOOR = "Doorframe"
 
 var is_level_won = false
 
@@ -54,7 +54,7 @@ func _fixed_process(delta):
 	PhysicsServer.area_set_param(get_world().get_space(), 
 	PhysicsServer.AREA_PARAM_GRAVITY_VECTOR,
 	Vector3(0, gravity_direction_room, 0))
-	get_node("Room/Player").gravity_direction = gravity_direction_player
+	get_node("Player").gravity_direction = gravity_direction_player
 	
 
 func execute_code():
