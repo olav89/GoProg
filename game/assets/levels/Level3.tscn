@@ -1,17 +1,15 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://assets/levels/Level3.gd" type="Script" id=1]
-[ext_resource path="res://assets/mapscns/Level3.scn" type="PackedScene" id=2]
-[ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/objects/desk.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/objects/desk.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/mapscns/TheUltimateRoom.scn" type="PackedScene" id=5]
 
 [node name="Level3" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )
-
-[node name="Level3" parent="." instance=ExtResource( 2 )]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 
@@ -61,16 +59,18 @@ shadow/max_distance = 0.0
 shadow/split_weight = 0.5
 shadow/zoffset_scale = 2.0
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="Player" parent="." instance=ExtResource( 2 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2237, 12.1682, 6.33499 )
 
-[node name="PC" parent="." instance=ExtResource( 4 )]
+[node name="PC" parent="." instance=ExtResource( 3 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75153, 1.76303, 5.6171 )
 
-[node name="Desk" parent="." instance=ExtResource( 5 )]
+[node name="Desk" parent="." instance=ExtResource( 4 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.65975, 0, 5.65159 )
+
+[node name="TheUltimateRoom" parent="." instance=ExtResource( 5 )]
 
 
