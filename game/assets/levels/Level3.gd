@@ -24,9 +24,9 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	# setup scripts
-	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_PAD))
+	get_node(PATH_PLAYER).setup(get_node("."), null)
 	get_node(PATH_PC_SCREEN).setup(get_node(PATH_PLAYER))
-	get_node(PATH_ELEVATOR_DOOR).setup(get_node("."))
+	#get_node(PATH_ELEVATOR_DOOR).setup(get_node("."))
 	
 	# add codes for all pcs in scene
 	get_node(PATH_PC_SCREEN).create_codes(codes)
