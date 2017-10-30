@@ -125,8 +125,11 @@ func _input(event):
 				get_node(PATH_INGAME_MENU)._hide()
 		else:
 			if Input.is_action_pressed("interact") and victory_pad_is_interactable:
-				level_node.won()
-				change_status(STATUS_WON, STATUS_WON_TIME)
+				if level_node != null:
+					level_node.won()
+					change_status(STATUS_WON, STATUS_WON_TIME)
+				else:
+					print("level_node not defined in player.gd")
 			elif Input.is_action_pressed("interact") and pc_is_interactable:
 				pc_node = pc_near_node # last pc close to player
 				pc_node.get_node(PATH_PC_TO_SCREEN)._show()
@@ -169,10 +172,14 @@ func _on_Area_body_exit( body ):
 		pc_is_interactable = false
 
 func _on_Area_area_enter( area ):
-	if area.get_instance_ID() == victory_pad_node.get_instance_ID():
+	if victory_pad_node == null:
+		print("victory_pad_node undefined in player.gd")
+	elif area.get_instance_ID() == victory_pad_node.get_instance_ID():
 		victory_pad_is_interactable = true
 		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 
 func _on_Area_area_exit( area ):
-	if area.get_instance_ID() == victory_pad_node.get_instance_ID():
+	if victory_pad_node == null:
+		print("victory_pad_node undefined in player.gd")
+	elif area.get_instance_ID() == victory_pad_node.get_instance_ID():
 		victory_pad_is_interactable = false

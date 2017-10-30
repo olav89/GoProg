@@ -48,9 +48,10 @@ func button_pressed(pressed):
 	for s in selection:
 		if s == selected:
 			return
-	
-	player_node.play_sample_typing() # notify player node to play typing sound
-	
+	if player_node != null:
+		player_node.play_sample_typing() # notify player node to play typing sound
+	else:
+		print("player_node undefined in PCScreen.gd")
 	# if the code has not yet been selected add it and build output
 	selection.append(selected)
 	output_target += ">>> " + selected + "\n"
@@ -67,7 +68,10 @@ func _hide():
 # Event for the Enter button
 func _on_btnEnter_pressed():
 	_hide()
-	player_node.change_status_activate() # notify player node to change status
+	if player_node != null:
+		player_node.change_status_activate() # notify player node to change status
+	else:
+		print("player_node undefined in PCScreen.gd")
 
 # Event for the Clear button
 func _on_btnClear_pressed():
