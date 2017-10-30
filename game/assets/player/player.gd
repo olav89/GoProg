@@ -9,6 +9,7 @@ var PATH_STATUS_BAR = "StatusBar"
 var PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
 var PATH_INGAME_MENU = "IngameMenu"
 var PATH_SAMPLE_PLAYER = "SamplePlayer"
+var PATH_CAMERA = "Camera"
 
 var is_in_menu = false
 var is_in_pc_screen = false
@@ -67,10 +68,15 @@ func _process(delta):
 
 # Function handles player movement
 func _fixed_process(delta):
-	var looking_at = get_global_transform().basis
+	var looking_at = get_node(PATH_CAMERA).get_global_transform().basis
 	velocity.x = 0
 	velocity.z = 0
-	velocity.y += delta * 9.8 * gravity_direction
+	var is_ray_colliding=get_node("Leg").is_colliding()
+	if is_ray_colliding:
+		var n = get_node("Leg").get_collision_normal()
+		velocity = n.slide(velocity)
+	else:
+		velocity.y += delta * 9.8 * gravity_direction
 	
 	if not is_in_menu and not is_in_pc_screen:
 		if Input.is_action_pressed("player_forward"):
@@ -121,8 +127,8 @@ func _input(event):
 			pitch = 90-e
 		elif pitch < -90+e:
 			pitch = -90+e
-		set_rotation(Vector3(0, deg2rad(yaw), 0))
-		rotate_x(deg2rad(pitch))
+		get_node(PATH_CAMERA).set_rotation(Vector3(0, deg2rad(yaw), 0))
+		get_node(PATH_CAMERA).rotate_x(deg2rad(pitch))
 	
 	if (event.type == InputEvent.MOUSE_BUTTON):
 		pass
