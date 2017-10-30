@@ -42,6 +42,7 @@ func is_won():
 	return is_level_won
 
 func _fixed_process(delta):
+	get_node(PATH_ELEVATOR_DOOR).translate(Vector3(delta, 0, 0))
 	if is_queued:
 		if codes[0] in selection:
 			gravity_direction_player *= -1

@@ -1,22 +1,24 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
-[ext_resource path="res://assets/levels/Level1.gd" type="Script" id=1]
-[ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/objects/desk.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/mapscns/TheUltimateRoom.scn" type="PackedScene" id=5]
-[ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/objects/victory_pad.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/levels_assets/defaultenvironment.tres" type="Environment" id=1]
+[ext_resource path="res://assets/levels/Level1.gd" type="Script" id=2]
+[ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/objects/desk.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/mapscns/TheUltimateRoom.scn" type="PackedScene" id=6]
+[ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/objects/victory_pad.tscn" type="PackedScene" id=8]
 
-[node name="Level1" type="Spatial"]
+[node name="Level1" type="WorldEnvironment"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-script/script = ExtResource( 1 )
+environment = ExtResource( 1 )
+script/script = ExtResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.948396, -0.0234071, 0.316222, -0.310635, 0.131579, 0.941378, -0.0636432, -0.991029, 0.117518, 3.75018, 5.62333, 8.89054 )
+transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 20, 0 )
 layers = 1
 params/enabled = true
 params/editor_only = false
@@ -24,7 +26,7 @@ params/bake_mode = 0
 params/energy = 1.0
 colors/diffuse = Color( 1, 1, 1, 1 )
 colors/specular = Color( 1, 1, 1, 1 )
-shadow/shadow = false
+shadow/shadow = true
 shadow/darkening = 0.0
 shadow/z_offset = 0.05
 shadow/z_slope_scale = 0.0
@@ -32,54 +34,30 @@ shadow/esm_multiplier = 60.0
 shadow/blur_passes = 1.0
 projector = null
 operator = 0
-shadow/mode = 0
-shadow/max_distance = 0.0
+shadow/mode = 3
+shadow/max_distance = 50.0
 shadow/split_weight = 0.5
 shadow/zoffset_scale = 2.0
 
-[node name="DirectionalLight 2" type="DirectionalLight" parent="."]
+[node name="Player" parent="." instance=ExtResource( 3 )]
 
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( -0.844061, -0.493619, -0.209528, -0.5362, 0.782079, 0.317556, 0.00711544, 0.380386, -0.924801, 0.437131, 6.98847, 4.73468 )
-layers = 1
-params/enabled = true
-params/editor_only = false
-params/bake_mode = 0
-params/energy = 1.0
-colors/diffuse = Color( 1, 1, 1, 1 )
-colors/specular = Color( 1, 1, 1, 1 )
-shadow/shadow = false
-shadow/darkening = 0.0
-shadow/z_offset = 0.05
-shadow/z_slope_scale = 0.0
-shadow/esm_multiplier = 60.0
-shadow/blur_passes = 1.0
-projector = null
-operator = 0
-shadow/mode = 0
-shadow/max_distance = 0.0
-shadow/split_weight = 0.5
-shadow/zoffset_scale = 2.0
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5087, 4.56406, -21.4266 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="PC" parent="." instance=ExtResource( 4 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2237, 12.1682, 6.33499 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75153, 1.65079, 5.6171 )
 
-[node name="PC" parent="." instance=ExtResource( 3 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75153, 1.76303, 5.6171 )
-
-[node name="Desk" parent="." instance=ExtResource( 4 )]
+[node name="Desk" parent="." instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.65975, 0, 5.65159 )
 
-[node name="TheUltimateRoom" parent="." instance=ExtResource( 5 )]
+[node name="TheUltimateRoom" parent="." instance=ExtResource( 6 )]
 
-[node name="Crate" parent="." instance=ExtResource( 6 )]
+[node name="Crate" parent="." instance=ExtResource( 7 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78994, 2.56931, 0 )
 
-[node name="VictoryPad" parent="Crate" instance=ExtResource( 7 )]
+[node name="VictoryPad" parent="Crate" instance=ExtResource( 8 )]
 
 transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.0200111, -0.399373, 0.021403 )
 
