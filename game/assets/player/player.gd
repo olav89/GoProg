@@ -7,7 +7,6 @@ extends KinematicBody
 
 var PATH_STATUS_BAR = "StatusBar"
 var PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
-var PATH_PC_TO_SCREEN = "PCScreen" # path relative to pc node
 var PATH_INGAME_MENU = "IngameMenu"
 var PATH_SAMPLE_PLAYER = "SamplePlayer"
 
@@ -91,8 +90,17 @@ func _fixed_process(delta):
 			jump_cd = 2
 	if velocity.z != 0 or velocity.x != 0:
 		play_sample_walking()
-	velocity.x = velocity.x * movement_speed
-	velocity.z = velocity.z * movement_speed
+	if (Input.is_action_pressed("player_forward") and 
+	(Input.is_action_pressed("player_right") or
+	Input.is_action_pressed("player_left"))) or (
+	Input.is_action_pressed("player_backward") and
+	Input.is_action_pressed("player_right") or 
+	Input.is_action_pressed("player_left")):
+		velocity.x = velocity.x * movement_speed / 1.41
+		velocity.z = velocity.z * movement_speed / 1.41
+	else:
+		velocity.x = velocity.x * movement_speed
+		velocity.z = velocity.z * movement_speed
 
 	var motion = velocity * delta
 	move(motion)
@@ -132,7 +140,7 @@ func _input(event):
 					print("level_node not defined in player.gd")
 			elif Input.is_action_pressed("interact") and pc_is_interactable:
 				pc_node = pc_near_node # last pc close to player
-				pc_node.get_node(PATH_PC_TO_SCREEN)._show()
+				pc_node.get_screen()._show()
 				is_in_pc_screen = true
 			elif Input.is_action_pressed("activate_code"):
 				# Sends a notification to the scripts which are affected by an execute of selected code

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://assets/meshes/pc.msh" type="Mesh" id=1]
-[ext_resource path="res://assets/art/pc.png" type="Texture" id=2]
-[ext_resource path="res://assets/pc/PCScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/pc/pc.gd" type="Script" id=2]
+[ext_resource path="res://assets/art/pc.png" type="Texture" id=3]
+[ext_resource path="res://assets/pc/PCScreen.tscn" type="PackedScene" id=4]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -65,6 +66,7 @@ geometry/baked_light_tex_id = 0
 mesh/mesh = ExtResource( 1 )
 mesh/skeleton = NodePath("..")
 material/0 = SubResource( 1 )
+script/script = ExtResource( 2 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 
@@ -120,13 +122,13 @@ flags/shaded = false
 flags/double_sided = true
 flags/on_top = false
 flags/alpha_cut = 0
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 1
 hframes = 1
 frame = 0
 region = false
 region_rect = Rect2( 0, 0, 0, 0 )
 
-[node name="PCScreen" parent="." instance=ExtResource( 3 )]
+[node name="PCScreen" parent="." instance=ExtResource( 4 )]
 
 

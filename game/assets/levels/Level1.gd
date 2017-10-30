@@ -1,9 +1,9 @@
 extends Spatial
 
-var PATH_PLAYER = "Room/Player"
-var PATH_PC_SCREEN = "Room/PC/PCScreen"
-var PATH_PAD = "Room/Crate/VictoryPad"
-var PATH_ELEVATOR_DOOR = "Room/Doorframe"
+var PATH_PLAYER = "Player"
+var PATH_PC_SCREEN = "PC/PCScreen"
+var PATH_PAD = "Crate/VictoryPad"
+var PATH_ELEVATOR_DOOR = "TheUltimateRoom/Door"
 
 var is_level_won = false
 
@@ -26,7 +26,7 @@ func _ready():
 	# setup scripts
 	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_PAD))
 	get_node(PATH_PC_SCREEN).setup(get_node(PATH_PLAYER))
-	get_node(PATH_ELEVATOR_DOOR).setup(get_node("."))
+	#get_node(PATH_ELEVATOR_DOOR).setup(get_node("."))
 	
 	# add codes for all pcs in scene
 	get_node(PATH_PC_SCREEN).create_codes(codes)
@@ -54,12 +54,12 @@ func _fixed_process(delta):
 	PhysicsServer.area_set_param(get_world().get_space(), 
 	PhysicsServer.AREA_PARAM_GRAVITY_VECTOR,
 	Vector3(0, gravity_direction_room, 0))
-	get_node("Room/Player").gravity_direction = gravity_direction_player
+	get_node(PATH_PLAYER).gravity_direction = gravity_direction_player
 	
 
 func execute_code():
 	pc_node = get_node(PATH_PLAYER).pc_node
 	if pc_node == null:
 		return
-	selection = pc_node.get_node("PCScreen").selection
+	selection = pc_node.get_screen().selection
 	is_queued = true
