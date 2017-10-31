@@ -131,7 +131,8 @@ func _input(event):
 		get_node(PATH_CAMERA).rotate_x(deg2rad(pitch))
 	
 	if (event.type == InputEvent.MOUSE_BUTTON):
-		pass
+		get_node("../Door/AnimationPlayer").play("Open Door")
+		get_node("../Door1/AnimationPlayer").play("Open Door2")
 	# Handles key events besides the player movement
 	if (event.type == InputEvent.KEY):
 		if is_in_menu:
