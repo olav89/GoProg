@@ -36,6 +36,8 @@ var sample_player = null
 var id_voice_walking = 0
 
 var gravity_direction = -1 # direction of the Y-component in gravity vector
+var rot_current = 0
+var rot_target = 0
 
 var view_sensitivity = 0.2
 var yaw = 0
@@ -69,6 +71,15 @@ func _process(delta):
 # Function handles player movement
 func _fixed_process(delta):
 	var looking_at = get_node(PATH_CAMERA).get_global_transform().basis
+	
+	if gravity_direction == -1 and rot_current > 0:
+		rot_target = 0
+	elif gravity_direction == 1 and rot_current == 0:
+		rot_target = 180
+	if rot_current != rot_target:
+		rot_current += 4*gravity_direction
+		self.rotate(Vector3(1,0,0), deg2rad(4))
+
 	velocity.x = 0
 	velocity.z = 0
 	var is_ray_colliding=get_node("Leg").is_colliding()

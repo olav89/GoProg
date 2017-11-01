@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tres" type="Environment" id=1]
 [ext_resource path="res://assets/levels/Level1.gd" type="Script" id=2]
@@ -11,6 +11,10 @@
 [ext_resource path="res://assets/objects_scns/PC.scn" type="PackedScene" id=9]
 [ext_resource path="res://assets/objects_scns/Table.scn" type="PackedScene" id=10]
 [ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=11]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 20, 1, 20 )
 
 [node name="Level1" type="WorldEnvironment"]
 
@@ -73,5 +77,29 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.877, 0, 0 )
 [node name="PC" parent="." instance=ExtResource( 11 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.88347, 1.75371, 5.50588 )
+
+[node name="Roof" type="StaticBody" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.025, 0 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Roof"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
 
 
