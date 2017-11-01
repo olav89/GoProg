@@ -1,18 +1,21 @@
 extends Spatial
 
 var PATH_PLAYER = "Player"
-var PATH_PC_SCREEN = "PC/PCScreen"
 var PATH_PAD = "Crate/VictoryPad"
-var PATH_ELEVATOR_DOOR = "TheUltimateRoom/Door"
+
+var PC = 0
+var SCREEN = 1
+var CODES = 2
+var PATHS_AND_CODES_PC = [
+["PC","PC/PCScreen",
+["player.invert_gravity()",
+"room.invert_gravity()"]]
+]
 
 var is_level_won = false
 
-var codes = [
-"player.invert_gravity()",
-"room.invert_gravity()"
-]
-
 var selection = []
+var selection_pc = -1
 var pc_node = null
 
 var is_queued = false
@@ -24,12 +27,11 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	# setup scripts
-	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_PAD))
-	get_node(PATH_PC_SCREEN).setup(get_node(PATH_PLAYER))
-	#get_node(PATH_ELEVATOR_DOOR).setup(get_node("."))
+	get_node(PATH_PLAYER).setup(get_node("."))
+	for pc in PATHS_AND_CODES_PC:
+		get_node(pc[SCREEN]).setup(get_node(PATH_PLAYER))
+		get_node(pc[SCREEN]).create_codes(pc[CODES])
 	
-	# add codes for all pcs in scene
-	get_node(PATH_PC_SCREEN).create_codes(codes)
 	
 	# adds to group so it gets notified when player wants to execute code
 	add_to_group("execute_code_group")
@@ -42,12 +44,13 @@ func is_won():
 	return is_level_won
 
 func _fixed_process(delta):
-	#get_node(PATH_ELEVATOR_DOOR).translate(Vector3(delta, 0, 0))
 	if is_queued:
-		if codes[0] in selection:
-			gravity_direction_player *= -1
-		if codes[1] in selection:
-			gravity_direction_room *= -1
+		var codes = PATHS_AND_CODES_PC[selection_pc][CODES]
+		if selection_pc == 0:
+			if codes[0] in selection:
+				gravity_direction_player *= -1
+			if codes[1] in selection:
+				gravity_direction_room *= -1
 			
 		is_queued = false
 	
@@ -62,5 +65,17 @@ func execute_code():
 	pc_node = get_node(PATH_PLAYER).pc_node
 	if pc_node == null:
 		return
+	for i in range(PATHS_AND_CODES_PC.size()):
+		if pc_node == get_node(PATHS_AND_CODES_PC[i][PC]):
+			selection_pc = i
 	selection = pc_node.get_screen().selection
 	is_queued = true
+	
+func is_victory_pad(node):
+	return (get_node(PATH_PAD).get_instance_ID() == node.get_instance_ID())
+
+func is_pc(node):
+	for pc in PATHS_AND_CODES_PC:
+		if get_node(pc[PC]).get_instance_ID() == node.get_instance_ID():
+			return true
+	return false

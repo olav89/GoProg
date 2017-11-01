@@ -16,7 +16,6 @@ var is_in_pc_screen = false
 
 var level_node = null
 
-var victory_pad_node = null
 var victory_pad_is_interactable = false
 
 var pc_is_interactable = false
@@ -46,9 +45,8 @@ var movement_speed = 10
 var velocity = Vector3(0,0,0)
 var jump_cd = 0
 
-func setup(level, victory_pad):
+func setup(level):
 	level_node = level
-	victory_pad_node = victory_pad
 
 func _ready():
 	set_process_input(true)
@@ -68,10 +66,11 @@ func _process(delta):
 		is_in_menu = false
 		is_in_pc_screen = false
 
-# Function handles player movement
+# Function handles player movement and rotation
 func _fixed_process(delta):
 	var looking_at = get_node(PATH_CAMERA).get_global_transform().basis
 	
+	# Rotate player when gravity turns
 	if gravity_direction == -1 and rot_current > 0:
 		rot_target = 0
 	elif gravity_direction == 1 and rot_current == 0:
@@ -80,15 +79,19 @@ func _fixed_process(delta):
 		rot_current += 4*gravity_direction
 		self.rotate(Vector3(1,0,0), deg2rad(4))
 
+	# Player movement
 	velocity.x = 0
 	velocity.z = 0
-	var is_ray_colliding=get_node("Leg").is_colliding()
-	if is_ray_colliding:
+	
+	# Handle leg collision
+	var is_ray_colliding = get_node("Leg").is_colliding()
+	if is_ray_colliding: # if legs are on ground slide on it
 		var n = get_node("Leg").get_collision_normal()
 		velocity = n.slide(velocity)
-	else:
+	else: # else apply gravity
 		velocity.y += delta * 9.8 * gravity_direction
 	
+	# Process all input
 	if not is_in_menu and not is_in_pc_screen:
 		if Input.is_action_pressed("player_forward"):
 			velocity.x -= looking_at[2].x
@@ -107,6 +110,7 @@ func _fixed_process(delta):
 			jump_cd = 2
 	if velocity.z != 0 or velocity.x != 0:
 		play_sample_walking()
+	# Lower speed if two directions are chosen
 	if (Input.is_action_pressed("player_forward") and 
 	(Input.is_action_pressed("player_right") or
 	Input.is_action_pressed("player_left"))) or (
@@ -119,6 +123,7 @@ func _fixed_process(delta):
 		velocity.x = velocity.x * movement_speed
 		velocity.z = velocity.z * movement_speed
 
+	# Move with velocity, slide if a collision is detected
 	var motion = velocity * delta
 	move(motion)
 	if (is_colliding()):
@@ -183,29 +188,29 @@ func play_sample_typing():
 
 # Collision in front of player
 func _on_Area_body_enter( body ):
-	var body_id = body.get_instance_ID()
-	var node = get_node("../PC/StaticBody")
-	if node != null and body_id == node.get_instance_ID():
-		pc_near_node = get_node("../PC")
+	if level_node == null:
+		print("level_node undefined in player.gd")
+	elif level_node.is_pc(body):
+		pc_near_node = body
 		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 		pc_is_interactable = true
 
 # Collision object no longer colliding
 func _on_Area_body_exit( body ):
-	var body_id = body.get_instance_ID()
-	var node = get_node("../PC/StaticBody")
-	if node != null and body_id == node.get_instance_ID():
+	if level_node == null:
+		print("level_node undefined in player.gd")
+	elif level_node.is_pc(body):
 		pc_is_interactable = false
 
 func _on_Area_area_enter( area ):
-	if victory_pad_node == null:
-		print("victory_pad_node undefined in player.gd")
-	elif area.get_instance_ID() == victory_pad_node.get_instance_ID():
+	if level_node == null:
+		print("level_node undefined in player.gd")
+	elif level_node.is_victory_pad(area):
 		victory_pad_is_interactable = true
 		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 
 func _on_Area_area_exit( area ):
-	if victory_pad_node == null:
-		print("victory_pad_node undefined in player.gd")
-	elif area.get_instance_ID() == victory_pad_node.get_instance_ID():
+	if level_node == null:
+		print("level_node undefined in player.gd")
+	elif level_node.is_victory_pad(area):
 		victory_pad_is_interactable = false
