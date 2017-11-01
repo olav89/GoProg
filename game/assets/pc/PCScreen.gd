@@ -5,14 +5,13 @@
 
 extends Control
 
-var TERMINAL = "Terminal:\n"
+const PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
+const PATH_SELECTION_LABEL = "Panel/CodeSelected"
+const TERMINAL = "Terminal:\n"
 
 var selection = [] # contains code user has selected
 var output_current = TERMINAL
 var output_target = TERMINAL
-
-var PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
-var PATH_SELECTION_LABEL = "Panel/CodeSelected"
 
 var player_node = null
 

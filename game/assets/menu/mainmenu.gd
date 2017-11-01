@@ -5,7 +5,7 @@
 
 extends TextureFrame
 
-var PATH_LEVEL_MENU = "res://assets/menu/levelmenu.tscn"
+const PATH_LEVEL_MENU = "res://assets/menu/levelmenu.tscn"
 
 func _ready():
 	pass

@@ -5,7 +5,7 @@
 
 extends Control
 
-var PATH_MAIN_MENU = "res://assets/menu/mainmenu.tscn"
+const PATH_MAIN_MENU = "res://assets/menu/mainmenu.tscn"
 
 func _ready():
 	pass

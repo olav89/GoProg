@@ -5,7 +5,7 @@
 
 extends TextureFrame
 
-var PATH_LEVELS = "res://assets/levels/Level"
+const PATH_LEVELS = "res://assets/levels/Level"
 
 var num_levels = 30
 

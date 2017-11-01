@@ -1,12 +1,12 @@
 extends Spatial
 
-var PATH_PLAYER = "Player"
-var PATH_PAD = "Crate/VictoryPad"
+const PATH_PLAYER = "Player"
+const PATH_PAD = "Crate/VictoryPad"
 
-var PC = 0
-var SCREEN = 1
-var CODES = 2
-var PATHS_AND_CODES_PC = [
+const PC = 0
+const SCREEN = 1
+const CODES = 2
+const PATHS_AND_CODES_PC = [
 ["PC","PC/PCScreen",
 ["player.invert_gravity()",
 "room.invert_gravity()"]]

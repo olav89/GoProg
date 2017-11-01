@@ -5,11 +5,11 @@
 
 extends KinematicBody
 
-var PATH_STATUS_BAR = "StatusBar"
-var PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
-var PATH_INGAME_MENU = "IngameMenu"
-var PATH_SAMPLE_PLAYER = "SamplePlayer"
-var PATH_CAMERA = "Camera"
+const PATH_STATUS_BAR = "StatusBar"
+const PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
+const PATH_INGAME_MENU = "IngameMenu"
+const PATH_SAMPLE_PLAYER = "SamplePlayer"
+const PATH_CAMERA = "Camera"
 
 var is_in_menu = false
 var is_in_pc_screen = false
@@ -24,12 +24,12 @@ var pc_near_node = null # the nearest pc node
 
 var status_bar = null # link to the status bar
 var status_bar_time_remaining = 0
-var STATUS_INTERACT = "Press E to interact"
-var STATUS_INTERACT_TIME = 1
-var STATUS_ACTIVATE = "Press F to activate your code"
-var STATUS_ACTIVATE_TIME = 2
-var STATUS_WON = "Proceed to the elevator"
-var STATUS_WON_TIME = 15
+const STATUS_INTERACT = "Press E to interact"
+const STATUS_INTERACT_TIME = 1
+const STATUS_ACTIVATE = "Press F to activate your code"
+const STATUS_ACTIVATE_TIME = 2
+const STATUS_WON = "Proceed to the elevator"
+const STATUS_WON_TIME = 15
 
 var sample_player = null
 var id_voice_walking = 0
@@ -41,7 +41,7 @@ var rot_target = 0
 var view_sensitivity = 0.2
 var yaw = 0
 var pitch = 0
-var movement_speed = 10
+const movement_speed = 10
 var velocity = Vector3(0,0,0)
 var jump_cd = 0
 
