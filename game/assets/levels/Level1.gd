@@ -32,7 +32,6 @@ func _ready():
 		get_node(pc[SCREEN]).setup(get_node(PATH_PLAYER))
 		get_node(pc[SCREEN]).create_codes(pc[CODES])
 	
-	
 	# adds to group so it gets notified when player wants to execute code
 	add_to_group("execute_code_group")
 	set_fixed_process(true)
@@ -76,6 +75,6 @@ func is_victory_pad(node):
 
 func is_pc(node):
 	for pc in PATHS_AND_CODES_PC:
-		if get_node(pc[PC]).get_instance_ID() == node.get_instance_ID():
+		if (get_node(pc[PC]).is_pc(node)):
 			return true
 	return false

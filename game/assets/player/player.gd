@@ -191,7 +191,7 @@ func _on_Area_body_enter( body ):
 	if level_node == null:
 		print("level_node undefined in player.gd")
 	elif level_node.is_pc(body):
-		pc_near_node = body
+		pc_near_node = body.get_node("../../..") # go up three levels as collisions are nested
 		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 		pc_is_interactable = true
 
