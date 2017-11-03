@@ -7,11 +7,13 @@ extends Control
 
 const PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
 const PATH_SELECTION_LABEL = "Panel/CodeSelected"
-const TERMINAL = "Terminal:\n"
+const TERMINAL = "Selected Code:\n"
 
 var selection = [] # contains code user has selected
 var output_current = TERMINAL
 var output_target = TERMINAL
+
+var count = 1
 
 var player_node = null
 
@@ -53,7 +55,8 @@ func button_pressed(pressed):
 		get_node("/root/logger").log_error("player_node undefined in PCScreen.gd")
 	# if the code has not yet been selected add it and build output
 	selection.append(selected)
-	output_target += ">>> " + selected + "\n"
+	output_target += str(count) + ". " + selected + "\n"
+	count += 1
 	
 
 func _show():
@@ -68,8 +71,8 @@ func _hide():
 
 # Event for the Enter button
 func _on_btnEnter_pressed():
-	_hide()
 	get_node("/root/logger").log_debug("PC Screen code compiled")
+	_hide()
 	if player_node != null:
 		player_node.change_status_activate() # notify player node to change status
 	else:
@@ -78,6 +81,7 @@ func _on_btnEnter_pressed():
 # Event for the Clear button
 func _on_btnClear_pressed():
 	selection = [] # clear selection
+	count = 1
 	output_current = TERMINAL
 	output_target = TERMINAL
 	get_node(PATH_SELECTION_LABEL).set_text(output_current)
