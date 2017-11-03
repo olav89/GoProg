@@ -23,14 +23,15 @@ func _ready():
 func button_pressed(pressed):
 	var btn_text = pressed.get_text()
 	goto_scene(PATH_LEVELS + btn_text + ".tscn")
-	
+
 func goto_scene(path): # game requests to switch to this scene
 	loader = ResourceLoader.load_interactive(path)
 	if loader == null: # check for errors
-		print("Loading failed: " + path)
+		get_node("/root/logger").log_error("Loading failed to start: " + path)
 		return
 	set_process(true)
 	get_node("ProgressBar").show()
+	get_node("/root/logger").log_info("Loading start: " + path)
 	
 
 func _process(time):
@@ -48,7 +49,7 @@ func _process(time):
 	elif err == OK:
 		update_progress()
 	else: # error during loading
-		print("Error during loading")
+		get_node("/root/logger").log_error("Loading error.")
 		loader = null
 
 func update_progress():
@@ -61,3 +62,4 @@ func set_new_scene(scene_resource):
 	current = scene_resource.instance()
 	get_tree().get_root().add_child(current)
 	get_tree().set_current_scene(current)
+	get_node("/root/logger").log_info("Loading complete.")

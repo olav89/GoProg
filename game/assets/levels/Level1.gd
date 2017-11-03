@@ -24,6 +24,7 @@ var gravity_direction_room = -1
 var gravity_direction_player = -1
 
 func _ready():
+	get_node("/root/logger").set_debug(true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	# setup scripts

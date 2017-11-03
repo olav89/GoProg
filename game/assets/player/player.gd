@@ -159,8 +159,9 @@ func _input(event):
 				if level_node != null:
 					level_node.won()
 					change_status(STATUS_WON, STATUS_WON_TIME)
+					get_node("/root/logger").log_info("Player has won.")
 				else:
-					print("level_node not defined in player.gd")
+					get_node("/root/logger").log_error("level_node not defined in player.gd")
 			elif Input.is_action_pressed("interact") and pc_is_interactable:
 				pc_node = pc_near_node # last pc close to player
 				pc_node.get_screen()._show()
@@ -168,6 +169,7 @@ func _input(event):
 			elif Input.is_action_pressed("activate_code"):
 				# Sends a notification to the scripts which are affected by an execute of selected code
 				get_tree().call_group(0, "execute_code_group", "execute_code")
+				get_node("/root/logger").log_debug("Executing code")
 			elif Input.is_action_pressed("ingame_menu") and not is_in_pc_screen:
 				get_node(PATH_INGAME_MENU)._show()
 				is_in_menu = true
@@ -176,6 +178,7 @@ func change_status(text, time):
 	status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
 	status_bar.show()
 	status_bar_time_remaining = time
+	get_node("/root/logger").log_debug("Status Bar: " + text + " - " + str(time))
 
 func change_status_activate():
 	change_status(STATUS_ACTIVATE, STATUS_ACTIVATE_TIME)
@@ -189,28 +192,32 @@ func play_sample_typing():
 # Collision in front of player
 func _on_Area_body_enter( body ):
 	if level_node == null:
-		print("level_node undefined in player.gd")
+		get_node("/root/logger").log_error("level_node undefined in player.gd")
 	elif level_node.is_pc(body):
 		pc_near_node = body.get_node("../../..") # go up three levels as collisions are nested
 		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 		pc_is_interactable = true
+		get_node("/root/logger").log_debug("PC in range")
 
 # Collision object no longer colliding
 func _on_Area_body_exit( body ):
 	if level_node == null:
-		print("level_node undefined in player.gd")
+		get_node("/root/logger").log_error("level_node undefined in player.gd")
 	elif level_node.is_pc(body):
 		pc_is_interactable = false
+		get_node("/root/logger").log_debug("PC out of range")
 
 func _on_Area_area_enter( area ):
 	if level_node == null:
-		print("level_node undefined in player.gd")
+		get_node("/root/logger").log_error("level_node undefined in player.gd")
 	elif level_node.is_victory_pad(area):
 		victory_pad_is_interactable = true
 		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
+		get_node("/root/logger").log_debug("Pad in range")
 
 func _on_Area_area_exit( area ):
 	if level_node == null:
-		print("level_node undefined in player.gd")
+		get_node("/root/logger").log_error("level_node undefined in player.gd")
 	elif level_node.is_victory_pad(area):
 		victory_pad_is_interactable = false
+		get_node("/root/logger").log_debug("Pad out of range")

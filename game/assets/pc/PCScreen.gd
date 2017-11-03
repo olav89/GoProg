@@ -42,7 +42,7 @@ func create_codes(code_array):
 # Output: Adds code to selection and displays it to the user
 func button_pressed(pressed):
 	var selected = pressed.get_text()
-	
+	get_node("/root/logger").log_info("Player selected: " + selected)
 	# checks if code has already been selected
 	for s in selection:
 		if s == selected:
@@ -50,7 +50,7 @@ func button_pressed(pressed):
 	if player_node != null:
 		player_node.play_sample_typing() # notify player node to play typing sound
 	else:
-		print("player_node undefined in PCScreen.gd")
+		get_node("/root/logger").log_error("player_node undefined in PCScreen.gd")
 	# if the code has not yet been selected add it and build output
 	selection.append(selected)
 	output_target += ">>> " + selected + "\n"
@@ -59,18 +59,21 @@ func button_pressed(pressed):
 func _show():
 	show() 
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	get_node("/root/logger").log_debug("PC Screen active")
 
 func _hide():
 	hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_node("/root/logger").log_debug("PC Screen inactive")
 
 # Event for the Enter button
 func _on_btnEnter_pressed():
 	_hide()
+	get_node("/root/logger").log_debug("PC Screen code compiled")
 	if player_node != null:
 		player_node.change_status_activate() # notify player node to change status
 	else:
-		print("player_node undefined in PCScreen.gd")
+		get_node("/root/logger").log_error("player_node undefined in PCScreen.gd")
 
 # Event for the Clear button
 func _on_btnClear_pressed():
@@ -78,3 +81,4 @@ func _on_btnClear_pressed():
 	output_current = TERMINAL
 	output_target = TERMINAL
 	get_node(PATH_SELECTION_LABEL).set_text(output_current)
+	get_node("/root/logger").log_debug("PC Screen clear")
