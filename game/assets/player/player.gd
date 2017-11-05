@@ -198,3 +198,16 @@ func _on_Area_area_exit( area ):
 		print("victory_pad_node undefined in player.gd")
 	elif area.get_instance_ID() == victory_pad_node.get_instance_ID():
 		victory_pad_is_interactable = false
+
+func save():
+	
+	var savedict = {
+		filename = get_filename(),
+		parent = get_parent().get_path(),
+		posx = get_translation().x,
+		posy = get_translation().y,
+		posz = get_translation().z
+	}
+	return savedict
+
+

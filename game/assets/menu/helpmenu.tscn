@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://assets/menu/helpmenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/art/ingame_menu_bg.png" type="Texture" id=2]
+[ext_resource path="res://assets/menu/helpcontrols.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/menu/victoryhelpscreen.tscn" type="PackedScene" id=4]
+
+[node name="HelpMenu" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+script/script = ExtResource( 1 )
+
+[node name="Panel" type="TextureFrame" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 89.0
+margin/top = 66.0
+margin/right = 236.0
+margin/bottom = 349.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 0
+
+[node name="btnControls" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 22.0
+margin/top = 39.0
+margin/right = 122.0
+margin/bottom = 69.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Controls"
+flat = false
+
+[node name="btnVC" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 22.0
+margin/top = 110.0
+margin/right = 122.0
+margin/bottom = 140.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "How to win"
+flat = false
+
+[node name="btnBack" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 22.0
+margin/top = 176.0
+margin/right = 122.0
+margin/bottom = 206.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Back"
+flat = false
+
+[node name="ControlScreen" parent="." instance=ExtResource( 3 )]
+
+visibility/visible = false
+
+[node name="VictoryHelp" parent="." instance=ExtResource( 4 )]
+
+visibility/visible = false
+
+[connection signal="pressed" from="Panel/btnControls" to="." method="_on_btnControls_pressed"]
+
+[connection signal="pressed" from="Panel/btnVC" to="." method="_on_btnVC_pressed"]
+
+[connection signal="pressed" from="Panel/btnBack" to="." method="_on_btnBack_pressed"]
+
+

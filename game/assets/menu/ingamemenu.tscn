@@ -27,7 +27,7 @@ size_flags/vertical = 2
 margin/left = 89.0
 margin/top = 66.0
 margin/right = 236.0
-margin/bottom = 329.0
+margin/bottom = 422.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 0
@@ -40,9 +40,9 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 theme/theme = ExtResource( 3 )
 margin/left = 22.0
-margin/top = 110.0
+margin/top = 100.0
 margin/right = 122.0
-margin/bottom = 140.0
+margin/bottom = 130.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -74,13 +74,64 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 theme/theme = ExtResource( 3 )
 margin/left = 22.0
-margin/top = 176.0
+margin/top = 268.0
 margin/right = 122.0
-margin/bottom = 206.0
+margin/bottom = 298.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Exit"
+flat = false
+
+[node name="btnHelp" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 3 )
+margin/left = 22.0
+margin/top = 156.0
+margin/right = 122.0
+margin/bottom = 186.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Help"
+flat = false
+
+[node name="btnSelectlvl" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 3 )
+margin/left = 22.0
+margin/top = 212.0
+margin/right = 122.0
+margin/bottom = 242.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Select Level"
+flat = false
+
+[node name="btnSaveGame" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 3 )
+margin/left = 22.0
+margin/top = 324.0
+margin/right = 122.0
+margin/bottom = 354.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Save"
 flat = false
 
 [connection signal="pressed" from="Panel/btnReset" to="." method="_on_btnReset_pressed"]
@@ -88,5 +139,11 @@ flat = false
 [connection signal="pressed" from="Panel/btnContinue" to="." method="_on_btnContinue_pressed"]
 
 [connection signal="pressed" from="Panel/btnExit" to="." method="_on_btnExit_pressed"]
+
+[connection signal="pressed" from="Panel/btnHelp" to="." method="_on_btnHelp_pressed"]
+
+[connection signal="pressed" from="Panel/btnSelectlvl" to="." method="_on_btnSelectlvl_pressed"]
+
+[connection signal="pressed" from="Panel/btnSaveGame" to="." method="_on_btnSaveGame_pressed"]
 
 
