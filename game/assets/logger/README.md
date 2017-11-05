@@ -11,7 +11,7 @@
 
 ## Logging functions
 All functions can be called by using `get_node("/root/logger").FUNCTION(s)` where *s* is a string and *FUNCTION* is one of the following functions:
-* `log_info(s)'
+* `log_info(s)`
 * `log_warning(s)`
 * `log_debug(s)`
 * `log_error(s)`
