@@ -24,6 +24,7 @@ func _on_btnVC_pressed():
 
 func _on_btnBack_pressed():
 	hide()
+	
 
 func _show():
 	show()
