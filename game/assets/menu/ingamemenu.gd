@@ -63,12 +63,6 @@ func saveGame():
 		savegame.store_line(nodedata.to_json())
 	savegame.close()
 	
-func load():
-	var savegame= File.new()
-	var if !savegame.file_exists("user://savegame.save"):
-		return #ERROR NO FILE
-	
-	var savenodes = get_parent().get_tree().get_nodes_in_group("Persist")
 
 
 func save():
