@@ -196,6 +196,11 @@ func play_sample_walking():
 func play_sample_typing():
 	sample_player.play("typing")
 
+func is_player(body):
+	if self.get_instance_ID() == body.get_instance_ID():
+		return true
+	return false
+
 # Collision in front of player
 func _on_Area_body_enter( body ):
 	if level_node == null:

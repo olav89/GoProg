@@ -78,3 +78,6 @@ func is_pc(node):
 		if (get_node(pc[PC]).is_pc(node)):
 			return true
 	return false
+
+func is_player(node):
+	return get_node(PATH_PLAYER).is_player(node)
