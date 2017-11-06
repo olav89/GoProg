@@ -5,13 +5,7 @@ The purpose of this project is to create a prototype of a game where the player 
 This could be used as an educational tool for children, as well as a recruitment tool.
 
 ## Game Engine
-The game engine [Godot](https://godotengine.org/) was selected for multiple reasons:
-* Designed for efficient game creation
-* Scripting language similar to Python
-* Good cross-platform support
-* Scene-centered development with a tree-hierarchy
-* Intuitive user interface
-* Decent tutorials and examples for beginners
+This project utilized the game engine [Godot](https://godotengine.org/). Our use of it is detailed on the [Wiki](https://github.com/olav89/GoProg/wiki/Godot)
 
 ## Software
 - [Godot](https://godotengine.org/) - game engine
