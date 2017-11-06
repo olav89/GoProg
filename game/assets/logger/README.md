@@ -3,9 +3,10 @@
 ## Setup and access
 * *logger.gd* is loaded into the tree by using [AutoLoad](http://docs.godotengine.org/en/stable/learning/step_by_step/singletons_autoload.html)
 * Access the logger with `get_node("/root/logger")`.
-* The log is saved to *res://log.log*
+* The log is saved to *res://log.log*. Note that in production this corresponds to the same folder as the executable.
 
 ## Options
+Options can be set in *logger.gd* or by using `get_node("/root/logger")` and the appropriate function.
 * `set_debug(true)` enables the logging of DEBUG information, which by default is disabled
 * `set_print(true)` enables logging to be printed to console, which by default is disabled
 

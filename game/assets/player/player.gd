@@ -10,6 +10,7 @@ const PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
 const PATH_INGAME_MENU = "IngameMenu"
 const PATH_SAMPLE_PLAYER = "SamplePlayer"
 const PATH_CAMERA = "Camera"
+const PATH_AREA = "Camera/Area"
 
 var is_in_menu = false
 var is_in_pc_screen = false
@@ -21,6 +22,7 @@ var victory_pad_is_interactable = false
 var pc_is_interactable = false
 var pc_node = null # the active pc node 
 var pc_near_node = null # the nearest pc node
+var pc_near_node_col = 0
 
 var status_bar = null # link to the status bar
 var status_bar_time_remaining = 0
@@ -37,6 +39,8 @@ var id_voice_walking = 0
 var gravity_direction = -1 # direction of the Y-component in gravity vector
 var rot_current = 0
 var rot_target = 0
+
+var activation_cd = 0
 
 var view_sensitivity = 0.2
 var yaw = 0
@@ -58,6 +62,8 @@ func _ready():
 func _process(delta):
 	if jump_cd > 0:
 		jump_cd -= delta
+	if activation_cd > 0:
+		activation_cd -= delta
 	if status_bar_time_remaining > 0:
 		status_bar_time_remaining -= delta
 	elif not status_bar.is_hidden():
@@ -166,10 +172,11 @@ func _input(event):
 				pc_node = pc_near_node # last pc close to player
 				pc_node.get_screen()._show()
 				is_in_pc_screen = true
-			elif Input.is_action_pressed("activate_code"):
+			elif Input.is_action_pressed("activate_code") and activation_cd <= 0:
 				# Sends a notification to the scripts which are affected by an execute of selected code
 				get_tree().call_group(0, "execute_code_group", "execute_code")
 				get_node("/root/logger").log_debug("Executing code")
+				activation_cd = 1.5
 			elif Input.is_action_pressed("ingame_menu") and not is_in_pc_screen:
 				get_node(PATH_INGAME_MENU)._show()
 				is_in_menu = true
@@ -194,6 +201,7 @@ func _on_Area_body_enter( body ):
 	if level_node == null:
 		get_node("/root/logger").log_error("level_node undefined in player.gd")
 	elif level_node.is_pc(body):
+		pc_near_node_col += 1
 		pc_near_node = body.get_node("../../..") # go up three levels as collisions are nested
 		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 		pc_is_interactable = true
@@ -204,8 +212,10 @@ func _on_Area_body_exit( body ):
 	if level_node == null:
 		get_node("/root/logger").log_error("level_node undefined in player.gd")
 	elif level_node.is_pc(body):
-		pc_is_interactable = false
-		get_node("/root/logger").log_debug("PC out of range")
+		pc_near_node_col -= 1
+		if pc_near_node_col == 0:
+			pc_is_interactable = false
+			get_node("/root/logger").log_debug("PC out of range")
 
 func _on_Area_area_enter( area ):
 	if level_node == null:
