@@ -69,8 +69,22 @@ margin/left = 71.0
 margin/top = 52.0
 margin/right = 453.0
 margin/bottom = 507.0
-custom_colors/font_color = Color( 0.0914783, 0.855469, 0.0668335, 1 )
-text = "Selected Code:"
+custom_colors/font_color = Color( 0.437742, 0.882812, 0.0689697, 1 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="NumLines" type="Label" parent="Panel/CodeSelected"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -26.0
+margin/top = 0.0
+margin/right = 27.0
+margin/bottom = 507.0
+custom_colors/font_color = Color( 0.125, 0.120605, 0.120605, 1 )
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1

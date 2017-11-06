@@ -7,13 +7,12 @@ extends Control
 
 const PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
 const PATH_SELECTION_LABEL = "Panel/CodeSelected"
-const TERMINAL = "Selected Code:\n"
+const PATH_SELECTION_LINE_NUM = "Panel/CodeSelected/NumLines"
+const TERMINAL = ""
 
 var selection = [] # contains code user has selected
 var output_current = TERMINAL
 var output_target = TERMINAL
-
-var count = 1
 
 var player_node = null
 
@@ -22,6 +21,13 @@ func setup(player):
 
 func _ready():
 	set_process(true)
+	var s = ""
+	for i in range(1, 30):
+		if i < 10:
+			s += "0" + str(i) + "|\n"
+		else:
+			s += str(i) + "|\n"
+	get_node(PATH_SELECTION_LINE_NUM).set_text(s)
 
 func _process(delta):
 	if output_current.length() != output_target.length():
@@ -55,8 +61,7 @@ func button_pressed(pressed):
 		get_node("/root/logger").log_error("player_node undefined in PCScreen.gd")
 	# if the code has not yet been selected add it and build output
 	selection.append(selected)
-	output_target += str(count) + ". " + selected + "\n"
-	count += 1
+	output_target += selected + "\n"
 	
 
 func _show():
@@ -81,7 +86,6 @@ func _on_btnEnter_pressed():
 # Event for the Clear button
 func _on_btnClear_pressed():
 	selection = [] # clear selection
-	count = 1
 	output_current = TERMINAL
 	output_target = TERMINAL
 	get_node(PATH_SELECTION_LABEL).set_text(output_current)
