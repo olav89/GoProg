@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://assets/menu/ingamemenu.gd" type="Script" id=1]
-[ext_resource path="res://assets/art/ingame_menu_bg.png" type="Texture" id=2]
-[ext_resource path="res://assets/theme/theme_btn_menu.tres" type="Theme" id=3]
+[ext_resource path="res://assets/art/background/ingame-menu-bg.tex" type="Texture" id=2]
 
 [node name="IngameMenu" type="Control"]
 
@@ -25,9 +24,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 89.0
-margin/top = 66.0
-margin/right = 236.0
-margin/bottom = 422.0
+margin/top = 58.0
+margin/right = 232.0
+margin/bottom = 445.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 0
@@ -38,11 +37,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
 margin/left = 22.0
-margin/top = 100.0
+margin/top = 116.0
 margin/right = 122.0
-margin/bottom = 130.0
+margin/bottom = 146.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -55,11 +53,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
 margin/left = 22.0
-margin/top = 39.0
+margin/top = 24.0
 margin/right = 122.0
-margin/bottom = 69.0
+margin/bottom = 54.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -72,11 +69,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
-margin/left = 22.0
-margin/top = 268.0
-margin/right = 122.0
-margin/bottom = 298.0
+margin/left = 21.0
+margin/top = 339.0
+margin/right = 121.0
+margin/bottom = 369.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -89,11 +85,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
-margin/left = 22.0
-margin/top = 156.0
-margin/right = 122.0
-margin/bottom = 186.0
+margin/left = 20.0
+margin/top = 209.0
+margin/right = 120.0
+margin/bottom = 239.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -106,11 +101,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
-margin/left = 22.0
-margin/top = 212.0
-margin/right = 122.0
-margin/bottom = 242.0
+margin/left = 21.0
+margin/top = 160.0
+margin/right = 121.0
+margin/bottom = 190.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -123,11 +117,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
-margin/left = 22.0
-margin/top = 324.0
-margin/right = 122.0
-margin/bottom = 354.0
+margin/left = 21.0
+margin/top = 298.0
+margin/right = 121.0
+margin/bottom = 328.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

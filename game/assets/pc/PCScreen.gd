@@ -76,7 +76,7 @@ func _hide():
 
 # Event for the Enter button
 func _on_btnEnter_pressed():
-	get_node("/root/logger").log_debug("PC Screen code compiled")
+	get_node("/root/logger").log_debug("PC Screen code built")
 	_hide()
 	if player_node != null:
 		player_node.change_status_activate() # notify player node to change status

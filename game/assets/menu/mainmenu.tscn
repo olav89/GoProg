@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://assets/art/MainMenu.png" type="Texture" id=1]
 [ext_resource path="res://assets/menu/mainmenu.gd" type="Script" id=2]
-[ext_resource path="res://assets/theme/theme_btn_menu.tres" type="Theme" id=3]
 
 [node name="Background" type="TextureFrame"]
 
@@ -25,7 +24,6 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
 margin/left = 453.0
 margin/top = 257.0
 margin/right = 553.0
@@ -42,7 +40,6 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
 margin/left = 452.0
 margin/top = 310.0
 margin/right = 552.0

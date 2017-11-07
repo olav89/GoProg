@@ -56,7 +56,7 @@ margin/bottom = 557.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Compile"
+text = "Build"
 flat = false
 
 [node name="CodeSelected" type="Label" parent="Panel"]
