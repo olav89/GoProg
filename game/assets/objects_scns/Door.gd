@@ -1,6 +1,6 @@
 extends Spatial
 
-const PATH_LEVEL = "../"
+const PATH_LEVEL = "../../"
 
 var animation_player
 

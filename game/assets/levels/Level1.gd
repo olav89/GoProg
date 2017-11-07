@@ -1,13 +1,14 @@
 extends Spatial
 
-const PATH_PLAYER = "Player"
+const DEFAULT = "defaultenviroment/"
+const PATH_PLAYER = DEFAULT + "Player"
 const PATH_PAD = "Crate/VictoryPad"
 
 const PC = 0
 const SCREEN = 1
 const CODES = 2
 const PATHS_AND_CODES_PC = [
-["PC","PC/PCScreen",
+[DEFAULT + "PC",DEFAULT + "PC/PCScreen",
 ["player.invert_gravity()",
 "room.invert_gravity()"]]
 ]
