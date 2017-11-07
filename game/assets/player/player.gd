@@ -26,6 +26,7 @@ var pc_near_node_col = 0
 
 var status_bar = null # link to the status bar
 var status_bar_time_remaining = 0
+var status_bar_can_change = true
 const STATUS_INTERACT = "Press E to interact"
 const STATUS_INTERACT_TIME = 1
 const STATUS_ACTIVATE = "Press F to activate your code"
@@ -68,6 +69,7 @@ func _process(delta):
 		status_bar_time_remaining -= delta
 	elif not status_bar.is_hidden():
 		status_bar.hide()
+		status_bar_can_change = true
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		is_in_menu = false
 		is_in_pc_screen = false
@@ -164,7 +166,7 @@ func _input(event):
 			if Input.is_action_pressed("interact") and victory_pad_is_interactable:
 				if level_node != null:
 					level_node.won()
-					change_status(STATUS_WON, STATUS_WON_TIME)
+					change_status(STATUS_WON, STATUS_WON_TIME, true)
 					get_node("/root/logger").log_info("Player has won.")
 				else:
 					get_node("/root/logger").log_error("level_node not defined in player.gd")
@@ -181,11 +183,18 @@ func _input(event):
 				get_node(PATH_INGAME_MENU)._show()
 				is_in_menu = true
 
-func change_status(text, time):
-	status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
-	status_bar.show()
-	status_bar_time_remaining = time
-	get_node("/root/logger").log_debug("Status Bar: " + text + " - " + str(time))
+func change_status(text, time, permanent=false):
+	if status_bar_can_change:
+		if permanent:
+			status_bar_can_change = false
+			print("perman")
+		status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
+		status_bar.show()
+		status_bar_time_remaining = time
+		get_node("/root/logger").log_debug("Status Bar: " + text + " - " + str(time))
+
+func clear_status():
+	status_bar_time_remaining = 0
 
 func change_status_activate():
 	change_status(STATUS_ACTIVATE, STATUS_ACTIVATE_TIME)
