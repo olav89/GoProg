@@ -59,9 +59,13 @@ func execute_code():
 	is_queued = true
 
 func is_victory_pad(node):
+	if get_node(PATH_PAD) == null:
+		return false
 	return (get_node(PATH_PAD).get_instance_ID() == node.get_instance_ID())
 
 func is_pc(node):
+	if PATHS_AND_CODES_PC == null:
+		return false
 	for pc in PATHS_AND_CODES_PC:
 		if (get_node(pc[PC]).is_pc(node)):
 			return true
