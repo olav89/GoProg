@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://assets/menu/helpcontrols.gd" type="Script" id=1]
-[ext_resource path="res://assets/art/ingame_menu_bg.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/background/ingame-menu-bg.tex" type="Texture" id=2]
 
 [node name="ControlScreen" type="Control"]
 
@@ -26,6 +26,7 @@ margin/top = 66.0
 margin/right = 391.0
 margin/bottom = 366.0
 texture = ExtResource( 2 )
+expand = true
 stretch_mode = 0
 
 [node name="Text" type="Label" parent="Panel"]

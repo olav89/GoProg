@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://assets/player/player.gd" type="Script" id=1]
-[ext_resource path="res://assets/art/crosshair.png" type="Texture" id=2]
-[ext_resource path="res://assets/art/notification_bar.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/texture/player/crosshair.tex" type="Texture" id=2]
+[ext_resource path="res://assets/art/texture/player/notification_bar.tex" type="Texture" id=3]
 [ext_resource path="res://assets/menu/ingamemenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/menu/helpmenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sound/typing.smp" type="Sample" id=6]
@@ -138,7 +138,6 @@ _update_shape_index = 0
 
 [node name="StatusBar" type="TextureFrame" parent="."]
 
-editor/display_folded = true
 visibility/visible = false
 focus/ignore_mouse = true
 focus/stop_mouse = true

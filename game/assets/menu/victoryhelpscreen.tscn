@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://assets/menu/victoryhelpscreen.gd" type="Script" id=1]
-[ext_resource path="res://assets/art/ingame_menu_bg.png" type="Texture" id=2]
-[ext_resource path="res://assets/art/victory_pad_50_200_50.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/background/ingame-menu-bg.tex" type="Texture" id=2]
+[ext_resource path="res://assets/art/texture/victory_pad/victory_pad_50_200_50.tex" type="Texture" id=3]
 
 [node name="VictoryHelp" type="Control"]
 
@@ -27,6 +27,7 @@ margin/top = 0.0
 margin/right = 500.0
 margin/bottom = 500.0
 texture = ExtResource( 2 )
+expand = true
 stretch_mode = 0
 
 [node name="Text" type="Label" parent="Panel"]

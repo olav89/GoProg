@@ -16,6 +16,8 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 
 [node name="VictoryPad" parent="Crate" instance=ExtResource( 3 )]
 
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0213141, 0.404384 )
+
 [node name="defaultenviroment" parent="." instance=ExtResource( 4 )]
 
 
