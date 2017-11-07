@@ -187,7 +187,6 @@ func change_status(text, time, permanent=false):
 	if status_bar_can_change:
 		if permanent:
 			status_bar_can_change = false
-			print("perman")
 		status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
 		status_bar.show()
 		status_bar_time_remaining = time
