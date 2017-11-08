@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://assets/player/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/texture/player/crosshair.tex" type="Texture" id=2]
 [ext_resource path="res://assets/art/texture/player/notification_bar.tex" type="Texture" id=3]
 [ext_resource path="res://assets/menu/ingamemenu.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/menu/helpmenu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/sound/typing.smp" type="Sample" id=6]
-[ext_resource path="res://assets/sound/walking.smp" type="Sample" id=7]
-[ext_resource path="res://assets/menu/settingsmenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/sound/typing.smp" type="Sample" id=5]
+[ext_resource path="res://assets/sound/walking.smp" type="Sample" id=6]
+[ext_resource path="res://assets/art/texture/journal/journal-bg.tex" type="Texture" id=7]
+[ext_resource path="res://assets/menu/helpmenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/menu/settingsmenu.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -24,13 +25,13 @@ samples/typing = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 6 )
+"sample": ExtResource( 5 )
 }
 samples/walking = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 7 )
+"sample": ExtResource( 6 )
 }
 
 [node name="Player" type="KinematicBody" groups=[
@@ -210,6 +211,7 @@ margin/left = 762.0
 margin/top = 167.0
 margin/right = 1006.0
 margin/bottom = 492.0
+texture = ExtResource( 7 )
 expand = true
 stretch_mode = 0
 
@@ -246,14 +248,14 @@ bbcode/bbcode = ""
 visible_characters = -1
 percent_visible = 1.0
 
-[node name="HelpMenu" parent="." instance=ExtResource( 5 )]
+[node name="HelpMenu" parent="." instance=ExtResource( 8 )]
 
 margin/left = 355.0
 margin/top = 92.0
 margin/right = 395.0
 margin/bottom = 132.0
 
-[node name="Settings" parent="." instance=ExtResource( 8 )]
+[node name="Settings" parent="." instance=ExtResource( 9 )]
 
 [connection signal="area_enter" from="Camera/Area" to="." method="_on_Area_area_enter"]
 
