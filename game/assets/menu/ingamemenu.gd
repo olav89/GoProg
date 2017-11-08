@@ -45,27 +45,10 @@ func _on_btnHelp_pressed():
 	#_hide()
 	get_node("HelpMenu")._show()
 
-
-
 func _on_btnSelectlvl_pressed():
 	get_tree().change_scene(PATH_LVL_SELECT)
 	
 
-func _on_btnSaveGame_pressed():
-	saveGame()
 
-func saveGame():
-	if(get_parent()._isWon()):
-		var savegame = File.new()
-		savegame.open("user://savegame.save",File.WRITE)
-		var currlvl= get_parent().save()
-		var savestr = "lvl" + currlvl + ": 1"
-		savegame.store_line(savestr)
-		savegame.close()
-		print("iswon")
-
-func save():
-	var savedict = {
-		
-	}
-	return savedict
+func _on_Button_pressed():
+	pass # replace with function body
