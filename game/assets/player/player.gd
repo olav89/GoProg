@@ -11,12 +11,16 @@ const PATH_INGAME_MENU = "IngameMenu"
 const PATH_SAMPLE_PLAYER = "SamplePlayer"
 const PATH_CAMERA = "Camera"
 const PATH_AREA = "Camera/Area"
+const PATH_JOURNAL = "Journal"
+const PATH_JOURNAL_TEXT = "Journal/Task"
 
 
 var is_in_menu = false
 var is_in_pc_screen = false
 
 var level_node = null
+
+var journal_node = null
 
 var victory_pad_is_interactable = false
 
@@ -51,8 +55,9 @@ const movement_speed = 10
 var velocity = Vector3(0,0,0)
 var jump_cd = 0
 
-func setup(level):
+func setup(level, journal_text):
 	level_node = level
+	change_journal(journal_text)
 
 func _ready():
 	set_process_input(true)
@@ -60,6 +65,7 @@ func _ready():
 	set_fixed_process(true)
 	status_bar = get_node(PATH_STATUS_BAR)
 	sample_player = get_node(PATH_SAMPLE_PLAYER)
+	journal_node = get_node(PATH_JOURNAL)
 
 func _process(delta):
 	if jump_cd > 0:
@@ -164,6 +170,11 @@ func _input(event):
 			if Input.is_action_pressed("ingame_menu"):
 				get_node(PATH_INGAME_MENU)._hide()
 		else:
+			if Input.is_action_pressed("journal"):
+				if journal_node.is_hidden():
+					journal_node.show()
+				else:
+					journal_node.hide()
 			if Input.is_action_pressed("interact") and victory_pad_is_interactable:
 				if level_node != null:
 					level_node.won()
@@ -199,6 +210,9 @@ func clear_status():
 
 func change_status_activate():
 	change_status(STATUS_ACTIVATE, STATUS_ACTIVATE_TIME)
+
+func change_journal(journal_text):
+	get_node(PATH_JOURNAL_TEXT).set_bbcode("[u]" + journal_text + "[/u]")
 
 func play_sample_walking():
 	if !sample_player.is_voice_active(id_voice_walking):
