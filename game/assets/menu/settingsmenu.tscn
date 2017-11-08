@@ -35,10 +35,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 6.0
-margin/top = 70.0
-margin/right = 32.0
-margin/bottom = 93.0
+margin/left = 12.0
+margin/top = 92.0
+margin/right = 38.0
+margin/bottom = 115.0
 toggle_mode = true
 is_pressed = true
 enabled_focus_mode = 2
@@ -46,17 +46,17 @@ shortcut = null
 flat = false
 align = 0
 
-[node name="Label" type="Label" parent="TextureFrame"]
+[node name="volumeLbl" type="Label" parent="TextureFrame"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 30.0
-margin/top = 73.0
-margin/right = 76.0
-margin/bottom = 87.0
-text = "Sounds"
+margin/left = 13.0
+margin/top = 51.0
+margin/right = 62.0
+margin/bottom = 65.0
+text = "Volume"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -83,10 +83,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 19.0
-margin/top = 96.0
-margin/right = 114.0
-margin/bottom = 112.0
+margin/left = 9.0
+margin/top = 73.0
+margin/right = 104.0
+margin/bottom = 89.0
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -97,6 +97,35 @@ range/rounded = false
 tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
+
+[node name="enVolLbl" type="Label" parent="TextureFrame"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 37.0
+margin/top = 96.0
+margin/right = 79.0
+margin/bottom = 110.0
+text = "Enable"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="volInlbl" type="Label" parent="TextureFrame"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 107.0
+margin/top = 70.0
+margin/right = 137.0
+margin/bottom = 91.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="pressed" from="TextureFrame/sounds" to="." method="_on_sounds_pressed"]
 
