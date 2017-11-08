@@ -29,6 +29,8 @@ var pc_node = null # the active pc node
 var pc_near_node = null # the nearest pc node
 var pc_near_node_col = 0
 
+var touchable_objects = []
+
 var status_bar = null # link to the status bar
 var status_bar_time_remaining = 0
 var status_bar_can_change = true
@@ -187,12 +189,20 @@ func _input(event):
 				pc_node = pc_near_node # last pc close to player
 				pc_node.get_screen()._show()
 				is_in_pc_screen = true
-			elif Input.is_action_pressed("activate_code") and activation_cd <= 0:
+			elif Input.is_action_pressed("interact"):
+				# Calls a method in all colliding objects
+				# Note that this call will go to the collision object
+				for obj in touchable_objects:
+					if obj.has_method("player_interact"):
+						obj.player_interact()
+			
+			if Input.is_action_pressed("activate_code") and activation_cd <= 0:
 				# Sends a notification to the scripts which are affected by an execute of selected code
 				get_tree().call_group(0, "execute_code_group", "execute_code")
 				get_node("/root/logger").log_debug("Executing code")
 				activation_cd = 1.5
-			elif Input.is_action_pressed("ingame_menu") and not is_in_pc_screen:
+			
+			if Input.is_action_pressed("ingame_menu") and not is_in_pc_screen:
 				get_node(PATH_INGAME_MENU)._show()
 				is_in_menu = true
 
@@ -235,6 +245,8 @@ func _on_Area_body_enter( body ):
 		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
 		pc_is_interactable = true
 		get_node("/root/logger").log_debug("PC in range")
+	else:
+		touchable_objects.append(body)
 
 # Collision object no longer colliding
 func _on_Area_body_exit( body ):
@@ -245,6 +257,8 @@ func _on_Area_body_exit( body ):
 		if pc_near_node_col == 0:
 			pc_is_interactable = false
 			get_node("/root/logger").log_debug("PC out of range")
+	else:
+		touchable_objects.erase(body)
 
 func _on_Area_area_enter( area ):
 	if level_node == null:
