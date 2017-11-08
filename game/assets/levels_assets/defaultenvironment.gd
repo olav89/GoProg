@@ -2,6 +2,7 @@ extends Spatial
 
 const DEFAULT = "defaultenviroment/"
 const PATH_PLAYER = DEFAULT + "Player"
+var journal_text
 var PATH_PAD
 
 const PC = 0
@@ -27,7 +28,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func run_setup():
-	get_node(PATH_PLAYER).setup(get_node("."))
+	get_node(PATH_PLAYER).setup(get_node("."), journal_text)
 	for pc in PATHS_AND_CODES_PC:
 		get_node(pc[SCREEN]).setup(get_node(PATH_PLAYER))
 		get_node(pc[SCREEN]).create_codes(pc[CODES])
@@ -44,6 +45,7 @@ func set_gravity():
 
 func won():
 	is_level_won = true
+	get_node(PATH_PLAYER).change_journal("Level complete. Proceed to the elevator.")
 
 func is_won():
 	return is_level_won
