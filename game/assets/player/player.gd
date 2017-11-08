@@ -12,6 +12,7 @@ const PATH_SAMPLE_PLAYER = "SamplePlayer"
 const PATH_CAMERA = "Camera"
 const PATH_AREA = "Camera/Area"
 
+
 var is_in_menu = false
 var is_in_pc_screen = false
 
@@ -168,6 +169,7 @@ func _input(event):
 					level_node.won()
 					change_status(STATUS_WON, STATUS_WON_TIME, true)
 					get_node("/root/logger").log_info("Player has won.")
+					saveGame()
 				else:
 					get_node("/root/logger").log_error("level_node not defined in player.gd")
 			elif Input.is_action_pressed("interact") and pc_is_interactable:
@@ -245,14 +247,22 @@ func _on_Area_area_exit( area ):
 		victory_pad_is_interactable = false
 		get_node("/root/logger").log_debug("Pad out of range")
 		
-		
+func _getCurrentLvl():
+	return get_parent().get_parent().get_name().substr(5,1)
+
+
 func save():
-	
-	var savedict = {
-		filename = get_filename(),
-		parent = get_parent().get_path(),
-		posx = get_translation().x,
-		posy = get_translation().y,
-		posz = get_translation().z
-	}
-	return savedict
+	var currlvl = _getCurrentLvl()
+	return currlvl
+
+func saveGame():
+	var savegame = File.new()
+	savegame.open("user://savegame.save",File.WRITE)
+	var currlvl= save()
+	var savestr = "lvl" + currlvl + ": 1"
+	savegame.store_line(savestr)
+	savegame.close()
+	get_node("/root/logger").log_info("Game Saved")
+
+
+

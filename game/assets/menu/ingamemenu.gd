@@ -55,21 +55,17 @@ func _on_btnSaveGame_pressed():
 	saveGame()
 
 func saveGame():
-	var savegame = File.new()
-	savegame.open("user://savegame.save",File.WRITE)
-	var savenodes = get_parent().get_tree().get_nodes_in_group("Persist")
-	for i in savenodes:
-		var nodedata = i.save()
-		savegame.store_line(nodedata.to_json())
-	savegame.close()
-	
-
+	if(get_parent()._isWon()):
+		var savegame = File.new()
+		savegame.open("user://savegame.save",File.WRITE)
+		var currlvl= get_parent().save()
+		var savestr = "lvl" + currlvl + ": 1"
+		savegame.store_line(savestr)
+		savegame.close()
+		print("iswon")
 
 func save():
 	var savedict = {
-		filename = get_filename(),
-		parent = get_parent().get_path(),
-		posx = get_pos().x,
-		posy = get_pos().y,
+		
 	}
 	return savedict
