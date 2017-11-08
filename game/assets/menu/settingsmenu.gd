@@ -7,7 +7,8 @@ extends Control
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	pass
+	get_node("TextureFrame/volumeSlider").set_value(get_parent().getSoundVolume())
+
 func _show():
 	show()
 
@@ -21,11 +22,11 @@ func _on_btnBack_pressed():
 func _on_sounds_toggled( pressed ):
 	pass
 
-
-
-
 func _on_sounds_pressed():
 	if(get_node("TextureFrame/sounds").is_pressed()):
 		get_parent().enableSound()
 	else:
 		get_parent().disableSound()
+
+func _on_volumeSlider_value_changed( value ):
+	get_parent().setSoundVolume(float(value/100))

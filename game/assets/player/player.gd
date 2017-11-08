@@ -8,6 +8,8 @@ extends KinematicBody
 const PATH_STATUS_BAR = "StatusBar"
 const PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
 const PATH_INGAME_MENU = "IngameMenu"
+const PATH_HELP_MENU = "HelpMenu"
+const PATH_SETTINGS_MENU = "Settings"
 const PATH_SAMPLE_PLAYER = "SamplePlayer"
 const PATH_CAMERA = "Camera"
 const PATH_AREA = "Camera/Area"
@@ -171,6 +173,8 @@ func _input(event):
 		if is_in_menu:
 			if Input.is_action_pressed("ingame_menu"):
 				get_node(PATH_INGAME_MENU)._hide()
+				get_node(PATH_HELP_MENU)._hide()
+				get_node(PATH_SETTINGS_MENU)._hide()
 		else:
 			if Input.is_action_pressed("journal"):
 				if journal_node.is_hidden():
@@ -298,5 +302,9 @@ func disableSound():
 func enableSound():
 	AudioServer.set_fx_global_volume_scale(1)
 
+func setSoundVolume(vol):
+	AudioServer.set_fx_global_volume_scale(vol)
 
+func getSoundVolume():
+	return AudioServer.get_fx_global_volume_scale()
 

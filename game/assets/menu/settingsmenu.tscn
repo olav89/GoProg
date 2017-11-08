@@ -77,10 +77,33 @@ shortcut = null
 text = "Back"
 flat = false
 
+[node name="volumeSlider" type="HSlider" parent="TextureFrame"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 19.0
+margin/top = 96.0
+margin/right = 114.0
+margin/bottom = 112.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 1.0
+range/exp_edit = false
+range/rounded = false
+tick_count = 0
+ticks_on_borders = false
+focus_mode = 2
+
 [connection signal="pressed" from="TextureFrame/sounds" to="." method="_on_sounds_pressed"]
 
 [connection signal="toggled" from="TextureFrame/sounds" to="." method="_on_sounds_toggled"]
 
 [connection signal="pressed" from="TextureFrame/btnBack" to="." method="_on_btnBack_pressed"]
+
+[connection signal="value_changed" from="TextureFrame/volumeSlider" to="." method="_on_volumeSlider_value_changed"]
 
 
