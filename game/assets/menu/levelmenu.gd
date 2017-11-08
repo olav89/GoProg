@@ -78,7 +78,7 @@ func loadSaveGame():
 	while(!savegame.eof_reached()):
 		var lvlhelp = currline.substr(5,2)
 		var lvl = int(lvlhelp)
-		var lvlboolhelp = currline.substr(9,1)
+		var lvlboolhelp = currline.substr(8,2)
 		var lvlbool = int(lvlboolhelp)
 		if(lvlbool == 1 ):
 			var help = "/root/Background/Levels/@@" + str(lvl +1)
