@@ -18,12 +18,16 @@ func _ready():
 		b.set_text(str(i))
 		box.add_child(b) # add button to box, no need to adjust positions
 		b.connect("pressed", self, "button_pressed", [b])
+		print(b.get_path())
+	loadSaveGame()
+	
 
 # Event for loading a new scene
 func button_pressed(pressed):
 	var btn_text = pressed.get_text()
 	goto_scene(PATH_LEVELS + btn_text + ".tscn")
-
+	print(pressed.get_path())
+	
 func goto_scene(path): # game requests to switch to this scene
 	loader = ResourceLoader.load_interactive(path)
 	if loader == null: # check for errors
@@ -63,3 +67,25 @@ func set_new_scene(scene_resource):
 	get_tree().get_root().add_child(current)
 	get_tree().set_current_scene(current)
 	get_node("/root/logger").log_info("Loading complete.")
+
+func loadSaveGame():
+	var savegame = File.new()
+	if(!savegame.file_exists("user://savegame.save")):
+		get_node("/root/logger").log_error("No savegame file")
+	var currline={}
+	savegame.open("user://savegame.save", File.READ)
+	currline = savegame.get_line()
+	while(!savegame.eof_reached()):
+		var lvlhelp = currline.substr(5,2)
+		var lvl = int(lvlhelp)
+		var lvlboolhelp = currline.substr(9,1)
+		var lvlbool = int(lvlboolhelp)
+		if(lvlbool == 1 ):
+			var help = "/root/Background/Levels/@@" + str(lvl +1)
+			print(get_node(help))
+			var image = load("res://assets/art/button_texture/Pressed_lift_button.tex")
+			get_node(help).set_button_icon(image)
+
+		
+		currline = savegame.get_line()
+	savegame.close()

@@ -15,6 +15,7 @@ margin/right = 1032.0
 margin/bottom = 601.0
 texture = ExtResource( 1 )
 expand = true
+stretch_mode = 0
 script/script = ExtResource( 2 )
 
 [node name="Levels" type="GridContainer" parent="."]
