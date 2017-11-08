@@ -48,9 +48,11 @@ transform/local = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0.720807, 4.56406,
 
 [node name="Door" parent="." instance=ExtResource( 4 )]
 
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.020586 )
+
 [node name="Door1" parent="." instance=ExtResource( 4 )]
 
-transform/local = Transform( -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 0, 0, 1, 23.2674, 4.5, 0.0792856 )
+transform/local = Transform( -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 0, 0, 1, 23.2674, 4.5, -0.05286 )
 
 [node name="Table" parent="." instance=ExtResource( 5 )]
 

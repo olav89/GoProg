@@ -156,7 +156,7 @@ func _input(event):
 	
 	if (event.type == InputEvent.MOUSE_BUTTON):
 		get_node("../Door/AnimationPlayer").play("Open Door")
-		get_node("../Door1/AnimationPlayer").play("Open Door2")
+		get_node("../Door1/AnimationPlayer").play("Open Door")
 	# Handles key events besides the player movement
 	if (event.type == InputEvent.KEY):
 		if is_in_menu:
