@@ -277,6 +277,12 @@ func saveGame():
 	savegame.store_line(savestr)
 	savegame.close()
 	get_node("/root/logger").log_info("Game Saved")
+	
+func disableSound():
+	AudioServer.set_fx_global_volume_scale(0)
+
+func enableSound():
+	AudioServer.set_fx_global_volume_scale(1)
 
 
 

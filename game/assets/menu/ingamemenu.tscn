@@ -5,6 +5,7 @@
 
 [node name="IngameMenu" type="Control"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -110,7 +111,7 @@ shortcut = null
 text = "Select Level"
 flat = false
 
-[node name="Button" type="Button" parent="Panel"]
+[node name="btnSettings" type="Button" parent="Panel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -136,6 +137,6 @@ flat = false
 
 [connection signal="pressed" from="Panel/btnSelectlvl" to="." method="_on_btnSelectlvl_pressed"]
 
-[connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Panel/btnSettings" to="." method="_on_btnSettings_pressed"]
 
 

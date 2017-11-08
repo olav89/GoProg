@@ -42,13 +42,12 @@ func _on_btnContinue_pressed():
 #Event for the Help Button
 func _on_btnHelp_pressed():
 	# Hides ingame menu shows help menu
-	#_hide()
-	get_node("HelpMenu")._show()
+	_hide()
+	get_parent().get_node("HelpMenu")._show()
 
 func _on_btnSelectlvl_pressed():
 	get_tree().change_scene(PATH_LVL_SELECT)
 	
 
-
-func _on_Button_pressed():
-	pass # replace with function body
+func _on_btnSettings_pressed():
+	get_parent().get_node("Settings")._show()
