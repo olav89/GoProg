@@ -52,9 +52,9 @@ func button_pressed(pressed):
 	var selected = pressed.get_text()
 	get_node("/root/logger").log_info("Player selected: " + selected)
 	# checks if code has already been selected
-	for s in selection:
-		if s == selected:
-			return
+	#for s in selection:
+	#	if s == selected:
+	#		return
 	if player_node != null:
 		player_node.sample_player.play_sample_typing() # notify player node to play typing sound
 	else:
