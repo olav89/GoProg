@@ -23,8 +23,6 @@ func _ready():
 		b.connect("pressed", self, "button_pressed", [b])
 		if svg[i-1]==1:
 			b.set_button_icon(icon)
-	
-	
 
 # Event for loading a new scene
 func button_pressed(pressed):
@@ -71,7 +69,7 @@ func set_new_scene(scene_resource):
 	get_tree().get_root().add_child(current)
 	get_tree().set_current_scene(current)
 	get_node("/root/logger").log_info("Loading complete.")
-
+#loads compleeted lvls and returns array if savegame exists
 func loadSaveGame():
 	var savegame = File.new()
 	if(!savegame.file_exists("user://savegame.save")):
@@ -87,7 +85,7 @@ func loadSaveGame():
 		var lvlhelp = currline.substr(5,2)
 		var lvl = lvlhelp
 		if(lvl != " "):
-			res.set(2,1)
+			res.set(int(lvl) - 1,1)
 		currline = savegame.get_line()
 	savegame.close()
 	return res

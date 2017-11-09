@@ -2,13 +2,11 @@
 # Script for the ingame menu
 # Event methods are linked to buttons through Godot
 #
-
 extends Control
 
 var PATH_MAIN_MENU = "res://assets/menu/mainmenu.tscn"
 var PATH_HELP_MENU = "res://assets/menu/helpmenu.tscn"
 var PATH_LVL_SELECT = "res://assets/menu/levelmenu.tscn"
-
 
 func _ready():
 	pass
@@ -45,9 +43,10 @@ func _on_btnHelp_pressed():
 	_hide()
 	get_parent().get_node("HelpMenu")._show()
 
+#Event for the Select Level button
 func _on_btnSelectlvl_pressed():
 	get_tree().change_scene(PATH_LVL_SELECT)
-	
 
+#Event for the Settings button
 func _on_btnSettings_pressed():
 	get_parent().get_node("Settings")._show()

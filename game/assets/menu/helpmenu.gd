@@ -4,28 +4,21 @@
 #
 extends Control
 
-var PATH_CONTROL_HELP_PAGE = "res://assets/menu/helpcontrols.tscn"
-var PATH_VC_HELP_PAGE = "res://assets/menu/victoryhelpscreen.tscn"
-var PATH_IN_GAME_MENU = "res://assets/menu/ingamemenu.tscn"
-
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
 	pass
 
-
+#Event for Controls button
 func _on_btnControls_pressed():
 	get_node("ControlScreen")._show()
 
-
+#Event for Victory Help button
 func _on_btnVC_pressed():
 	get_node("VictoryHelp")._show()
 
-
+#Event for Back button
 func _on_btnBack_pressed():
 	hide()
 	get_parent().get_node("IngameMenu").show()
-	
 
 func _show():
 	show()

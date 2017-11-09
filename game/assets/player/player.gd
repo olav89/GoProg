@@ -278,33 +278,24 @@ func _on_Area_area_exit( area ):
 	elif level_node.is_victory_pad(area):
 		victory_pad_is_interactable = false
 		get_node("/root/logger").log_debug("Pad out of range")
-		
-func _getCurrentLvl():
-	return get_parent().get_parent().get_name().substr(5,1)
 
-
-func save():
-	var currlvl = _getCurrentLvl()
-	return currlvl
-
+#saves name of solved lvl to file 
 func saveGame():
 	var savegame = File.new()
 	savegame.open("user://savegame.save",File.WRITE)
-	var currlvl= save()
+	var currlvl= get_parent().get_parent().get_name().substr(5,1)
 	var savestr = level_node.get_name() + "\n"
 	savegame.store_line(savestr)
 	savegame.close()
 	get_node("/root/logger").log_info("Game Saved")
-	
+
+#functions for controlling volume
 func disableSound():
 	AudioServer.set_fx_global_volume_scale(0)
-
 func enableSound():
 	AudioServer.set_fx_global_volume_scale(1)
-
 func setSoundVolume(vol):
 	AudioServer.set_fx_global_volume_scale(vol)
-
 func getSoundVolume():
 	return AudioServer.get_fx_global_volume_scale()
 

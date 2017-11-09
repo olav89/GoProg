@@ -16,13 +16,12 @@ func _show():
 func _hide():
 	hide()
 
+#Event for Back button
 func _on_btnBack_pressed():
 	_hide()
 	get_parent().get_node("IngameMenu")._show()
 
-func _on_sounds_toggled( pressed ):
-	pass
-
+##Evnet for mute button
 func _on_sounds_pressed():
 	if(get_node("TextureFrame/sounds").is_pressed()):
 		get_parent().enableSound()
@@ -33,6 +32,7 @@ func _on_sounds_pressed():
 		get_node("TextureFrame/volumeSlider").set_value(0)
 		get_node("TextureFrame/volInlbl").set_text("0")
 
+#Event for volume slider
 func _on_volumeSlider_value_changed( value ):
 	get_parent().setSoundVolume(float(value/100))
 	get_node("TextureFrame/volInlbl").set_text(str(value))
