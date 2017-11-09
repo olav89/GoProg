@@ -85,4 +85,28 @@ operator = 0
 params/radius = 26.1518
 params/attenuation = 1.0
 
+[node name="SpotLight" type="SpotLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( -0.734732, 0, -0.678357, 0, 1, 0, 0.678357, 0, -0.734732, 16.6723, 14.3144, 16.1001 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 1.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.05
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+params/radius = 562.463
+params/attenuation = 1.0
+params/spot_angle = 90.0
+params/spot_attenuation = 1.0
+
 
