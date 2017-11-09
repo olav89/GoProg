@@ -45,7 +45,7 @@ func set_gravity():
 
 func won():
 	is_level_won = true
-	get_node(PATH_PLAYER).change_journal("Level complete. Proceed to the elevator.")
+	get_node(PATH_PLAYER).journal.change_journal("Level complete. Proceed to the elevator.")
 
 func is_won():
 	return is_level_won
