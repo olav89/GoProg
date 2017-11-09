@@ -254,7 +254,7 @@ func saveGame():
 	var savegame = File.new()
 	savegame.open("user://savegame.save",File.WRITE)
 	var currlvl= get_parent().get_parent().get_name().substr(5,1)
-	var savestr = level_node.get_name() + "\n"
+	var savestr = level.get_name() + "\n"
 	savegame.store_line(savestr)
 	savegame.close()
 	get_node("/root/logger").log_info("Game Saved")

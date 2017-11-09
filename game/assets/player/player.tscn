@@ -1,14 +1,17 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://assets/player/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/texture/player/crosshair.tex" type="Texture" id=2]
 [ext_resource path="res://assets/art/texture/player/notification_bar.tex" type="Texture" id=3]
-[ext_resource path="res://assets/menu/ingamemenu.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/sound/typing.smp" type="Sample" id=5]
-[ext_resource path="res://assets/sound/walking.smp" type="Sample" id=6]
-[ext_resource path="res://assets/art/texture/journal/journal-bg.tex" type="Texture" id=7]
-[ext_resource path="res://assets/menu/helpmenu.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/menu/settingsmenu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/player/statusbar.gd" type="Script" id=4]
+[ext_resource path="res://assets/menu/ingamemenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sound/typing.smp" type="Sample" id=6]
+[ext_resource path="res://assets/sound/walking.smp" type="Sample" id=7]
+[ext_resource path="res://assets/player/sampleplayer.gd" type="Script" id=8]
+[ext_resource path="res://assets/art/texture/journal/journal-bg.tex" type="Texture" id=9]
+[ext_resource path="res://assets/player/journal.gd" type="Script" id=10]
+[ext_resource path="res://assets/menu/helpmenu.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/menu/settingsmenu.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -25,13 +28,13 @@ samples/typing = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 5 )
+"sample": ExtResource( 6 )
 }
 samples/walking = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 6 )
+"sample": ExtResource( 7 )
 }
 
 [node name="Player" type="KinematicBody" groups=[
@@ -154,6 +157,7 @@ margin/bottom = 40.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 0
+script/script = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="StatusBar"]
 
@@ -171,7 +175,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="IngameMenu" parent="." instance=ExtResource( 4 )]
+[node name="IngameMenu" parent="." instance=ExtResource( 5 )]
 
 [node name="SamplePlayer" type="SamplePlayer2D" parent="."]
 
@@ -183,6 +187,7 @@ params/attenuation/distance_exp = 1.0
 config/polyphony = 2
 config/samples = SubResource( 3 )
 config/pitch_random = 0.0
+script/script = ExtResource( 8 )
 
 [node name="Body" type="CollisionShape" parent="."]
 
@@ -211,9 +216,10 @@ margin/left = 762.0
 margin/top = 167.0
 margin/right = 1006.0
 margin/bottom = 492.0
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 expand = true
 stretch_mode = 0
+script/script = ExtResource( 10 )
 
 [node name="Title" type="Label" parent="Journal"]
 
@@ -248,14 +254,14 @@ bbcode/bbcode = ""
 visible_characters = -1
 percent_visible = 1.0
 
-[node name="HelpMenu" parent="." instance=ExtResource( 8 )]
+[node name="HelpMenu" parent="." instance=ExtResource( 11 )]
 
 margin/left = 355.0
 margin/top = 92.0
 margin/right = 395.0
 margin/bottom = 132.0
 
-[node name="Settings" parent="." instance=ExtResource( 9 )]
+[node name="Settings" parent="." instance=ExtResource( 12 )]
 
 [connection signal="area_enter" from="Camera/Area" to="." method="_on_Area_area_enter"]
 
