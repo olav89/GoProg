@@ -20,8 +20,9 @@ func _ready():
 		b.set_text(str(i))
 		box.add_child(b) # add button to box, no need to adjust positions
 		b.connect("pressed", self, "button_pressed", [b])
-		if svg[i-1]==1:
-			b.set_button_icon(icon)
+		if svg != null:
+			if svg[i-1]==1:
+				b.set_button_icon(icon)
 
 # Event for loading a new scene
 func button_pressed(pressed):

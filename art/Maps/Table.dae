@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.79.0 commit date:2017-09-11, commit time:10:43, hash:5bd8ac9</authoring_tool>
     </contributor>
-    <created>2017-10-30T18:42:15</created>
-    <modified>2017-10-30T18:42:15</modified>
+    <created>2017-11-09T15:56:08</created>
+    <modified>2017-11-09T15:56:08</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -110,7 +110,7 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Table-col" name="Table-col" type="NODE">
-        <matrix sid="transform">1 0 0 0.925 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <matrix sid="transform">1 0 0 -11.75 0 1 0 4.75 0 0 1 0 0 0 0 1</matrix>
         <instance_geometry url="#Plane_002-mesh" name="Table-col">
           <bind_material>
             <technique_common>

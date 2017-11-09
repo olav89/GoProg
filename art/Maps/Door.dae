@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.79.0 commit date:2017-09-11, commit time:10:43, hash:5bd8ac9</authoring_tool>
     </contributor>
-    <created>2017-10-30T15:16:28</created>
-    <modified>2017-10-30T15:16:28</modified>
+    <created>2017-11-09T14:53:24</created>
+    <modified>2017-11-09T14:53:24</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -135,7 +135,7 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Door1-col" name="Door1-col" type="NODE">
-        <matrix sid="transform">1 0 0 0 0 1 0 0.009999998 0 0 1 0 0 0 0 1</matrix>
+        <matrix sid="transform">1 0 0 -12.564 0 1 0 -16.089 0 0 1 0 0 0 0 1</matrix>
         <instance_geometry url="#Plane_002-mesh" name="Door1-col">
           <bind_material>
             <technique_common>
