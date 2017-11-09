@@ -259,3 +259,6 @@ func saveGame():
 	savegame.close()
 	get_node("/root/logger").log_info("Game Saved")
 
+func _getLvlName():
+	return level.get_name()
+

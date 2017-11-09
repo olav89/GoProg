@@ -37,3 +37,12 @@ func _on_sounds_pressed():
 func _on_volumeSlider_value_changed( value ):
 	get_parent().sample_player.setSoundVolume(float(value/100))
 	get_node("TextureFrame/volInlbl").set_text(str(value))
+
+
+func _on_bounceslider_value_changed( value ):
+	var lvlname = get_parent()._getLvlName()
+	var lvlnode = get_parent().get_parent().get_parent()
+	for node in lvlnode.get_children():
+		if (node.get_filename() == "res://assets/objects/crate.tscn"):
+			node.set_bounce(value/100)
+			

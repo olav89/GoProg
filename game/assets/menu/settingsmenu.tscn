@@ -127,6 +127,42 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="bounceslider" type="HSlider" parent="TextureFrame"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 12.0
+margin/top = 147.0
+margin/right = 94.0
+margin/bottom = 163.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 1.0
+range/exp_edit = false
+range/rounded = false
+tick_count = 0
+ticks_on_borders = false
+focus_mode = 2
+
+[node name="bouncelbl" type="Label" parent="TextureFrame"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 14.0
+margin/top = 123.0
+margin/right = 62.0
+margin/bottom = 137.0
+text = "Bounce"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [connection signal="pressed" from="TextureFrame/sounds" to="." method="_on_sounds_pressed"]
 
 [connection signal="toggled" from="TextureFrame/sounds" to="." method="_on_sounds_toggled"]
@@ -134,5 +170,7 @@ max_lines_visible = -1
 [connection signal="pressed" from="TextureFrame/btnBack" to="." method="_on_btnBack_pressed"]
 
 [connection signal="value_changed" from="TextureFrame/volumeSlider" to="." method="_on_volumeSlider_value_changed"]
+
+[connection signal="value_changed" from="TextureFrame/bounceslider" to="." method="_on_bounceslider_value_changed"]
 
 
