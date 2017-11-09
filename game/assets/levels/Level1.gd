@@ -14,11 +14,6 @@ func _ready():
 	
 	# setup scripts
 	run_setup()
-	this_is_a_demonstration()
-
-func this_is_a_demonstration():
-	get_node("/root/logger").log_debug("Demonstration from Level1.gd")
-	.this_is_a_demonstration()
 
 func _fixed_process(delta):
 	if is_queued:

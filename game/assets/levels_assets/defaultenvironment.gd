@@ -76,5 +76,3 @@ func is_pc(node):
 func is_player(node):
 	return get_node(PATH_PLAYER).is_player(node)
 
-func this_is_a_demonstration():
-	get_node("/root/logger").log_debug("Demonstration from defaultenviroment.gd")

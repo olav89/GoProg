@@ -10,4 +10,4 @@ func _ready():
 	pass
 
 func player_interact():
-	print("You have reached crate.gd")
+	pass
