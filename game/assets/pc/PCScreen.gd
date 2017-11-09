@@ -56,7 +56,7 @@ func button_pressed(pressed):
 		if s == selected:
 			return
 	if player_node != null:
-		player_node.play_sample_typing() # notify player node to play typing sound
+		player_node.sample_player.play_sample_typing() # notify player node to play typing sound
 	else:
 		get_node("/root/logger").log_error("player_node undefined in PCScreen.gd")
 	# if the code has not yet been selected add it and build output
@@ -79,7 +79,7 @@ func _on_btnEnter_pressed():
 	get_node("/root/logger").log_debug("PC Screen code built")
 	_hide()
 	if player_node != null:
-		player_node.change_status_activate() # notify player node to change status
+		player_node.status_bar.change_status_activate() # notify player node to change status
 	else:
 		get_node("/root/logger").log_error("player_node undefined in PCScreen.gd")
 

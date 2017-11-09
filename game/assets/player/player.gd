@@ -5,8 +5,8 @@
 
 extends KinematicBody
 
+# Paths
 const PATH_STATUS_BAR = "StatusBar"
-const PATH_STATUS_BAR_TO_LABEL = "Label" # path relative to StatusBar node
 const PATH_INGAME_MENU = "IngameMenu"
 const PATH_HELP_MENU = "HelpMenu"
 const PATH_SETTINGS_MENU = "Settings"
@@ -14,54 +14,48 @@ const PATH_SAMPLE_PLAYER = "SamplePlayer"
 const PATH_CAMERA = "Camera"
 const PATH_AREA = "Camera/Area"
 const PATH_JOURNAL = "Journal"
-const PATH_JOURNAL_TEXT = "Journal/Task"
 
+# Node references
+var level = null
+var journal = null
+var sample_player = null
+var status_bar = null
 
+# Menus
 var is_in_menu = false
 var is_in_pc_screen = false
 
-var level_node = null
-
-var journal_node = null
-
+# Victory Pad
 var victory_pad_is_interactable = false
 
+# PC Interaction
 var pc_is_interactable = false
 var pc_node = null # the active pc node 
 var pc_near_node = null # the nearest pc node
-var pc_near_node_col = 0
+var pc_near_node_col = 0 # counts collisions with pc components
+var activation_cd = 0 # cooldown to activate code
 
+# Collisions
 var touchable_objects = []
 
-var status_bar = null # link to the status bar
-var status_bar_time_remaining = 0
-var status_bar_can_change = true
-const STATUS_INTERACT = "Press E to interact"
-const STATUS_INTERACT_TIME = 1
-const STATUS_ACTIVATE = "Press F to activate your code"
-const STATUS_ACTIVATE_TIME = 2
-const STATUS_WON = "Proceed to the elevator"
-const STATUS_WON_TIME = 15
-
-var sample_player = null
-var id_voice_walking = 0
-
+# Physics
 var gravity_direction = -1 # direction of the Y-component in gravity vector
-var rot_current = 0
-var rot_target = 0
-
-var activation_cd = 0
-
-var view_sensitivity = 0.2
-var yaw = 0
-var pitch = 0
 const movement_speed = 10
 var velocity = Vector3(0,0,0)
 var jump_cd = 0
 
+# Player rotation
+var rot_current = 0
+var rot_target = 0
+
+# Camera
+var view_sensitivity = 0.2
+var yaw = 0
+var pitch = 0
+
 func setup(level, journal_text):
-	level_node = level
-	change_journal(journal_text)
+	self.level = level
+	journal.change_journal(journal_text)
 
 func _ready():
 	set_process_input(true)
@@ -69,18 +63,13 @@ func _ready():
 	set_fixed_process(true)
 	status_bar = get_node(PATH_STATUS_BAR)
 	sample_player = get_node(PATH_SAMPLE_PLAYER)
-	journal_node = get_node(PATH_JOURNAL)
+	journal = get_node(PATH_JOURNAL)
 
 func _process(delta):
 	if jump_cd > 0:
 		jump_cd -= delta
 	if activation_cd > 0:
 		activation_cd -= delta
-	if status_bar_time_remaining > 0:
-		status_bar_time_remaining -= delta
-	elif not status_bar.is_hidden():
-		status_bar.hide()
-		status_bar_can_change = true
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		is_in_menu = false
 		is_in_pc_screen = false
@@ -128,7 +117,7 @@ func _fixed_process(delta):
 			velocity.y += -6*gravity_direction
 			jump_cd = 2
 	if velocity.z != 0 or velocity.x != 0:
-		play_sample_walking()
+		sample_player.play_sample_walking()
 	# Lower speed if two directions are chosen
 	if (Input.is_action_pressed("player_forward") and 
 	(Input.is_action_pressed("player_right") or
@@ -170,25 +159,28 @@ func _input(event):
 		get_node("../Door1/AnimationPlayer").play("Open Door")
 	# Handles key events besides the player movement
 	if (event.type == InputEvent.KEY):
-		if is_in_menu:
+		if is_in_menu: # Controls while in menu
 			if Input.is_action_pressed("ingame_menu"):
 				get_node(PATH_INGAME_MENU)._hide()
 				get_node(PATH_HELP_MENU)._hide()
 				get_node(PATH_SETTINGS_MENU)._hide()
-		else:
+		else: # Ingame controls
+			# Journal
 			if Input.is_action_pressed("journal"):
-				if journal_node.is_hidden():
-					journal_node.show()
+				if journal.is_hidden():
+					journal.show()
 				else:
-					journal_node.hide()
+					journal.hide()
+			
+			# Interactions
 			if Input.is_action_pressed("interact") and victory_pad_is_interactable:
-				if level_node != null:
-					level_node.won()
-					change_status(STATUS_WON, STATUS_WON_TIME, true)
+				if level != null:
+					level.won()
+					status_bar.change_status_won()
 					get_node("/root/logger").log_info("Player has won.")
 					saveGame()
 				else:
-					get_node("/root/logger").log_error("level_node not defined in player.gd")
+					get_node("/root/logger").log_error("level not defined in player.gd")
 			elif Input.is_action_pressed("interact") and pc_is_interactable:
 				pc_node = pc_near_node # last pc close to player
 				pc_node.get_screen()._show()
@@ -200,39 +192,17 @@ func _input(event):
 					if obj.has_method("player_interact"):
 						obj.player_interact()
 			
+			# Code activation
 			if Input.is_action_pressed("activate_code") and activation_cd <= 0:
 				# Sends a notification to the scripts which are affected by an execute of selected code
 				get_tree().call_group(0, "execute_code_group", "execute_code")
 				get_node("/root/logger").log_debug("Executing code")
 				activation_cd = 1.5
 			
+			# Open menu
 			if Input.is_action_pressed("ingame_menu") and not is_in_pc_screen:
 				get_node(PATH_INGAME_MENU)._show()
 				is_in_menu = true
-
-func change_status(text, time, permanent=false):
-	if status_bar_can_change:
-		if permanent:
-			status_bar_can_change = false
-		status_bar.get_node(PATH_STATUS_BAR_TO_LABEL).set_text(text)
-		status_bar.show()
-		status_bar_time_remaining = time
-		get_node("/root/logger").log_debug("Status Bar: " + text + " - " + str(time))
-
-func clear_status():
-	status_bar_time_remaining = 0
-
-func change_status_activate():
-	change_status(STATUS_ACTIVATE, STATUS_ACTIVATE_TIME)
-
-func change_journal(journal_text):
-	get_node(PATH_JOURNAL_TEXT).set_bbcode("[u]" + journal_text + "[/u]")
-
-func play_sample_walking():
-	if !sample_player.is_voice_active(id_voice_walking):
-		id_voice_walking = sample_player.play("walking")
-func play_sample_typing():
-	sample_player.play("typing")
 
 func is_player(body):
 	if self.get_instance_ID() == body.get_instance_ID():
@@ -241,12 +211,12 @@ func is_player(body):
 
 # Collision in front of player
 func _on_Area_body_enter( body ):
-	if level_node == null:
-		get_node("/root/logger").log_error("level_node undefined in player.gd")
-	elif level_node.is_pc(body):
+	if level == null:
+		get_node("/root/logger").log_error("level undefined in player.gd")
+	elif level.is_pc(body):
 		pc_near_node_col += 1
 		pc_near_node = body.get_node("../../..") # go up three levels as collisions are nested
-		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
+		status_bar.change_status_interact()
 		pc_is_interactable = true
 		get_node("/root/logger").log_debug("PC in range")
 	else:
@@ -254,9 +224,9 @@ func _on_Area_body_enter( body ):
 
 # Collision object no longer colliding
 func _on_Area_body_exit( body ):
-	if level_node == null:
-		get_node("/root/logger").log_error("level_node undefined in player.gd")
-	elif level_node.is_pc(body):
+	if level == null:
+		get_node("/root/logger").log_error("level undefined in player.gd")
+	elif level.is_pc(body):
 		pc_near_node_col -= 1
 		if pc_near_node_col == 0:
 			pc_is_interactable = false
@@ -265,17 +235,17 @@ func _on_Area_body_exit( body ):
 		touchable_objects.erase(body)
 
 func _on_Area_area_enter( area ):
-	if level_node == null:
-		get_node("/root/logger").log_error("level_node undefined in player.gd")
-	elif level_node.is_victory_pad(area):
+	if level == null:
+		get_node("/root/logger").log_error("level undefined in player.gd")
+	elif level.is_victory_pad(area):
 		victory_pad_is_interactable = true
-		change_status(STATUS_INTERACT, STATUS_INTERACT_TIME)
+		status_bar.change_status_interact()
 		get_node("/root/logger").log_debug("Pad in range")
 
 func _on_Area_area_exit( area ):
-	if level_node == null:
-		get_node("/root/logger").log_error("level_node undefined in player.gd")
-	elif level_node.is_victory_pad(area):
+	if level == null:
+		get_node("/root/logger").log_error("level undefined in player.gd")
+	elif level.is_victory_pad(area):
 		victory_pad_is_interactable = false
 		get_node("/root/logger").log_debug("Pad out of range")
 
@@ -288,14 +258,4 @@ func saveGame():
 	savegame.store_line(savestr)
 	savegame.close()
 	get_node("/root/logger").log_info("Game Saved")
-
-#functions for controlling volume
-func disableSound():
-	AudioServer.set_fx_global_volume_scale(0)
-func enableSound():
-	AudioServer.set_fx_global_volume_scale(1)
-func setSoundVolume(vol):
-	AudioServer.set_fx_global_volume_scale(vol)
-func getSoundVolume():
-	return AudioServer.get_fx_global_volume_scale()
 
