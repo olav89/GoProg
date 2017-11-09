@@ -14,7 +14,6 @@ var loader
 func _ready():
 	var box = get_node("Levels") # Vertical Box Container
 	var svg = loadSaveGame()
-	print(svg)
 	var icon = load("res://assets/art/button_texture/Pressed_lift_button.tex")
 	for i in range(1, num_levels + 1):
 		var b = Button.new()
@@ -28,7 +27,6 @@ func _ready():
 func button_pressed(pressed):
 	var btn_text = pressed.get_text()
 	goto_scene(PATH_LEVELS + btn_text + ".tscn")
-	print(pressed.get_path())
 	
 func goto_scene(path): # game requests to switch to this scene
 	loader = ResourceLoader.load_interactive(path)
