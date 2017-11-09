@@ -13,13 +13,17 @@ var loader
 
 func _ready():
 	var box = get_node("Levels") # Vertical Box Container
+	var svg = loadSaveGame()
+	print(svg)
+	var icon = load("res://assets/art/button_texture/Pressed_lift_button.tex")
 	for i in range(1, num_levels + 1):
 		var b = Button.new()
 		b.set_text(str(i))
 		box.add_child(b) # add button to box, no need to adjust positions
 		b.connect("pressed", self, "button_pressed", [b])
-		print(b.get_path())
-	loadSaveGame()
+		if svg[i-1]==1:
+			b.set_button_icon(icon)
+	
 	
 
 # Event for loading a new scene
@@ -72,20 +76,18 @@ func loadSaveGame():
 	var savegame = File.new()
 	if(!savegame.file_exists("user://savegame.save")):
 		get_node("/root/logger").log_error("No savegame file")
+		return null
 	var currline={}
 	savegame.open("user://savegame.save", File.READ)
 	currline = savegame.get_line()
+	var res = IntArray()
+	for i in range(100):
+		res.append(0)
 	while(!savegame.eof_reached()):
 		var lvlhelp = currline.substr(5,2)
-		var lvl = int(lvlhelp)
-		var lvlboolhelp = currline.substr(8,2)
-		var lvlbool = int(lvlboolhelp)
-		if(lvlbool == 1 ):
-			var help = "/root/Background/Levels/@@" + str(lvl +1)
-			print(get_node(help))
-			var image = load("res://assets/art/button_texture/Pressed_lift_button.tex")
-			get_node(help).set_button_icon(image)
-
-		
+		var lvl = lvlhelp
+		if(lvl != " "):
+			res.set(2,1)
 		currline = savegame.get_line()
 	savegame.close()
+	return res
