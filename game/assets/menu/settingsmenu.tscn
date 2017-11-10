@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://assets/menu/settingsmenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/background/ingame-menu-bg.tex" type="Texture" id=2]
+[ext_resource path="res://assets/art/button_texture/002-speaker.tex" type="Texture" id=3]
 
 [node name="Settings" type="Control"]
 
@@ -35,14 +36,15 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 12.0
+margin/left = 13.0
 margin/top = 92.0
-margin/right = 38.0
-margin/bottom = 115.0
+margin/right = 63.0
+margin/bottom = 125.0
 toggle_mode = true
 is_pressed = true
 enabled_focus_mode = 2
 shortcut = null
+icon = ExtResource( 3 )
 flat = false
 align = 0
 
@@ -97,21 +99,6 @@ range/rounded = false
 tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
-
-[node name="enVolLbl" type="Label" parent="TextureFrame"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 37.0
-margin/top = 96.0
-margin/right = 79.0
-margin/bottom = 110.0
-text = "Enable"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="volInlbl" type="Label" parent="TextureFrame"]
 

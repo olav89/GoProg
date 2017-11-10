@@ -153,10 +153,10 @@ func _input(event):
 			pitch = -90+e
 		get_node(PATH_CAMERA).set_rotation(Vector3(0, deg2rad(yaw), 0))
 		get_node(PATH_CAMERA).rotate_x(deg2rad(pitch))
-	
+
 	if (event.type == InputEvent.MOUSE_BUTTON):
-		get_node("../Door/AnimationPlayer").play("Open Door")
-		get_node("../Door1/AnimationPlayer").play("Open Door")
+		#get_node("../../AnimationCrate/AnimationPlayer").play("MoveX")
+		#get_node("../Door1/AnimationPlayer").play("Open Door")
 		print("Mouse click!")
 	# Handles key events besides the player movement
 	if (event.type == InputEvent.KEY):

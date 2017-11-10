@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tres" type="Environment" id=1]
 [ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://assets/objects_scns/Table.scn" type="PackedScene" id=5]
 [ext_resource path="res://assets/objects_scns/Chocofur_free_27_light_cycles.scn" type="PackedScene" id=6]
 [ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=7]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 20, 1, 20 )
 
 [node name="defaultenviroment" type="WorldEnvironment"]
 
@@ -63,10 +67,34 @@ params/spot_attenuation = 1.0
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7708, 1.80015, 1.41432 )
 
+[node name="Roof" type="StaticBody" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.025, 0 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Roof"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
 [node name="OmniLight" type="OmniLight" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.683238, 3.03669, 5.6098 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5498, 4.48606, 13.4276 )
 layers = 1
 params/enabled = true
 params/editor_only = false
