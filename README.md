@@ -10,6 +10,5 @@ This project utilized the game engine [Godot](https://godotengine.org/). Our use
 ## Software
 - [Godot](https://godotengine.org/) - game engine
 - [Blender](https://www.blender.org/) - 3D modelling
-- [Sketchup](https://www.sketchup.com/) - 3D modelling
 - [yEd](http://www.yworks.com/products/yed) - graph editor for UML
 - #### - texture editor
