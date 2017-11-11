@@ -114,7 +114,7 @@ func _fixed_process(delta):
 			velocity.x += looking_at[0].x
 			velocity.z += looking_at[0].z
 		if Input.is_action_pressed("player_jump") and jump_cd <= 0:
-			velocity.y += -6*gravity_direction
+			velocity.y += -4*gravity_direction
 			jump_cd = 2
 	if velocity.z != 0 or velocity.x != 0:
 		sample_player.play_sample_walking()
