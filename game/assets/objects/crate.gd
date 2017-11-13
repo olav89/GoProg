@@ -3,6 +3,7 @@ extends RigidBody
 var target_trans
 var cur_trans
 var notify = false
+signal finished
 
 func _ready():
 	set_fixed_process(true)
@@ -20,8 +21,9 @@ func _fixed_process(delta):
 		cur_trans.z += z
 		translate(Vector3(x,0,z))
 	elif notify:
-		get_tree().call_group(0, "execute_code_group", "queue_done")
+		#get_tree().call_group(0, "execute_code_group", "queue_done")
 		notify = false
+		emit_signal("finished")
 
 
 func player_interact():

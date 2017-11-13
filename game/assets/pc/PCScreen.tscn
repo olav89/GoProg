@@ -31,63 +31,21 @@ texture = ExtResource( 2 )
 expand = true
 stretch_mode = 0
 
-[node name="CodeBtn" type="GridContainer" parent="Panel"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 803.0
-margin/top = 40.0
-margin/right = 991.0
-margin/bottom = 498.0
-columns = 1
-
 [node name="btnEnter" type="Button" parent="Panel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 871.0
-margin/top = 527.0
-margin/right = 921.0
-margin/bottom = 557.0
+margin/left = 925.0
+margin/top = 546.0
+margin/right = 975.0
+margin/bottom = 576.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Build"
+text = "Exit"
 flat = false
-
-[node name="CodeSelected" type="Label" parent="Panel"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 71.0
-margin/top = 52.0
-margin/right = 453.0
-margin/bottom = 507.0
-custom_colors/font_color = Color( 0.437742, 0.882812, 0.0689697, 1 )
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="NumLines" type="Label" parent="Panel/CodeSelected"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -26.0
-margin/top = 0.0
-margin/right = 27.0
-margin/bottom = 507.0
-custom_colors/font_color = Color( 0.125, 0.120605, 0.120605, 1 )
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="btnClear" type="Button" parent="Panel"]
 
@@ -95,18 +53,88 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 941.0
-margin/top = 527.0
-margin/right = 991.0
-margin/bottom = 557.0
+margin/left = 484.0
+margin/top = 520.0
+margin/right = 534.0
+margin/bottom = 550.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Clear"
 flat = false
 
+[node name="Editor" type="TextEdit" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 45.0
+margin/top = 32.0
+margin/right = 476.0
+margin/bottom = 514.0
+syntax_highlighting = true
+show_line_numbers = true
+highlight_all_occurrences = false
+caret/block_caret = true
+caret/caret_blink = true
+caret/caret_blink_speed = 0.65
+
+[node name="Label" type="Label" parent="Panel"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 510.0
+margin/top = 46.0
+margin/right = 976.0
+margin/bottom = 393.0
+text = "move_crate_X(Y) where X = left/right/forward/backward and Y is an integer
+invert_gravity_room()
+invert_gravity_player()"
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="btnBuild" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 482.0
+margin/top = 483.0
+margin/right = 538.0
+margin/bottom = 507.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Build"
+flat = false
+
+[node name="Debug" type="TextEdit" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 45.0
+margin/top = 519.0
+margin/right = 476.0
+margin/bottom = 580.0
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
 [connection signal="pressed" from="Panel/btnEnter" to="." method="_on_btnEnter_pressed"]
 
 [connection signal="pressed" from="Panel/btnClear" to="." method="_on_btnClear_pressed"]
+
+[connection signal="pressed" from="Panel/btnBuild" to="." method="_on_btnBuild_pressed"]
 
 
