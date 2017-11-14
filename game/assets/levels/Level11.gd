@@ -2,6 +2,9 @@
 extends "res://assets/levels_assets/defaultenvironment.gd"
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	get_node("defaultenviroment/Player")._set_is_in_menu(true)
+	
 	# setup variables
 	PATH_PAD = "Crate/VictoryPad"
 	PATHS_AND_CODES_PC = [

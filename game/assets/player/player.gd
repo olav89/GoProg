@@ -14,6 +14,7 @@ const PATH_SAMPLE_PLAYER = "SamplePlayer"
 const PATH_CAMERA = "Camera"
 const PATH_AREA = "Camera/Area"
 const PATH_JOURNAL = "Journal"
+const PATH_TUTORIAL = "Level11"
 
 # Node references
 var level = null
@@ -165,6 +166,8 @@ func _input(event):
 				get_node(PATH_INGAME_MENU)._hide()
 				get_node(PATH_HELP_MENU)._hide()
 				get_node(PATH_SETTINGS_MENU)._hide()
+				if(level.get_name() == PATH_TUTORIAL):
+					get_parent().get_parent().get_node("TutorialStartScreen")._hide()
 		else: # Ingame controls
 			# Journal
 			if Input.is_action_pressed("journal"):
@@ -209,6 +212,9 @@ func is_player(body):
 	if self.get_instance_ID() == body.get_instance_ID():
 		return true
 	return false
+	
+func _set_is_in_menu(set):
+	is_in_menu = set
 
 # Collision in front of player
 func _on_Area_body_enter( body ):
