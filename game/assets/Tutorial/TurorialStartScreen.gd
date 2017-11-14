@@ -9,6 +9,7 @@ func _ready():
 
 func _hide():
 	hide()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _show():
 	show()

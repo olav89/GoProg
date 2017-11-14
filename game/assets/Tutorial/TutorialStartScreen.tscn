@@ -34,10 +34,25 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 52.0
-margin/top = 69.0
-margin/right = 92.0
-margin/bottom = 83.0
+margin/left = 8.0
+margin/top = 7.0
+margin/right = 336.0
+margin/bottom = 259.0
+text = "Welcome to GOPROG tutorial. 
+
+You can Move your character using the WASD 
+buttons, and look around using the mouse. 
+
+Jump - Space
+Interact with object  - E
+View Journal - J
+Execute Code - F 
+Menu - Esc
+
+These controls can be reviewed in the Help Screen 
+
+Try out the basic controls and walk over to the 
+Computer and turn it on. "
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -48,13 +63,14 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 33.0
-margin/top = 268.0
-margin/right = 83.0
-margin/bottom = 288.0
+margin/left = 143.0
+margin/top = 289.0
+margin/right = 193.0
+margin/bottom = 309.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
+text = "OK"
 flat = false
 
 [connection signal="pressed" from="Panel/btn_to_game" to="." method="_on_btn_to_game_pressed"]
