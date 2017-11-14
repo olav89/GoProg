@@ -76,9 +76,9 @@ margin/bottom = 514.0
 syntax_highlighting = true
 show_line_numbers = true
 highlight_all_occurrences = false
-caret/block_caret = true
+caret/block_caret = false
 caret/caret_blink = true
-caret/caret_blink_speed = 0.65
+caret/caret_blink_speed = 1.0
 
 [node name="Label" type="Label" parent="Panel"]
 

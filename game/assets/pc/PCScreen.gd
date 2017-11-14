@@ -15,7 +15,8 @@ func setup(player):
 	player_node = player
 
 func _ready():
-	pass
+	get_node(PATH_EDITOR).set_wrap(true)
+	get_node(PATH_DEBUG).set_readonly(true)
 
 func get_editor_text():
 	var res = []

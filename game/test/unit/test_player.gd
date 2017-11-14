@@ -7,7 +7,7 @@ func setup():
 	gut.p("ran setup", 2)
 	get_tree().get_root().add_child(level)
 	player = level.get_node(level.PATH_PLAYER)
-	player.setup(level)
+	player.setup(level, "Testing")
 	get_node("/root/logger").set_print(false)
 	
 func teardown():
