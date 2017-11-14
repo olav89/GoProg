@@ -80,24 +80,6 @@ caret/block_caret = false
 caret/caret_blink = true
 caret/caret_blink_speed = 1.0
 
-[node name="Label" type="Label" parent="Panel"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 510.0
-margin/top = 46.0
-margin/right = 976.0
-margin/bottom = 393.0
-text = "move_crate_X(Y) where X = left/right/forward/backward and Y is an integer
-invert_gravity_room()
-invert_gravity_player()"
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
 [node name="btnBuild" type="Button" parent="Panel"]
 
 focus/ignore_mouse = false
@@ -130,6 +112,34 @@ highlight_all_occurrences = false
 caret/block_caret = false
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
+
+[node name="btnHelpGroup" type="GridContainer" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 518.0
+margin/top = 22.0
+margin/right = 989.0
+margin/bottom = 444.0
+columns = 4
+
+[node name="AcceptDialog" type="AcceptDialog" parent="Panel"]
+
+visibility/visible = false
+rect/scale = Vector2( 0.9, 0.9 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 386.0
+margin/top = 246.0
+margin/right = 543.0
+margin/bottom = 304.0
+popup/exclusive = false
+window/title = "Information"
+dialog/hide_on_ok = true
 
 [connection signal="pressed" from="Panel/btnEnter" to="." method="_on_btnEnter_pressed"]
 

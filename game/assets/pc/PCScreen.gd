@@ -8,8 +8,25 @@ extends Control
 const PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
 const PATH_EDITOR = "Panel/Editor"
 const PATH_DEBUG = "Panel/Debug"
+const PATH_HELP_GROUP = "Panel/btnHelpGroup"
+const PATH_CONFIRM_DIALOG = "Panel/AcceptDialog"
 
 var player_node = null
+
+var help_buttons = [
+	["Inverting Gravity", 
+	"""
+	To invert gravity use the following functions:
+	invert_gravity_room(), invert_gravity_player()
+	"""],
+	["Moving Cube",
+	"""
+	To move the cube use either of the functions:
+	move_cube_left(d), move_cube_right(d),
+	move_cube_forward(d), move_cube_backward(d)
+	where d is the distance you want to move it.
+	"""]
+	]
 
 func setup(player):
 	player_node = player
@@ -17,6 +34,16 @@ func setup(player):
 func _ready():
 	get_node(PATH_EDITOR).set_wrap(true)
 	get_node(PATH_DEBUG).set_readonly(true)
+	
+	for help in help_buttons:
+		var b = Button.new()
+		b.set_text(help[0])
+		b.connect("pressed", self, "popup_help", [b, help[1]])
+		get_node(PATH_HELP_GROUP).add_child(b)
+
+func popup_help(b, text):
+	get_node(PATH_CONFIRM_DIALOG).set_text(text)
+	get_node(PATH_CONFIRM_DIALOG).show()
 
 func get_editor_text():
 	var res = []
