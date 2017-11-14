@@ -165,7 +165,7 @@ func _input(event):
 				get_node(PATH_INGAME_MENU)._hide()
 				get_node(PATH_HELP_MENU)._hide()
 				get_node(PATH_SETTINGS_MENU)._hide()
-		else: # Ingame controls
+		elif not is_in_pc_screen: # Ingame controls
 			# Journal
 			if Input.is_action_pressed("journal"):
 				if journal.is_hidden():

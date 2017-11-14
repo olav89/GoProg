@@ -13,33 +13,19 @@ const PATH_CONFIRM_DIALOG = "Panel/AcceptDialog"
 
 var player_node = null
 
-var help_buttons = [
-	["Inverting Gravity", 
-	"""
-	To invert gravity use the following functions:
-	invert_gravity_room(), invert_gravity_player()
-	"""],
-	["Moving Cube",
-	"""
-	To move the cube use either of the functions:
-	move_cube_left(d), move_cube_right(d),
-	move_cube_forward(d), move_cube_backward(d)
-	where d is the distance you want to move it.
-	"""]
-	]
+var focus_timer
 
-func setup(player):
+func setup(player, help_buttons):
 	player_node = player
-
-func _ready():
-	get_node(PATH_EDITOR).set_wrap(true)
-	get_node(PATH_DEBUG).set_readonly(true)
-	
 	for help in help_buttons:
 		var b = Button.new()
 		b.set_text(help[0])
 		b.connect("pressed", self, "popup_help", [b, help[1]])
 		get_node(PATH_HELP_GROUP).add_child(b)
+
+func _ready():
+	get_node(PATH_EDITOR).set_wrap(true)
+	get_node(PATH_DEBUG).set_readonly(true)
 
 func popup_help(b, text):
 	get_node(PATH_CONFIRM_DIALOG).set_text(text)
@@ -61,6 +47,16 @@ func _show():
 	show() 
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_node("/root/logger").log_debug("PC Screen active")
+	if focus_timer == null:
+		focus_timer = Timer.new()
+		focus_timer.connect("timeout",self,"editor_grab_focus")
+		focus_timer.set_one_shot(true)
+		add_child(focus_timer)
+	focus_timer.set_wait_time(0.5)
+	focus_timer.start()
+
+func editor_grab_focus():
+	get_node(PATH_EDITOR).grab_focus()
 
 func _hide():
 	hide()
@@ -80,6 +76,7 @@ func _on_btnEnter_pressed():
 func _on_btnClear_pressed():
 	get_node(PATH_EDITOR).set_text("")
 	get_node("/root/logger").log_debug("PC Screen clear")
+	editor_grab_focus()
 
 
 func _on_btnBuild_pressed():

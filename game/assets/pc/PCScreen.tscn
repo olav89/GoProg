@@ -33,6 +33,7 @@ stretch_mode = 0
 
 [node name="btnEnter" type="Button" parent="Panel"]
 
+hint/tooltip = "Exits the computer."
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -49,14 +50,15 @@ flat = false
 
 [node name="btnClear" type="Button" parent="Panel"]
 
+hint/tooltip = "Clears all the code from the editor."
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 484.0
-margin/top = 520.0
-margin/right = 534.0
-margin/bottom = 550.0
+margin/left = 482.0
+margin/top = 491.0
+margin/right = 538.0
+margin/bottom = 515.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -65,14 +67,16 @@ flat = false
 
 [node name="Editor" type="TextEdit" parent="Panel"]
 
+rect/scale = Vector2( 0.9, 0.9 )
+hint/tooltip = "Editor"
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 45.0
 margin/top = 32.0
-margin/right = 476.0
-margin/bottom = 514.0
+margin/right = 523.0
+margin/bottom = 566.0
 syntax_highlighting = true
 show_line_numbers = true
 highlight_all_occurrences = false
@@ -82,14 +86,15 @@ caret/caret_blink_speed = 1.0
 
 [node name="btnBuild" type="Button" parent="Panel"]
 
+hint/tooltip = "Build allows you to check your code for errors."
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 482.0
-margin/top = 483.0
+margin/top = 457.0
 margin/right = 538.0
-margin/bottom = 507.0
+margin/bottom = 481.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -98,14 +103,16 @@ flat = false
 
 [node name="Debug" type="TextEdit" parent="Panel"]
 
+rect/scale = Vector2( 0.9, 0.9 )
+hint/tooltip = "Debug-information"
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 45.0
-margin/top = 519.0
-margin/right = 476.0
-margin/bottom = 580.0
+margin/top = 518.0
+margin/right = 523.0
+margin/bottom = 585.0
 syntax_highlighting = false
 show_line_numbers = false
 highlight_all_occurrences = false

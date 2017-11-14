@@ -12,6 +12,7 @@ var eval_node
 var is_level_won = false
 
 var pc_node = null
+var help_buttons
 
 var gravity_direction_room = -1
 var gravity_direction_room_old = 0
@@ -30,8 +31,9 @@ func _ready():
 
 func run_setup():
 	get_node(PATH_PLAYER).setup(get_node("."), journal_text)
+	set_help_buttons()
 	for pc in PATHS_PC:
-		get_node(pc).get_screen().setup(get_node(PATH_PLAYER))
+		get_node(pc).get_screen().setup(get_node(PATH_PLAYER), help_buttons)
 
 func _fixed_process(delta):
 	set_gravity()
@@ -129,7 +131,7 @@ func add_path_and_yield(line, error_check = false):
 	elif ((line.find("move_crate_left(") > -1) or ( 
 		line.find("move_crate_right(") > -1) or ( 
 		line.find("move_crate_forward(") > -1) or ( 
-		line.find("move_crate_forward(") > -1)) and line.find(")") > -1:
+		line.find("move_crate_backward(") > -1)) and line.find(")") > -1:
 		res += parser_space + line.replace("move_crate", "%s.move_crate" % parent) + "\n"
 		res += parser_space + tab + "yield(get_node(%s + %s.PATH_CRATE), \"finished\" ) \n" % [path, parent]
 	elif line.find("var") > -1:
@@ -201,31 +203,50 @@ func run_script(input):
 # Signal emits are handled above
 #
 
+func set_help_buttons():
+	help_buttons = [
+		["Changing Gravity", 
+		"""
+		Gravity Functions:
+		invert_gravity_room()
+		invert_gravity_player()
+		"""],
+		["Moving Crate",
+		"""
+		Movement Functions:
+		move_crate_left(d)
+		move_crate_right(d)
+		move_crate_forward(d)
+		move_crate_backward(d)
+		d = distance to move
+		"""]
+		]
+
 func invert_gravity_player():
 	gravity_direction_player *= -1
 
 func invert_gravity_room():
 	gravity_direction_room *= -1
 
-func move_crate_left(dist=0):
+func move_crate_left(dist=1):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
 		get_node(PATH_CRATE).set_target(Vector3(0,0,dist))
 
-func move_crate_right(dist=0):
+func move_crate_right(dist=1):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
 		get_node(PATH_CRATE).set_target(Vector3(0,0,-dist))
 
-func move_crate_forward(dist=0):
+func move_crate_forward(dist=1):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
 		get_node(PATH_CRATE).set_target(Vector3(-dist,0,0))
 
-func move_crate_backward(dist=0):
+func move_crate_backward(dist=1):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
