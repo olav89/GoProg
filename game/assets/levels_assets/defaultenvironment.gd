@@ -115,7 +115,7 @@ func execute_code():
 # Calls to the function will happen in this script file
 func add_path_and_yield(line, error_check = false):
 	var res = ""
-	var tab = ""
+	var tab = " " # start with 1 space to avoid errors with parser
 	while line[0] == "\t" or line[0] == " ":
 		# TODO:
 		# Fix bug happening with 1 addition and following code:
@@ -129,11 +129,10 @@ func add_path_and_yield(line, error_check = false):
 		# With double addition of line[0] the bug is bypassed
 		tab += line[0] + line[0]
 		line = line.substr(1, line.length())
-
 	# inverting gravity
 	if line.find("invert_gravity_room()") > -1 or line.find("invert_gravity_player()") > -1:
 		res += tab + "get_parent()." + line + "\n"
-		res += tab + "yield(get_node(\"../\"), \"gravity_finished\") \n"
+		res += tab + "yield(get_parent(), \"gravity_finished\") \n"
 	# moving crate (SINGLE CRATE)
 	elif ((line.find("move_crate_left(") > -1) or ( 
 		line.find("move_crate_right(") > -1) or ( 
