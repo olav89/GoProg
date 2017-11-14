@@ -258,12 +258,26 @@ func _on_Area_area_exit( area ):
 
 #saves name of solved lvl to file 
 func saveGame():
-	var savegame = File.new()
-	savegame.open("user://savegame.save",File.WRITE)
-	var currlvl= get_parent().get_parent().get_name().substr(5,1)
+	var saved = false
 	var savestr = level.get_name() + "\n"
-	savegame.store_line(savestr)
+	var savegame = File.new()
+	if(!savegame.file_exists("user://savegame.save")):
+		get_node("/root/logger").log_error("No savegame file")
+		return null
+	var currline={}
+	savegame.open("user://savegame.save",File.READ)
+	currline = savegame.get_line()
+	while(!savegame.eof_reached()):
+		var lvlhelp = currline
+		if(currline == level.get_name()):
+			saved = true
+		savestr += lvlhelp
+		currline = savegame.get_line()
 	savegame.close()
+	if(!saved):
+		savegame.open("user://savegame.save",File.WRITE)
+		savegame.store_line(savestr)
+		savegame.close()
 	get_node("/root/logger").log_info("Game Saved")
 
 func _getLvlName():
