@@ -108,6 +108,7 @@ func execute_code():
 	var eval_str = ""
 	for line in eval_array:
 		eval_str += add_path_and_yield(line) # adds paths and yields to lines of code as needed
+	eval_str = make_function(eval_str)
 	run_script(eval_str)
 
 # Simple parse from player input to runnable code
@@ -146,6 +147,10 @@ func add_path_and_yield(line, error_check = false):
 		res += parser_space + line + "\n"
 	elif line.find("else") > -1:
 		res += parser_space + line + "\n"
+	elif line.find("func") > -1:
+		res += parser_space + line + "\n"
+	elif line.find("return") > -1:
+		res += parser_space + line + "\n"
 	else:
 		res += parser_space + line + "\n"
 		if error_check:
@@ -154,11 +159,37 @@ func add_path_and_yield(line, error_check = false):
 		return true
 	return res
 
+# Makes functions outside of the main script function eval()
+func make_function(input):
+	var eval = "func eval(): \n"
+	var functions = ""
+	var i = 0
+	var input_array = input.split("\n", false) # dont allow empty
+	
+	var func_indent = -1
+	var line
+	while i < input_array.size():
+		line = input_array[i]
+		if line.find("func") > -1:
+			func_indent = leading_spaces(line).length()
+			functions +=  line.substr(1, line.length()) + " \n" # remove parser space
+			i +=1
+		elif func_indent > 0 and func_indent < leading_spaces(line).length():
+			functions +=  line.substr(1, line.length()) + " \n"
+			i +=1
+		else:
+			eval += "\t" + line + "\n"
+			i += 1
+			func_indent = -1
+	var res = eval + " \n" + functions
+	#res = res.replace("\t", "    ")
+	return res
+
 # Get the leading spaces and tabs
 func leading_spaces(line):
 	var spaces = ""
 	var i = 0
-	while line[i] == " " or line[i] == "\t":
+	while line.length() > 0 and i < line.length() and line[i] == " " or line[i] == "\t":
 		spaces += line[i]
 		i += 1
 	return spaces
@@ -189,7 +220,7 @@ func fix_code():
 func run_script(input):
 	get_node("/root/logger").log_info("Player Code:\n" + input)
 	var script = GDScript.new()
-	script.set_source_code("func eval(): " + input)
+	script.set_source_code(input)
 	script.reload() # reload for changes to source code to take effect
 	
 	if eval_node == null: # initialization of node
