@@ -38,6 +38,8 @@ func get_editor_text():
 		var line = get_node(PATH_EDITOR).get_line(i)
 		if line.length() > 0:
 			res.append(line)
+		else:
+			res.append("")
 	return res
 	
 func set_editor_debug_text(s):

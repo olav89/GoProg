@@ -135,22 +135,24 @@ func add_path_and_yield(line, error_check = false):
 		line.find("move_crate_backward(") > -1)) and line.find(")") > -1:
 		res += parser_space + line.replace("move_crate", "%s.move_crate" % parent) + "\n"
 		res += parser_space + tab + "yield(get_node(%s + %s.PATH_CRATE), \"finished\" ) \n" % [path, parent]
-	elif line.find("var") > -1:
+	elif line.find("var") > -1 and line.find("=") > -1:
 		res += parser_space + line + "\n"
-	elif line.find("for") > -1:
+	elif line.find("for") > -1 and line.find(":") > -1:
 		res += parser_space + line + "\n"
-	elif line.find("while") > -1:
+	elif line.find("while") > -1 and line.find(":") > -1:
 		res += parser_space + line + "\n"
-	elif line.find("if") > -1:
+	elif line.find("if") > -1 and line.find(":") > -1:
 		res += parser_space + line + "\n"
 	elif line.find("elif") > -1:
 		res += parser_space + line + "\n"
 	elif line.find("else") > -1:
 		res += parser_space + line + "\n"
-	elif line.find("func") > -1:
+	elif line.find("func") > -1 and line.find("(") > -1 and line.find("):") > -1:
 		res += parser_space + line + "\n"
 	elif line.find("return") > -1:
 		res += parser_space + line + "\n"
+	elif line == "":
+		pass
 	else:
 		res += parser_space + line + "\n"
 		if error_check:
@@ -189,7 +191,7 @@ func make_function(input):
 func leading_spaces(line):
 	var spaces = ""
 	var i = 0
-	while line.length() > 0 and i < line.length() and line[i] == " " or line[i] == "\t":
+	while (line != "" and i < line.length()) and (line[i] == " " or line[i] == "\t"):
 		spaces += line[i]
 		i += 1
 	return spaces
