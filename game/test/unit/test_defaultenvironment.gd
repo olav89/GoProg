@@ -27,28 +27,28 @@ func set_text(s):
 
 # Test that all crate functions are recognized
 func test_crate_functions_recognized():
-	assert_true(level.add_path_and_yield("move_crate_left()", true),
+	assert_true(level.match_code("move_crate_left()", true),
 	"move crate left")
-	assert_true(level.add_path_and_yield("move_crate_left(2)", true),
+	assert_true(level.match_code("move_crate_left(2)", true),
 	"move crate left 2")
-	assert_true(level.add_path_and_yield("move_crate_right()", true),
+	assert_true(level.match_code("move_crate_right()", true),
 	"move crate right")
-	assert_true(level.add_path_and_yield("move_crate_right(2)", true),
+	assert_true(level.match_code("move_crate_right(2)", true),
 	"move crate right 2")
-	assert_true(level.add_path_and_yield("move_crate_forward()", true),
+	assert_true(level.match_code("move_crate_forward()", true),
 	"move crate forward")
-	assert_true(level.add_path_and_yield("move_crate_forward(2)", true),
+	assert_true(level.match_code("move_crate_forward(2)", true),
 	"move crate forward 2")
-	assert_true(level.add_path_and_yield("move_crate_backward()", true),
+	assert_true(level.match_code("move_crate_backward()", true),
 	"move crate backward")
-	assert_true(level.add_path_and_yield("move_crate_backward(2)", true),
+	assert_true(level.match_code("move_crate_backward(2)", true),
 	"move crate backward 2")
 
 # Test that all gravity functions are recognized
 func test_gravity_functions_recognized():
-	assert_true(level.add_path_and_yield("invert_gravity_room()", true),
+	assert_true(level.match_code("invert_gravity_room()", true),
 	"invert gravity room")
-	assert_true(level.add_path_and_yield("invert_gravity_player()", true),
+	assert_true(level.match_code("invert_gravity_player()", true),
 	"invert gravity player")
 
 # Test that make_function separates code correctly

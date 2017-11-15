@@ -107,54 +107,51 @@ func execute_code():
 	var eval_array = pc_node.get_screen().get_editor_text() # collects editor text in an array
 	var eval_str = ""
 	for line in eval_array:
-		eval_str += add_path_and_yield(line) # adds paths and yields to lines of code as needed
+		eval_str += match_code(line) # matches code and modifies with paths and yields
 	eval_str = make_function(eval_str)
 	run_script(eval_str)
 
 # Simple parse from player input to runnable code
 # Functions that take time to complete are coupled with yields
 # Add known functions even if you make no changes so they are recognized
-func add_path_and_yield(line, error_check = false):
+func match_code(line, error_check = false):
 	var res = ""
 	var parent = "get_parent()"
 	var path = "\"../\""
-	
-	# The Godot parser gives errors if there is no space at the start
-	var parser_space = " "
 	
 	var tab = leading_spaces(line) # get the indentation
 	
 	# inverting gravity
 	if line.find("invert_gravity_room()") > -1 or line.find("invert_gravity_player()") > -1:
-		res += parser_space + line.replace("invert_gravity", "%s.invert_gravity" % parent) + "\n"
-		res += parser_space + tab + "yield(%s, \"gravity_finished\") \n" % parent
+		res += line.replace("invert_gravity", "%s.invert_gravity" % parent) + "\n"
+		res += tab + "yield(%s, \"gravity_finished\") \n" % parent
 	# moving crate (SINGLE CRATE)
 	elif ((line.find("move_crate_left(") > -1) or ( 
 		line.find("move_crate_right(") > -1) or ( 
 		line.find("move_crate_forward(") > -1) or ( 
 		line.find("move_crate_backward(") > -1)) and line.find(")") > -1:
-		res += parser_space + line.replace("move_crate", "%s.move_crate" % parent) + "\n"
-		res += parser_space + tab + "yield(get_node(%s + %s.PATH_CRATE), \"finished\" ) \n" % [path, parent]
+		res += line.replace("move_crate", "%s.move_crate" % parent) + "\n"
+		res += tab + "yield(get_node(%s + %s.PATH_CRATE), \"finished\" ) \n" % [path, parent]
 	elif line.find("var") > -1 and line.find("=") > -1:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 	elif line.find("for") > -1 and line.find(":") > -1:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 	elif line.find("while") > -1 and line.find(":") > -1:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 	elif line.find("if") > -1 and line.find(":") > -1:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 	elif line.find("elif") > -1:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 	elif line.find("else") > -1:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 	elif line.find("func") > -1 and line.find("(") > -1 and line.find("):") > -1:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 	elif line.find("return") > -1:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 	elif line == "":
 		pass
 	else:
-		res += parser_space + line + "\n"
+		res += line + "\n"
 		if error_check:
 			return false
 	if error_check:
@@ -174,17 +171,16 @@ func make_function(input):
 		line = input_array[i]
 		if line.find("func") > -1:
 			func_indent = leading_spaces(line).length()
-			functions +=  line.substr(1, line.length()) + " \n" # remove parser space
+			functions +=  line + "\n"
 			i +=1
-		elif func_indent > 0 and func_indent < leading_spaces(line).length():
-			functions +=  line.substr(1, line.length()) + " \n"
+		elif func_indent > -1 and func_indent < leading_spaces(line).length():
+			functions +=  line + "\n"
 			i +=1
 		else:
 			eval += "\t" + line + "\n"
 			i += 1
 			func_indent = -1
 	var res = eval + " \n" + functions
-	#res = res.replace("\t", "    ")
 	return res
 
 # Get the leading spaces and tabs
