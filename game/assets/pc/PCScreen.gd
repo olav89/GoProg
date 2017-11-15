@@ -41,7 +41,10 @@ func get_editor_text():
 		else:
 			res.append("")
 	return res
-	
+
+func set_editor_text(s):
+	get_node(PATH_EDITOR).set_text(s)
+
 func set_editor_debug_text(s):
 	get_node(PATH_DEBUG).set_text(s)
 
