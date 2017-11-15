@@ -30,29 +30,22 @@ stretch_mode = 0
 
 [node name="lbl_welcome text" type="Label" parent="Panel"]
 
+rect/scale = Vector2( 0.8, 0.8 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 8.0
-margin/top = 7.0
-margin/right = 336.0
-margin/bottom = 259.0
+margin/left = 41.0
+margin/top = 21.0
+margin/right = 369.0
+margin/bottom = 273.0
 text = "Welcome to GOPROG tutorial. 
 
 You can Move your character using the WASD 
 buttons, and look around using the mouse. 
+You can also jump by pressing the spacebar.
 
-Jump - Space
-Interact with object  - E
-View Journal - J
-Execute Code - F 
-Menu - Esc
-
-These controls can be reviewed in the Help Screen 
-
-Try out the basic controls and walk over to the 
-Computer and turn it on. "
+Try out this now. "
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -72,6 +65,126 @@ enabled_focus_mode = 2
 shortcut = null
 text = "OK"
 flat = false
+
+[node name="lblGoJournal" type="Label" parent="Panel"]
+
+visibility/visible = false
+rect/scale = Vector2( 0.8, 0.8 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 29.0
+margin/top = 62.0
+margin/right = 373.0
+margin/bottom = 110.0
+text = "Excelent! You now know the basics of moving around. 
+You may also access the journal wich describes your 
+objectives for each lvl by pressin  J  . Try it out now"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="lblGoPc" type="Label" parent="Panel"]
+
+visibility/visible = false
+rect/scale = Vector2( 0.8, 0.8 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 4.0
+margin/top = 55.0
+margin/right = 416.0
+margin/bottom = 103.0
+text = "Very good. Now walk over to the Computer and have a look at it. 
+You may access it by pressing the E button. 
+"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="lblInPc" type="Label" parent="Panel"]
+
+visibility/visible = false
+rect/scale = Vector2( 0.8, 0.8 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 16.0
+margin/top = 38.0
+margin/right = 395.0
+margin/bottom = 154.0
+text = "Ahh, I see you managed to access the pc, excelent.
+This is where you interact with the world around you. 
+Try out some stuff and press the build button in the corner.
+If you regret your choices press the clear button. 
+
+Upon pressing the build button you exit the computer 
+and can run any code you may have entered. "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="lblExCode" type="Label" parent="Panel"]
+
+visibility/visible = false
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 30.0
+margin/top = 64.0
+margin/right = 304.0
+margin/bottom = 112.0
+text = "Excelent, now execute your code by
+pressing F and see what happens, 
+remember you can execte is several times"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="lblFun" type="Label" parent="Panel"]
+
+visibility/visible = false
+rect/scale = Vector2( 0.8, 0.8 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 6.0
+margin/top = 55.0
+margin/right = 424.0
+margin/bottom = 154.0
+text = "Good, Now have fun. See if you can locate the Green Victory pad. 
+You might have to try some other code to find it. 
+When you do locate it, move over to it and press E to activate it. 
+
+If you want another look at the controls, press ESC to view 
+the menu, and locate them under HELP. "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="lblWon" type="Label" parent="Panel"]
+
+visibility/visible = false
+rect/scale = Vector2( 0.8, 0.8 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 45.0
+margin/top = 55.0
+margin/right = 341.0
+margin/bottom = 103.0
+text = "Congratulations, you Completed the tutorial.
+You can select new lvls from the menu or you 
+can try proceeding to the elevator."
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="pressed" from="Panel/btn_to_game" to="." method="_on_btn_to_game_pressed"]
 

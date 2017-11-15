@@ -212,7 +212,7 @@ func is_player(body):
 	if self.get_instance_ID() == body.get_instance_ID():
 		return true
 	return false
-	
+
 func _set_is_in_menu(set):
 	is_in_menu = set
 

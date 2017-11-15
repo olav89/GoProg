@@ -207,6 +207,7 @@ type_mask = 15
 
 [node name="Journal" type="TextureFrame" parent="."]
 
+editor/display_folded = true
 visibility/visible = false
 focus/ignore_mouse = true
 focus/stop_mouse = true
