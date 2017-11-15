@@ -156,9 +156,7 @@ func _input(event):
 		get_node(PATH_CAMERA).rotate_x(deg2rad(pitch))
 
 	if (event.type == InputEvent.MOUSE_BUTTON):
-		#get_node("../../AnimationCrate/AnimationPlayer").play("MoveX")
-		#get_node("../Door1/AnimationPlayer").play("Open Door")
-		print("Mouse click!")
+		pass
 	# Handles key events besides the player movement
 	if (event.type == InputEvent.KEY):
 		if is_in_menu: # Controls while in menu
@@ -166,9 +164,10 @@ func _input(event):
 				get_node(PATH_INGAME_MENU)._hide()
 				get_node(PATH_HELP_MENU)._hide()
 				get_node(PATH_SETTINGS_MENU)._hide()
+
 				if(level.get_name() == PATH_TUTORIAL):
 					get_parent().get_parent().get_node("TutorialStartScreen")._hide()
-		else: # Ingame controls
+		elif not is_in_pc_screen: # Ingame controls
 			# Journal
 			if Input.is_action_pressed("journal"):
 				if journal.is_hidden():
@@ -197,7 +196,7 @@ func _input(event):
 						obj.player_interact()
 			
 			# Code activation
-			if Input.is_action_pressed("activate_code") and activation_cd <= 0:
+			if not is_in_pc_screen and Input.is_action_pressed("activate_code") and activation_cd <= 0:
 				# Sends a notification to the scripts which are affected by an execute of selected code
 				get_tree().call_group(0, "execute_code_group", "execute_code")
 				get_node("/root/logger").log_debug("Executing code")

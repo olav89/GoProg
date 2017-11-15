@@ -2,11 +2,8 @@ extends "res://addons/gut/test.gd"
 
 var pc = load("res://assets/pc/pc.tscn").instance()
 
-var testcodes = ["code1", "code2"]
-
 func setup():
 	gut.p("ran setup", 2)
-	pc.get_node("PCScreen").create_codes(testcodes)
 
 func teardown():
 	gut.p("ran teardown", 2)

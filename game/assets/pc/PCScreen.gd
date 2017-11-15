@@ -6,68 +6,62 @@
 extends Control
 
 const PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
-const PATH_SELECTION_LABEL = "Panel/CodeSelected"
-const PATH_SELECTION_LINE_NUM = "Panel/CodeSelected/NumLines"
-const TERMINAL = ""
-
-var selection = [] # contains code user has selected
-var output_current = TERMINAL
-var output_target = TERMINAL
+const PATH_EDITOR = "Panel/Editor"
+const PATH_DEBUG = "Panel/Debug"
+const PATH_HELP_GROUP = "Panel/btnHelpGroup"
+const PATH_CONFIRM_DIALOG = "Panel/AcceptDialog"
 
 var player_node = null
 
-func setup(player):
+var focus_timer
+
+func setup(player, help_buttons):
 	player_node = player
+	for help in help_buttons:
+		var b = Button.new()
+		b.set_text(help[0])
+		b.connect("pressed", self, "popup_help", [b, help[1]])
+		get_node(PATH_HELP_GROUP).add_child(b)
 
 func _ready():
-	set_process(true)
-	var s = ""
-	for i in range(1, 30):
-		if i < 10:
-			s += "0" + str(i) + "|\n"
+	get_node(PATH_EDITOR).set_wrap(true)
+	get_node(PATH_DEBUG).set_readonly(true)
+
+func popup_help(b, text):
+	get_node(PATH_CONFIRM_DIALOG).set_text(text)
+	get_node(PATH_CONFIRM_DIALOG).show()
+
+func get_editor_text():
+	var res = []
+	var count = get_node(PATH_EDITOR).get_line_count()
+	for i in range(count):
+		var line = get_node(PATH_EDITOR).get_line(i)
+		if line.length() > 0:
+			res.append(line)
 		else:
-			s += str(i) + "|\n"
-	get_node(PATH_SELECTION_LINE_NUM).set_text(s)
+			res.append("")
+	return res
 
-func _process(delta):
-	if output_current.length() != output_target.length():
-		output_current = output_target.substr(0, output_current.length() + 1)
-		get_node(PATH_SELECTION_LABEL).set_text(output_current)
+func set_editor_text(s):
+	get_node(PATH_EDITOR).set_text(s)
 
-# Initializer function called by the Level-script
-# Input: code_array
-# Output: Creates buttons for each element in the input array
-func create_codes(code_array):
-	var box = get_node(PATH_BUTTON_CONTAINER) 
-	for code in code_array:
-		var b = Button.new()
-		b.set_text(code)
-		#b.set_theme(load("res://assets/theme/theme_btn_menu.tres"))
-		box.add_child(b)
-		b.connect("pressed", self, "button_pressed", [b])
-
-# Event for pressed buttons
-# Output: Adds code to selection and displays it to the user
-func button_pressed(pressed):
-	var selected = pressed.get_text()
-	get_node("/root/logger").log_info("Player selected: " + selected)
-	# checks if code has already been selected
-	#for s in selection:
-	#	if s == selected:
-	#		return
-	if player_node != null:
-		player_node.sample_player.play_sample_typing() # notify player node to play typing sound
-	else:
-		get_node("/root/logger").log_error("player_node undefined in PCScreen.gd")
-	# if the code has not yet been selected add it and build output
-	selection.append(selected)
-	output_target += selected + "\n"
-	
+func set_editor_debug_text(s):
+	get_node(PATH_DEBUG).set_text(s)
 
 func _show():
 	show() 
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_node("/root/logger").log_debug("PC Screen active")
+	if focus_timer == null:
+		focus_timer = Timer.new()
+		focus_timer.connect("timeout",self,"editor_grab_focus")
+		focus_timer.set_one_shot(true)
+		add_child(focus_timer)
+	focus_timer.set_wait_time(0.5)
+	focus_timer.start()
+
+func editor_grab_focus():
+	get_node(PATH_EDITOR).grab_focus()
 
 func _hide():
 	hide()
@@ -85,8 +79,10 @@ func _on_btnEnter_pressed():
 
 # Event for the Clear button
 func _on_btnClear_pressed():
-	selection = [] # clear selection
-	output_current = TERMINAL
-	output_target = TERMINAL
-	get_node(PATH_SELECTION_LABEL).set_text(output_current)
+	get_node(PATH_EDITOR).set_text("")
 	get_node("/root/logger").log_debug("PC Screen clear")
+	editor_grab_focus()
+
+
+func _on_btnBuild_pressed():
+	get_tree().call_group(0, "execute_code_group", "fix_code")
