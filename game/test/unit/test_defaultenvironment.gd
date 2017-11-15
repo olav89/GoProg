@@ -25,6 +25,44 @@ func postrun_teardown():
 func set_text(s):
 	pc.get_screen().set_editor_text(s)
 
+# Extracting function names from code array
+func test_make_func_names():
+	var code = ["func testA():", "print(\"this is not a function\")",
+		"func wrong", "func testingB():"]
+	level.make_func_names(code)
+	var expected = ["testA", "testingB"]
+	assert_eq(level.func_names, expected, "test_make_func_names")
+
+# Test that make_function separates code correctly
+func test_make_simple_function():
+	var input = """
+	func test():
+		print(2)
+	test()"""
+	
+	# Expected behavior is to make two functions test() and eval()
+	# eval() contains all code that is not inside the test() function
+	
+	var eval_str = level.make_function(input)
+	assert_true(eval_str.match("*func eval():*test()*func test():*print(2)*"),
+	"test_make_simple_function")
+
+# Test that common code is recognized
+func test_match_misc_identifiers():
+	assert_true(level.match_code("var a = 2", true), "var")
+	assert_true(level.match_code("for i in range(20):", true), "for")
+	assert_true(level.match_code("while a < 2:", true), "while")
+	assert_true(level.match_code("if a != b:", true), "if")
+	assert_true(level.match_code("elif a == b:", true), "elif")
+	assert_true(level.match_code("else:", true), "else")
+	assert_true(level.match_code("func test():", true), "func")
+
+func test_leading_spaces():
+	assert_eq(level.leading_spaces("  twospaces"), "  ", "two spaces")
+	assert_eq(level.leading_spaces("\ttest"), "\t", "one tab")
+	assert_eq(level.leading_spaces("\t  test"), "\t  ", "one tab two spaces")
+	assert_eq(level.leading_spaces("  \ttest"), "  \t", "two spaces one tab")
+
 # Test that all crate functions are recognized
 func test_crate_functions_recognized():
 	assert_true(level.match_code("move_crate_left()", true),
@@ -51,12 +89,3 @@ func test_gravity_functions_recognized():
 	assert_true(level.match_code("invert_gravity_player()", true),
 	"invert gravity player")
 
-# Test that make_function separates code correctly
-func test_make_simple_function():
-	var input = """
-	func test():
-		print(2)
-	test()"""
-	
-	var eval_str = level.make_function(input)
-	assert_true(eval_str.match("*func eval():*test()*func test():*print(2)*"))

@@ -8,6 +8,7 @@ var PATHS_PC
 var PATH_CRATE
 
 var eval_node
+var func_names = []
 
 var is_level_won = false
 
@@ -106,10 +107,20 @@ func execute_code():
 		return
 	var eval_array = pc_node.get_screen().get_editor_text() # collects editor text in an array
 	var eval_str = ""
+	make_func_names(eval_array)
 	for line in eval_array:
 		eval_str += match_code(line) # matches code and modifies with paths and yields
 	eval_str = make_function(eval_str)
 	run_script(eval_str)
+
+# Extract function names for checking function calls
+func make_func_names(eval_array):
+	func_names = []
+	for s in eval_array:
+		if s.match("*func*(*):*"):
+			var start = s.find("func") + 5
+			var end = s.find("(") - 1
+			func_names.append(s.substr(start, end-start + 1))
 
 # Simple parse from player input to runnable code
 # Functions that take time to complete are coupled with yields
@@ -122,32 +133,43 @@ func match_code(line, error_check = false):
 	var tab = leading_spaces(line) # get the indentation
 	
 	# inverting gravity
-	if line.find("invert_gravity_room()") > -1 or line.find("invert_gravity_player()") > -1:
+	if line.match("*invert_gravity_room()*") or (
+	line.match("*invert_gravity_player()*")):
 		res += line.replace("invert_gravity", "%s.invert_gravity" % parent) + "\n"
 		res += tab + "yield(%s, \"gravity_finished\") \n" % parent
 	# moving crate (SINGLE CRATE)
-	elif ((line.find("move_crate_left(") > -1) or ( 
-		line.find("move_crate_right(") > -1) or ( 
-		line.find("move_crate_forward(") > -1) or ( 
-		line.find("move_crate_backward(") > -1)) and line.find(")") > -1:
+	elif line.match("*move_crate_left(*)*") or ( 
+		line.match("*move_crate_right(*)*")) or ( 
+		line.match("*move_crate_forward(*)*")) or ( 
+		line.match("*move_crate_backward(*)*")):
 		res += line.replace("move_crate", "%s.move_crate" % parent) + "\n"
 		res += tab + "yield(get_node(%s + %s.PATH_CRATE), \"finished\" ) \n" % [path, parent]
-	elif line.find("var") > -1 and line.find("=") > -1:
+	elif line.match("*var*=*"):
 		res += line + "\n"
-	elif line.find("for") > -1 and line.find(":") > -1:
+	elif line.match("*for*:*"):
 		res += line + "\n"
-	elif line.find("while") > -1 and line.find(":") > -1:
+	elif line.match("*while*:*"):
 		res += line + "\n"
-	elif line.find("if") > -1 and line.find(":") > -1:
+	elif line.match("*if*:*"):
 		res += line + "\n"
-	elif line.find("elif") > -1:
+	elif line.match("*elif*:*"):
 		res += line + "\n"
-	elif line.find("else") > -1:
+	elif line.match("*else*:*"):
 		res += line + "\n"
-	elif line.find("func") > -1 and line.find("(") > -1 and line.find("):") > -1:
+	elif line.match("*func*():*"):
 		res += line + "\n"
-	elif line.find("return") > -1:
+	elif line.match("*return*:*"):
 		res += line + "\n"
+	elif line.match("*(*)*"): # function call
+		var found = false
+		for f in func_names:
+			if line.match("*%s(*)*" % f):
+				res += line + "\n"
+				found = true
+		if !found:
+			res += line + "\n"
+			if error_check:
+				return false
 	elif line == "":
 		pass
 	else:
@@ -202,10 +224,12 @@ func fix_code():
 		return
 	var eval_array = pc_node.get_screen().get_editor_text()
 	var eval_str = "Unrecognized code on line(s) "
+	
 	var count = 1
 	var errors = 0
+	make_func_names(eval_array)
 	for line in eval_array:
-		if !add_path_and_yield(line, true):
+		if !match_code(line, true):
 			eval_str += str(count) + ", "
 			errors += 1
 		count += 1
