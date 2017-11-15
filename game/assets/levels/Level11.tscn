@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://assets/levels/Level11.gd" type="Script" id=1]
+[ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/Tutorial/TutorialStartScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/objects/victory_pad.tscn" type="PackedScene" id=5]
+
+[node name="Level11" type="Spatial"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+script/script = ExtResource( 1 )
+
+[node name="defaultenviroment" parent="." instance=ExtResource( 2 )]
+
+[node name="TutorialStartScreen" parent="." instance=ExtResource( 3 )]
+
+[node name="Crate" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45416, 0 )
+
+[node name="VictoryPad" parent="Crate" instance=ExtResource( 5 )]
+
+transform/local = Transform( 0.786898, 0, 0, 0, 0.00192413, -0.786896, 0, 0.786896, 0.00192413, 0, -0.975158, 0 )
+
+
