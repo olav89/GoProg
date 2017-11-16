@@ -64,6 +64,7 @@ func editor_grab_focus():
 	get_node(PATH_EDITOR).grab_focus()
 
 func _hide():
+	get_node(PATH_CONFIRM_DIALOG).hide()
 	hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_node("/root/logger").log_debug("PC Screen inactive")
