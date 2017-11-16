@@ -1,4 +1,4 @@
-#extends Spatial
+
 extends "res://assets/levels_assets/defaultenvironment.gd"
 
 var movedw = false
@@ -16,53 +16,27 @@ var tcheck5 = false
 var tcheck6 = false
 
 func _ready():
-	set_process_input(true)
+	#set_process_input(true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_node("defaultenviroment/Player")._set_is_in_menu(true)
 	
 	# setup variables
 	PATH_PAD = "Crate/VictoryPad"
-	PATHS_AND_CODES_PC = [
-	[DEFAULT + "PC",DEFAULT + "PC/PCScreen",
-	["player.invert_gravity()",
-	"room.invert_gravity()",
-	"crate.move_left()",
-	"crate.move_right()",
-	"crate.move_forward()",
-	"crate.move_backward()"]]
-	]
-	journal_text = "- Find the green button and press it.\n"
-	journal_text += "- Interact with the PC by pressing E.\n"
+	PATH_CRATE = "Crate"
+	PATHS_PC = [DEFAULT + "PC"]
 	
 	# setup scripts
 	run_setup()
+
+	journal_text = "- Find the green button and press it.\n"
+	journal_text += "- Interact with the PC by pressing E.\n"
+	
 
 func _input(event):
 	if (event.type == InputEvent.MOUSE_MOTION):
 		looked = true
 
 func _process(delta):
-	if is_queued:
-		var codes = PATHS_AND_CODES_PC[selection_pc][CODES]
-		if selection_pc == 0 and queue_pos < selection.size():
-			var code = selection[queue_pos]
-			# gravity
-			if code == codes[0]:
-				gravity_direction_player *= -1
-			elif code == codes[1]:
-				gravity_direction_room *= -1
-			# moving crate
-			var move_dist = 4
-			if code == codes[2]: # left
-				get_node("Crate").set_target(Vector3(0,0,move_dist))
-			elif code == codes[3]: # right
-				get_node("Crate").set_target(Vector3(0,0,-move_dist))
-			elif code == codes[4]: # forward
-				get_node("Crate").set_target(Vector3(-move_dist,0,0))
-			elif code == codes[5]: # backward
-				get_node("Crate").set_target(Vector3(move_dist,0,0))
-			is_queued = false
-	
 	if Input.is_action_pressed("player_forward"):
 		movedw = true
 	if Input.is_action_pressed("player_backward"):
