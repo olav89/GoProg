@@ -16,7 +16,8 @@ var tcheck5 = false
 var tcheck6 = false
 
 func _ready():
-	#set_process_input(true)
+	set_process_input(true)
+	set_process(true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_node("defaultenviroment/Player")._set_is_in_menu(true)
 	
@@ -84,6 +85,3 @@ func _process(delta):
 		get_node("TutorialStartScreen")._show()
 		get_node("TutorialStartScreen/Panel/lblFun").hide()
 		get_node("TutorialStartScreen/Panel/lblWon").show()
-		
-		
-	
