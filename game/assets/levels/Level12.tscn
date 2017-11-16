@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/levels/Level12.gd" type="Script" id=1]
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/objects/tv.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/tv/tv.tscn" type="PackedScene" id=3]
 
 [node name="Level12" type="Spatial"]
 
@@ -13,6 +13,6 @@ script/script = ExtResource( 1 )
 
 [node name="Tv" parent="defaultenviroment" instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32167, 0 )
+transform/local = Transform( 2.55695e-07, -1.04424e-06, 6.59888, -0.0590166, 6.59862, 1.04649e-06, -6.59861, -0.0590167, 2.46346e-07, -15.532, 3.34982, -3.18668 )
 
 
