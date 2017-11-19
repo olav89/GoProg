@@ -14,7 +14,14 @@ var tcheck3 = false
 var tcheck4 = false
 var tcheck5 = false
 var tcheck6 = false
+var jcheck = false
+var jcheck2 = false
 
+func set_jcheck(set):
+	jcheck = set
+func set_jcheck2(set):
+	jcheck2 = set
+	
 func _ready():
 	set_process_input(true)
 	set_process(true)
@@ -38,24 +45,24 @@ func _input(event):
 		looked = true
 
 func _process(delta):
-	if Input.is_action_pressed("player_forward"):
+	if Input.is_action_pressed("player_forward")and jcheck2:
 		movedw = true
-	if Input.is_action_pressed("player_backward"):
+	if Input.is_action_pressed("player_backward")and jcheck2:
 		moveds = true
-	if Input.is_action_pressed("player_right"):
+	if Input.is_action_pressed("player_right")and jcheck2:
 		movedd = true
-	if Input.is_action_pressed("player_left"):
+	if Input.is_action_pressed("player_left")and jcheck2:
 		moveda = true
-	if Input.is_action_pressed("player_jump"):
+	if Input.is_action_pressed("player_jump")and jcheck2:
 		jumped = true
 	
-	if(movedw and moveds and moveda and movedd and looked and jumped and not tcheck1):
+	if(movedw and moveds and moveda and jcheck2 and movedd and looked and jumped and not tcheck1):
 		tcheck1 = true
 		get_node("TutorialStartScreen")._show()
 		get_node("TutorialStartScreen/Panel/lbl_welcome text").hide()
 		get_node("TutorialStartScreen/Panel/lblGoJournal").show()
-	
-	if tcheck1 and Input.is_action_pressed("journal") and not tcheck2 and tcheck1:
+			
+	if tcheck1 and Input.is_action_pressed("journal") and jcheck and not tcheck2 and tcheck1:
 		pressj = true
 		tcheck2 = true
 		get_node("TutorialStartScreen")._show()

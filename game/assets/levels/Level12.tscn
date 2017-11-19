@@ -13,6 +13,6 @@ script/script = ExtResource( 1 )
 
 [node name="Tv" parent="defaultenviroment" instance=ExtResource( 3 )]
 
-transform/local = Transform( 2.55695e-07, -1.04424e-06, 6.59888, -0.0590166, 6.59862, 1.04649e-06, -6.59861, -0.0590167, 2.46346e-07, -15.532, 3.34982, -3.18668 )
+transform/local = Transform( -8.74228e-07, 0, 6.59888, -3.16504e-06, 6.59888, -4.56472e-14, -20, -1.04429e-06, -2.88446e-07, -15.532, 3.34982, -3.18668 )
 
 
