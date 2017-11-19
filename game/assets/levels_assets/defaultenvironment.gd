@@ -151,13 +151,7 @@ func fix_code():
 func invert_gravity_player():
 	gravity_direction_player *= -1
 	for pc in PATHS_PC:
-		var screen = get_node(pc).get_screen()
-		if screen.get_pos() == Vector2(0,0):
-			screen.set_rotation(deg2rad(180))
-			screen.set_pos(Vector2(1024, 600))
-		else:
-			screen.set_rotation(deg2rad(0))
-			screen.set_pos(Vector2(0,0))
+		get_node(pc).get_screen()._invert()
 
 func invert_gravity_room():
 	gravity_direction_room *= -1

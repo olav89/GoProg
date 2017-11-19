@@ -32,7 +32,7 @@ var custom_functions = [
 	]
 ]
 
-# Append possible help buttons so you dont destroy other levels
+# Append help buttons
 var all_help_buttons = [
 	["Gravity",
 	"""

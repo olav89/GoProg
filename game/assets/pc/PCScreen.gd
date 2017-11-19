@@ -29,6 +29,14 @@ func _ready():
 	get_node(PATH_EDITOR).set_wrap(true)
 	get_node(PATH_DEBUG).set_readonly(true)
 
+func _invert():
+	if get_pos() == Vector2(0,0):
+		set_rotation(deg2rad(180))
+		set_pos(Vector2(1024, 600))
+	else:
+		set_rotation(deg2rad(0))
+		set_pos(Vector2(0,0))
+
 func help_pressed(b, text):
 	get_node(PATH_HELP_LABEL).set_text(text)
 
