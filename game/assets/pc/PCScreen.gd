@@ -9,7 +9,7 @@ const PATH_BUTTON_CONTAINER = "Panel/CodeBtn"
 const PATH_EDITOR = "Panel/Editor"
 const PATH_DEBUG = "Panel/Debug"
 const PATH_HELP_GROUP = "Panel/btnHelpGroup"
-const PATH_CONFIRM_DIALOG = "Panel/AcceptDialog"
+const PATH_HELP_LABEL = "Panel/lblHelp"
 
 var player_node = null
 
@@ -20,7 +20,7 @@ func setup(player, help_buttons):
 	for help in help_buttons:
 		var b = Button.new()
 		b.set_text(help[0])
-		b.connect("pressed", self, "popup_help", [b, help[1]])
+		b.connect("pressed", self, "help_pressed", [b, help[1]])
 		get_node(PATH_HELP_GROUP).add_child(b)
 	get_node("Panel/Control/Viewport/Camera").set_translation(get_node("../../PC").get_translation())
 	get_node("Panel/Control/Viewport/Camera").translate(Vector3(0,2,0))
@@ -28,9 +28,8 @@ func _ready():
 	get_node(PATH_EDITOR).set_wrap(true)
 	get_node(PATH_DEBUG).set_readonly(true)
 
-func popup_help(b, text):
-	get_node(PATH_CONFIRM_DIALOG).set_text(text)
-	get_node(PATH_CONFIRM_DIALOG).show()
+func help_pressed(b, text):
+	get_node(PATH_HELP_LABEL).set_text(text)
 
 func get_editor_text():
 	var res = []
@@ -65,7 +64,6 @@ func editor_grab_focus():
 	get_node(PATH_EDITOR).grab_focus()
 
 func _hide():
-	get_node(PATH_CONFIRM_DIALOG).hide()
 	hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_node("/root/logger").log_debug("PC Screen inactive")
