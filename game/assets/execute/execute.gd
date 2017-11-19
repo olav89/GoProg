@@ -1,7 +1,8 @@
 extends Node
 
-var func_names
+var activation_cd = 0
 
+var func_names
 var parent = "get_parent()" # get parent node
 var path = "\"../\"" # path to parent
 const MATCH_NAME = 0
@@ -11,9 +12,12 @@ const MATCH_YIELD = 2
 #
 #	All custom functions go here
 #
-#	First array is what must match for it to be the custom function
-#	Second array is what is replaced in the line to call the function
-#	Third array is a single yield codeline
+#	First array: all matches for a function
+#	http://docs.godotengine.org/en/stable/classes/class_string.html#class-string-match
+#
+#	Second array: what to replace if a match is found
+#
+#	Third array: the yield call required
 var custom_functions = [
 	[
 	["*invert_gravity_room()*","*invert_gravity_player()*"],
@@ -28,8 +32,39 @@ var custom_functions = [
 	]
 ]
 
+# Append possible help buttons so you dont destroy other levels
+var all_help_buttons = [
+	["Gravity",
+	"""
+	Gravity Functions:
+	invert_gravity_room()
+	invert_gravity_player()
+	"""],
+	["Moving Crate",
+	"""
+	Movement Functions:
+	move_crate_left(d)
+	move_crate_right(d)
+	move_crate_forward(d)
+	move_crate_backward(d)
+	d = distance to move
+	"""]
+	]
+
+func get_help_buttons():
+	return all_help_buttons
+
 func _ready():
-	pass
+	set_process(true)
+
+func _process(delta):
+	if activation_cd > 0:
+		activation_cd -= delta
+
+func execute_code():
+	if activation_cd <= 0:
+		get_tree().call_group(0, "execute_code_group", "execute_code")
+		activation_cd = 1.5
 
 func make_executable(eval_array):
 	var eval_str = ""

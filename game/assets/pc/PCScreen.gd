@@ -24,6 +24,7 @@ func setup(player, help_buttons):
 		get_node(PATH_HELP_GROUP).add_child(b)
 	get_node("Panel/Control/Viewport/Camera").set_translation(get_node("../../PC").get_translation())
 	get_node("Panel/Control/Viewport/Camera").translate(Vector3(0,2,0))
+
 func _ready():
 	get_node(PATH_EDITOR).set_wrap(true)
 	get_node(PATH_DEBUG).set_readonly(true)
@@ -89,4 +90,4 @@ func _on_btnBuild_pressed():
 
 
 func _on_btnExecute_pressed():
-	player_node.activate_code()
+	get_node("/root/execute").execute_code()

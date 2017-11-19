@@ -23,25 +23,6 @@ var gravity_direction_player_old = 0
 var gravity_timer
 signal gravity_finished
 
-# Append possible help buttons so you dont destroy other levels
-var possible_buttons = [
-	["Gravity",
-	"""
-	Gravity Functions:
-	invert_gravity_room()
-	invert_gravity_player()
-	"""],
-	["Moving Crate",
-	"""
-	Movement Functions:
-	move_crate_left(d)
-	move_crate_right(d)
-	move_crate_forward(d)
-	move_crate_backward(d)
-	d = distance to move
-	"""]
-	]
-
 func _ready():
 	# adds to group so it gets notified when player wants to execute code
 	add_to_group("execute_code_group")
@@ -56,10 +37,11 @@ func run_setup():
 		get_node(pc).get_screen().setup(get_node(PATH_PLAYER), help_buttons)
 
 func set_help_buttons():
+	var all_buttons = get_node("/root/execute").get_help_buttons()
 	help_buttons = []
-	for i in range(possible_buttons.size()):
+	for i in range(all_buttons.size()):
 		if help_button_selection == null or help_button_selection.find(i) > -1:
-			help_buttons.append(possible_buttons[i])
+			help_buttons.append(all_buttons[i])
 
 func _fixed_process(delta):
 	set_gravity()
@@ -168,6 +150,14 @@ func fix_code():
 
 func invert_gravity_player():
 	gravity_direction_player *= -1
+	for pc in PATHS_PC:
+		var screen = get_node(pc).get_screen()
+		if screen.get_pos() == Vector2(0,0):
+			screen.set_rotation(deg2rad(180))
+			screen.set_pos(Vector2(1024, 600))
+		else:
+			screen.set_rotation(deg2rad(0))
+			screen.set_pos(Vector2(0,0))
 
 func invert_gravity_room():
 	gravity_direction_room *= -1
