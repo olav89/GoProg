@@ -197,14 +197,17 @@ func _input(event):
 			
 			# Code activation
 			if not is_in_pc_screen and Input.is_action_pressed("activate_code") and activation_cd <= 0:
-				# Sends a notification to the scripts which are affected by an execute of selected code
-				get_tree().call_group(0, "execute_code_group", "execute_code")
-				activation_cd = 1.5
+				activate_code()
 			
 			# Open menu
 			if Input.is_action_pressed("ingame_menu") and not is_in_pc_screen:
 				get_node(PATH_INGAME_MENU)._show()
 				is_in_menu = true
+
+func activate_code():
+	# Sends a notification to the scripts which are affected by an execute of selected code
+	get_tree().call_group(0, "execute_code_group", "execute_code")
+	activation_cd = 1.5
 
 func is_player(body):
 	if self.get_instance_ID() == body.get_instance_ID():

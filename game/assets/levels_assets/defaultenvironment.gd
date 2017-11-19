@@ -230,7 +230,7 @@ func fix_code():
 	if pc_node == null:
 		return
 	var eval_array = pc_node.get_screen().get_editor_text()
-	var eval_str = "Unrecognized code on line(s) "
+	var eval_str = "Unrecognized code on line(s) \n"
 	
 	var count = 1
 	var errors = 0
@@ -279,7 +279,12 @@ func set_help_buttons():
 		move_crate_forward(d)
 		move_crate_backward(d)
 		d = distance to move
-		"""]
+		"""],
+		["Testing Width", ""],
+		["Testing Width", ""],
+		["Testing Width", ""],
+		["Testing Width", ""],
+		["Testing Width", ""]
 		]
 
 func invert_gravity_player():
