@@ -108,10 +108,17 @@ func execute_code():
 	var eval_array = pc_node.get_screen().get_editor_text() # collects editor text in an array
 	var eval_str = ""
 	make_func_names(eval_array)
+	var non_empty_lines = 0
 	for line in eval_array:
+		if line != "":
+			non_empty_lines += 1
 		eval_str += match_code(line) # matches code and modifies with paths and yields
 	eval_str = make_function(eval_str)
-	run_script(eval_str)
+	if non_empty_lines > 0:
+		get_node("/root/logger").log_debug("Executing code")
+		run_script(eval_str)
+	else:
+		get_node("/root/logger").log_warning("Tried to execute empty code")
 
 # Extract function names for checking function calls
 func make_func_names(eval_array):

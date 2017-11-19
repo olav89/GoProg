@@ -199,7 +199,6 @@ func _input(event):
 			if not is_in_pc_screen and Input.is_action_pressed("activate_code") and activation_cd <= 0:
 				# Sends a notification to the scripts which are affected by an execute of selected code
 				get_tree().call_group(0, "execute_code_group", "execute_code")
-				get_node("/root/logger").log_debug("Executing code")
 				activation_cd = 1.5
 			
 			# Open menu
