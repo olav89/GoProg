@@ -14,6 +14,7 @@ var is_level_won = false
 
 var pc_node = null
 var help_buttons
+var help_button_selection
 
 var gravity_direction_room = -1
 var gravity_direction_room_old = 0
@@ -264,28 +265,33 @@ func run_script(input):
 #
 
 func set_help_buttons():
-	help_buttons = [
-		["Changing Gravity", 
-		"""
-		Gravity Functions:
-		invert_gravity_room()
-		invert_gravity_player()
-		"""],
-		["Moving Crate",
-		"""
-		Movement Functions:
-		move_crate_left(d)
-		move_crate_right(d)
-		move_crate_forward(d)
-		move_crate_backward(d)
-		d = distance to move
-		"""],
-		["Testing Width", ""],
-		["Testing Width", ""],
-		["Testing Width", ""],
-		["Testing Width", ""],
-		["Testing Width", ""]
-		]
+	var possible_buttons = [
+	["Changing Gravity",
+	"""
+	Gravity Functions:
+	invert_gravity_room()
+	invert_gravity_player()
+	"""],
+	["Moving Crate",
+	"""
+	Movement Functions:
+	move_crate_left(d)
+	move_crate_right(d)
+	move_crate_forward(d)
+	move_crate_backward(d)
+	d = distance to move
+	"""],
+	["Testing Width", ""],
+	["Testing Width", ""],
+	["Testing Width", ""],
+	["Testing Width", ""],
+	["Testing Width", ""]
+	]
+	
+	help_buttons = []
+	for i in range(possible_buttons.size()):
+		if help_button_selection == null or help_button_selection.find(i) > -1:
+			help_buttons.append(possible_buttons[i])
 
 func invert_gravity_player():
 	gravity_direction_player *= -1
