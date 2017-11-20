@@ -34,7 +34,6 @@ var pc_is_interactable = false
 var pc_node = null # the active pc node 
 var pc_near_node = null # the nearest pc node
 var pc_near_node_col = 0 # counts collisions with pc components
-var activation_cd = 0 # cooldown to activate code
 
 # Collisions
 var touchable_objects = []
@@ -69,8 +68,6 @@ func _ready():
 func _process(delta):
 	if jump_cd > 0:
 		jump_cd -= delta
-	if activation_cd > 0:
-		activation_cd -= delta
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		is_in_menu = false
 		is_in_pc_screen = false
@@ -196,11 +193,8 @@ func _input(event):
 						obj.player_interact()
 			
 			# Code activation
-			if not is_in_pc_screen and Input.is_action_pressed("activate_code") and activation_cd <= 0:
-				# Sends a notification to the scripts which are affected by an execute of selected code
-				get_tree().call_group(0, "execute_code_group", "execute_code")
-				get_node("/root/logger").log_debug("Executing code")
-				activation_cd = 1.5
+			if not is_in_pc_screen and Input.is_action_pressed("activate_code"):
+				get_node("/root/execute").execute_code()
 			
 			# Open menu
 			if Input.is_action_pressed("ingame_menu") and not is_in_pc_screen:

@@ -38,14 +38,14 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 925.0
-margin/top = 546.0
-margin/right = 975.0
-margin/bottom = 576.0
+margin/left = 942.0
+margin/top = 553.0
+margin/right = 992.0
+margin/bottom = 583.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Exit"
+text = "Back"
 flat = false
 
 [node name="btnClear" type="Button" parent="Panel"]
@@ -55,10 +55,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 482.0
-margin/top = 491.0
-margin/right = 538.0
-margin/bottom = 515.0
+margin/left = 412.0
+margin/top = 535.0
+margin/right = 468.0
+margin/bottom = 559.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -74,9 +74,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 45.0
-margin/top = 32.0
+margin/top = 29.0
 margin/right = 523.0
-margin/bottom = 566.0
+margin/bottom = 528.0
 syntax_highlighting = true
 show_line_numbers = true
 highlight_all_occurrences = false
@@ -91,14 +91,31 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 482.0
-margin/top = 457.0
-margin/right = 538.0
-margin/bottom = 481.0
+margin/left = 48.0
+margin/top = 537.0
+margin/right = 104.0
+margin/bottom = 561.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Build"
+flat = false
+
+[node name="btnExecute" type="Button" parent="Panel"]
+
+hint/tooltip = "Build allows you to check your code for errors."
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 124.0
+margin/top = 537.0
+margin/right = 186.0
+margin/bottom = 561.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Execute"
 flat = false
 
 [node name="Debug" type="TextEdit" parent="Panel"]
@@ -110,9 +127,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 45.0
-margin/top = 518.0
+margin/top = 485.0
 margin/right = 523.0
-margin/bottom = 585.0
+margin/bottom = 534.0
 syntax_highlighting = false
 show_line_numbers = false
 highlight_all_occurrences = false
@@ -122,36 +139,87 @@ caret/caret_blink_speed = 0.65
 
 [node name="btnHelpGroup" type="GridContainer" parent="Panel"]
 
+rect/scale = Vector2( 0.9, 0.9 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 518.0
-margin/top = 22.0
-margin/right = 989.0
-margin/bottom = 444.0
-columns = 4
+margin/left = 499.0
+margin/top = 207.0
+margin/right = 1059.0
+margin/bottom = 551.0
+columns = 5
 
-[node name="AcceptDialog" type="AcceptDialog" parent="Panel"]
+[node name="Control" type="Control" parent="Panel"]
 
-visibility/visible = false
-rect/scale = Vector2( 0.9, 0.9 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 386.0
-margin/top = 246.0
-margin/right = 543.0
-margin/bottom = 304.0
-popup/exclusive = false
-window/title = "Information"
-dialog/hide_on_ok = true
+margin/left = 826.0
+margin/top = 6.0
+margin/right = 1021.0
+margin/bottom = 164.0
+
+[node name="Viewport" type="Viewport" parent="Panel/Control"]
+
+rect = Rect2( 0, 0, 1024, 600 )
+own_world = false
+world = null
+transparent_bg = false
+render_target/enabled = true
+render_target/v_flip = false
+render_target/clear_on_new_frame = true
+render_target/filter = false
+render_target/gen_mipmaps = false
+render_target/update_mode = 2
+audio_listener/enable_2d = false
+audio_listener/enable_3d = false
+physics/object_picking = false
+gui/disable_input = false
+
+[node name="Camera" type="Camera" parent="Panel/Control/Viewport"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( -2.8213e-07, 0, 1, 0, 1, 0, -1, 0, -2.8213e-07, 0, 0, 0 )
+projection = 0
+fov = 60.0
+near = 0.1
+far = 100.0
+keep_aspect = 1
+current = true
+visible_layers = 1
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+
+[node name="ViewportSprite" type="ViewportSprite" parent="Panel/Control"]
+
+transform/pos = Vector2( 57.6428, 85.6347 )
+transform/scale = Vector2( 0.239243, 0.254919 )
+viewport = NodePath("../Viewport")
+
+[node name="lblHelp" type="Label" parent="Panel"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 499.0
+margin/top = 29.0
+margin/right = 740.0
+margin/bottom = 170.0
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="pressed" from="Panel/btnEnter" to="." method="_on_btnEnter_pressed"]
 
 [connection signal="pressed" from="Panel/btnClear" to="." method="_on_btnClear_pressed"]
 
 [connection signal="pressed" from="Panel/btnBuild" to="." method="_on_btnBuild_pressed"]
+
+[connection signal="pressed" from="Panel/btnExecute" to="." method="_on_btnExecute_pressed"]
 
 

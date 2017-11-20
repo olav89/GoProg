@@ -9,12 +9,12 @@ var PATH_CRATE
 var PATH_TV
 
 var eval_node
-var func_names = []
 
 var is_level_won = false
 
 var pc_node = null
 var help_buttons
+var help_button_selection
 
 var gravity_direction_room = -1
 var gravity_direction_room_old = 0
@@ -36,6 +36,13 @@ func run_setup():
 	set_help_buttons()
 	for pc in PATHS_PC:
 		get_node(pc).get_screen().setup(get_node(PATH_PLAYER), help_buttons)
+
+func set_help_buttons():
+	var all_buttons = get_node("/root/execute").get_help_buttons()
+	help_buttons = []
+	for i in range(all_buttons.size()):
+		if help_button_selection == null or help_button_selection.find(i) > -1:
+			help_buttons.append(all_buttons[i])
 
 func _fixed_process(delta):
 	set_gravity()
@@ -107,6 +114,7 @@ func execute_code():
 		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
 		return
 	var eval_array = pc_node.get_screen().get_editor_text() # collects editor text in an array
+<<<<<<< HEAD
 	var eval_str = ""
 	make_func_names(eval_array)
 	for line in eval_array:
@@ -242,6 +250,11 @@ func fix_code():
 	if errors == 0:
 		eval_str = "No errors found"
 	pc_node.get_screen().set_editor_debug_text(eval_str)
+=======
+	var executable_str = get_node("/root/execute").make_executable(eval_array)
+	get_node("/root/logger").log_debug("Executing code")
+	run_script(executable_str)
+>>>>>>> d3686275a29206fc91c10c47da52a36be358e0c0
 
 # sets the source code of the designated eval-node
 func run_script(input):
@@ -257,31 +270,27 @@ func run_script(input):
 	eval_node.eval()
 
 #
-# Place all methods called by the player here
-# Signal emits are handled above
+# Allows users to "Build" the code and see if there are any errors
+# Errors are unrecognized code, but it may still work.
 #
+func fix_code():
+	pc_node = get_node(PATH_PLAYER).pc_node # last visited PC
+	if pc_node == null:
+		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
+		return
+	var eval_array = pc_node.get_screen().get_editor_text()
+	var error_information = get_node("/root/execute").get_error_information(eval_array)
+	get_node("/root/logger").log_debug("Player built code: " + error_information)
+	pc_node.get_screen().set_editor_debug_text(error_information)
 
-func set_help_buttons():
-	help_buttons = [
-		["Changing Gravity", 
-		"""
-		Gravity Functions:
-		invert_gravity_room()
-		invert_gravity_player()
-		"""],
-		["Moving Crate",
-		"""
-		Movement Functions:
-		move_crate_left(d)
-		move_crate_right(d)
-		move_crate_forward(d)
-		move_crate_backward(d)
-		d = distance to move
-		"""]
-		]
+#
+# Place all methods called by the player here
+#
 
 func invert_gravity_player():
 	gravity_direction_player *= -1
+	for pc in PATHS_PC:
+		get_node(pc).get_screen()._invert()
 
 func invert_gravity_room():
 	gravity_direction_room *= -1
