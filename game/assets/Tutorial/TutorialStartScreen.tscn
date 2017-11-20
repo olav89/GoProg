@@ -118,7 +118,9 @@ margin/right = 395.0
 margin/bottom = 154.0
 text = "Ahh, I see you managed to access the pc, excelent.
 This is where you interact with the world around you. 
-Try out some stuff and press the build button in the corner.
+On the upper right side you can see wich functions are available to you,
+you may enter them alongside any other code on the left side
+
 If you regret your choices press the clear button. 
 
 Upon pressing the build button you exit the computer 

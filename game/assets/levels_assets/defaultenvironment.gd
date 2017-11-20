@@ -6,6 +6,7 @@ var journal_text
 var PATH_PAD
 var PATHS_PC
 var PATH_CRATE
+var PATH_TV
 
 var eval_node
 var func_names = []
@@ -144,6 +145,10 @@ func match_code(line, error_check = false):
 		line.match("*move_crate_backward(*)*")):
 		res += line.replace("move_crate", "%s.move_crate" % parent) + "\n"
 		res += tab + "yield(get_node(%s + %s.PATH_CRATE), \"finished\" ) \n" % [path, parent]
+	elif line.match("*set_a(*)*") or (
+		line.match("*set_b(*)*")):
+			res += line.replace("set_", "%s.set_a" % parent) + "\n"
+			res += tab + "yield(get_node(%s + %s.PATH_TV), \"finished\") \n" % [path, parent]
 	elif line.match("*var*=*"):
 		res += line + "\n"
 	elif line.match("*for*:*"):
@@ -304,3 +309,9 @@ func move_crate_backward(dist=1):
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
 		get_node(PATH_CRATE).set_target(Vector3(dist,0,0))
+
+func set_a():
+	if PATH_TV == null:
+		get_node("/root/logger").log_warning("Attempted to use TV when not defined in defaultenvironment.gd")
+	else:
+		print(get_node(PATH_TV))
