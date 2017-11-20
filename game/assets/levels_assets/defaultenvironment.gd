@@ -8,7 +8,6 @@ var PATHS_PC
 var PATH_CRATE
 
 var eval_node
-var func_names = []
 
 var is_level_won = false
 
@@ -36,6 +35,13 @@ func run_setup():
 	set_help_buttons()
 	for pc in PATHS_PC:
 		get_node(pc).get_screen().setup(get_node(PATH_PLAYER), help_buttons)
+
+func set_help_buttons():
+	var all_buttons = get_node("/root/execute").get_help_buttons()
+	help_buttons = []
+	for i in range(all_buttons.size()):
+		if help_button_selection == null or help_button_selection.find(i) > -1:
+			help_buttons.append(all_buttons[i])
 
 func _fixed_process(delta):
 	set_gravity()
@@ -107,144 +113,9 @@ func execute_code():
 		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
 		return
 	var eval_array = pc_node.get_screen().get_editor_text() # collects editor text in an array
-	var eval_str = ""
-	make_func_names(eval_array)
-	var non_empty_lines = 0
-	for line in eval_array:
-		if line != "":
-			non_empty_lines += 1
-		eval_str += match_code(line) # matches code and modifies with paths and yields
-	eval_str = make_function(eval_str)
-	if non_empty_lines > 0:
-		get_node("/root/logger").log_debug("Executing code")
-		run_script(eval_str)
-	else:
-		get_node("/root/logger").log_warning("Tried to execute empty code")
-
-# Extract function names for checking function calls
-func make_func_names(eval_array):
-	func_names = []
-	for s in eval_array:
-		if s.match("*func*(*):*"):
-			var start = s.find("func") + 5
-			var end = s.find("(") - 1
-			func_names.append(s.substr(start, end-start + 1))
-
-# Simple parse from player input to runnable code
-# Functions that take time to complete are coupled with yields
-# Add known functions even if you make no changes so they are recognized
-func match_code(line, error_check = false):
-	var res = ""
-	var parent = "get_parent()"
-	var path = "\"../\""
-	
-	var tab = leading_spaces(line) # get the indentation
-	
-	# inverting gravity
-	if line.match("*invert_gravity_room()*") or (
-	line.match("*invert_gravity_player()*")):
-		res += line.replace("invert_gravity", "%s.invert_gravity" % parent) + "\n"
-		res += tab + "yield(%s, \"gravity_finished\") \n" % parent
-	# moving crate (SINGLE CRATE)
-	elif line.match("*move_crate_left(*)*") or ( 
-		line.match("*move_crate_right(*)*")) or ( 
-		line.match("*move_crate_forward(*)*")) or ( 
-		line.match("*move_crate_backward(*)*")):
-		res += line.replace("move_crate", "%s.move_crate" % parent) + "\n"
-		res += tab + "yield(get_node(%s + %s.PATH_CRATE), \"finished\" ) \n" % [path, parent]
-	elif line.match("*var*=*"):
-		res += line + "\n"
-	elif line.match("*for*:*"):
-		res += line + "\n"
-	elif line.match("*while*:*"):
-		res += line + "\n"
-	elif line.match("*if*:*"):
-		res += line + "\n"
-	elif line.match("*elif*:*"):
-		res += line + "\n"
-	elif line.match("*else*:*"):
-		res += line + "\n"
-	elif line.match("*func*():*"):
-		res += line + "\n"
-	elif line.match("*return*:*"):
-		res += line + "\n"
-	elif line.match("*(*)*"): # function call
-		var found = false
-		for f in func_names:
-			if line.match("*%s(*)*" % f):
-				res += line + "\n"
-				found = true
-		if !found:
-			res += line + "\n"
-			if error_check:
-				return false
-	elif line == "":
-		pass
-	else:
-		res += line + "\n"
-		if error_check:
-			return false
-	if error_check:
-		return true
-	return res
-
-# Makes functions outside of the main script function eval()
-func make_function(input):
-	var eval = "func eval(): \n"
-	var functions = ""
-	var i = 0
-	var input_array = input.split("\n", false) # dont allow empty
-	
-	var func_indent = -1
-	var line
-	while i < input_array.size():
-		line = input_array[i]
-		if line.find("func") > -1:
-			func_indent = leading_spaces(line).length()
-			functions +=  line + "\n"
-			i +=1
-		elif func_indent > -1 and func_indent < leading_spaces(line).length():
-			functions +=  line + "\n"
-			i +=1
-		else:
-			eval += "\t" + line + "\n"
-			i += 1
-			func_indent = -1
-	var res = eval + " \n" + functions
-	return res
-
-# Get the leading spaces and tabs
-func leading_spaces(line):
-	var spaces = ""
-	var i = 0
-	while (line != "" and i < line.length()) and (line[i] == " " or line[i] == "\t"):
-		spaces += line[i]
-		i += 1
-	return spaces
-
-#
-# Allows users to "Build" the code and see if there are any errors
-# Errors are unrecognized code, but it may still work.
-#
-func fix_code():
-	pc_node = get_node(PATH_PLAYER).pc_node # last visited PC
-	if pc_node == null:
-		return
-	var eval_array = pc_node.get_screen().get_editor_text()
-	var eval_str = "Unrecognized code on line(s) \n"
-	
-	var count = 1
-	var errors = 0
-	make_func_names(eval_array)
-	for line in eval_array:
-		if !match_code(line, true):
-			eval_str += str(count) + ", "
-			errors += 1
-		count += 1
-	eval_str = eval_str.substr(0, eval_str.length() - 2)
-	if errors == 0:
-		eval_str = "No errors found"
-	pc_node.get_screen().set_editor_debug_text(eval_str)
+	var executable_str = get_node("/root/execute").make_executable(eval_array)
+	get_node("/root/logger").log_debug("Executing code")
+	run_script(executable_str)
 
 # sets the source code of the designated eval-node
 func run_script(input):
@@ -260,41 +131,27 @@ func run_script(input):
 	eval_node.eval()
 
 #
-# Place all methods called by the player here
-# Signal emits are handled above
+# Allows users to "Build" the code and see if there are any errors
+# Errors are unrecognized code, but it may still work.
 #
+func fix_code():
+	pc_node = get_node(PATH_PLAYER).pc_node # last visited PC
+	if pc_node == null:
+		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
+		return
+	var eval_array = pc_node.get_screen().get_editor_text()
+	var error_information = get_node("/root/execute").get_error_information(eval_array)
+	get_node("/root/logger").log_debug("Player built code: " + error_information)
+	pc_node.get_screen().set_editor_debug_text(error_information)
 
-func set_help_buttons():
-	var possible_buttons = [
-	["Changing Gravity",
-	"""
-	Gravity Functions:
-	invert_gravity_room()
-	invert_gravity_player()
-	"""],
-	["Moving Crate",
-	"""
-	Movement Functions:
-	move_crate_left(d)
-	move_crate_right(d)
-	move_crate_forward(d)
-	move_crate_backward(d)
-	d = distance to move
-	"""],
-	["Testing Width", ""],
-	["Testing Width", ""],
-	["Testing Width", ""],
-	["Testing Width", ""],
-	["Testing Width", ""]
-	]
-	
-	help_buttons = []
-	for i in range(possible_buttons.size()):
-		if help_button_selection == null or help_button_selection.find(i) > -1:
-			help_buttons.append(possible_buttons[i])
+#
+# Place all methods called by the player here
+#
 
 func invert_gravity_player():
 	gravity_direction_player *= -1
+	for pc in PATHS_PC:
+		get_node(pc).get_screen()._invert()
 
 func invert_gravity_room():
 	gravity_direction_room *= -1

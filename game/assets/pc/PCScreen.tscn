@@ -195,8 +195,8 @@ v_offset = 0.0
 
 [node name="ViewportSprite" type="ViewportSprite" parent="Panel/Control"]
 
-transform/pos = Vector2( 57.6428, 100.295 )
-transform/scale = Vector2( 0.239243, 0.303787 )
+transform/pos = Vector2( 57.6428, 85.6347 )
+transform/scale = Vector2( 0.239243, 0.254919 )
 viewport = NodePath("../Viewport")
 
 [node name="lblHelp" type="Label" parent="Panel"]
