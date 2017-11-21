@@ -19,17 +19,22 @@ const MATCH_YIELD = 2
 #
 #	Third array: the yield call required
 var custom_functions = [
-	[
+[
 	["*invert_gravity_room()*","*invert_gravity_player()*"],
 	["invert_gravity", "%s.invert_gravity" % parent],
-	["yield(%s, \"gravity_finished\") \n" % parent]
-	],
-	[
+	["yield(%s, \"gravity_finished\")" % parent]
+],
+[
 	["*move_crate_left(*)*","*move_crate_right(*)*",
 	"*move_crate_forward(*)*","*move_crate_backward(*)*"],
 	["move_crate", "%s.move_crate" % parent],
-	["yield(get_node(%s + %s.PATH_CRATE), \"finished\" ) \n" % [path, parent]]
-	]
+	["yield(get_node(%s + %s.PATH_CRATE), \"finished\" )" % [path, parent]]
+],
+[
+	["*set_a(*)*", "*set_b(*)*"],
+	["set_", "%s.set_" % parent],
+	["yield(get_node(%s + %s.PATH_TV), \"finished\")" % [path, parent]]
+]
 ]
 
 # Append help buttons
@@ -117,7 +122,7 @@ func match_custom_func(line, tab):
 		for str_match in custom_func[MATCH_NAME]:
 			if line.match(str_match):
 				str_append += line.replace(custom_func[MATCH_REPLACE][0], custom_func[MATCH_REPLACE][1]) + "\n"
-				str_append += tab + custom_func[MATCH_YIELD][0]
+				str_append += tab + custom_func[MATCH_YIELD][0] + "\n"
 	return str_append
 
 # Simple parse from player input to runnable code
