@@ -33,7 +33,7 @@ var custom_functions = [
 [
 	["*set_a(*)*", "*set_b(*)*"],
 	["set_", "%s.set_" % parent],
-	["yield(get_node(%s + %s.PATH_TV), \"finished\")" % [path, parent]]
+	[]
 ],
 [
 	["*fire_gun(*)*"],

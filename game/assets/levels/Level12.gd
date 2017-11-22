@@ -26,10 +26,11 @@ func set_text_tv(text):
 	
 func set_a(inntext):
 	var text = get_node("defaultenviroment/Tv/Viewport/TextureFrame/Label").get_text()
-	var help = " a= " + str(inntext)
+	var help = " a=" + str(inntext)
 	text = text.replace(" a= ", help)
 	set_text_tv(text)
 	inn_a = inntext
+	emit_signal("finished")
 	
 func set_b(inntext):
 	var text = get_node("defaultenviroment/Tv/Viewport/TextureFrame/Label").get_text()
@@ -37,8 +38,11 @@ func set_b(inntext):
 	text = text.replace(" b= ", help)
 	set_text_tv(text)
 	inn_b = inntext
+	emit_signal("finished")
 
 func _process(delta):
 	if (inn_a != null and inn_b != null):
-		if(inn_a + inn_b == 5):
+		var isfive = inn_a + inn_b
+		if(isfive == 5):
 			set_text_tv(get_node("defaultenviroment/Tv/Viewport/TextureFrame/Label").get_text() + " \n GREAT WORK! LVL WON!")
+			won()
