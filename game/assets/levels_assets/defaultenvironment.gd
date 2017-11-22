@@ -181,8 +181,15 @@ func move_crate_backward(dist=1):
 	else:
 		get_node(PATH_CRATE).set_target(Vector3(dist,0,0))
 
-func set_a():
+#Level 12 spesific fucntion
+func set_a(tall):
 	if PATH_TV == null:
 		get_node("/root/logger").log_warning("Attempted to use TV when not defined in defaultenvironment.gd")
 	else:
-		get_node(PATH_TV).set_a()
+		set_a(tall)
+#Level 12
+func set_b(tall):
+	if PATH_TV == null:
+		get_node("/root/logger").log_warning("Attempted to use TV when not defined in defaultenvironment.gd")
+	else:
+		set_b(tall)

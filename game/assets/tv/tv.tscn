@@ -65,7 +65,7 @@ script/script = ExtResource( 1 )
 
 [node name="Viewport" type="Viewport" parent="."]
 
-rect = Rect2( 0, 0, 200, 200 )
+rect = Rect2( 0, 0, 100, 100 )
 own_world = false
 world = null
 transparent_bg = false
@@ -116,12 +116,8 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 60.0
-margin/bottom = 60.0
-text = "a + b = 5
-a>0
-b>0
-"
+margin/right = 100.0
+margin/bottom = 100.0
 autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
