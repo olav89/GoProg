@@ -8,6 +8,12 @@ signal finished
 func _ready():
 	set_fixed_process(true)
 
+func is_crate(node):
+	var node_id = node.get_instance_ID()
+	if get_node(".").get_instance_ID() == node_id:
+		return true
+	return false
+
 func set_target(target):
 	cur_trans = Vector3(0,0,0)
 	target_trans = target

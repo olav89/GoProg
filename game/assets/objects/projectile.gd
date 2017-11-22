@@ -8,6 +8,5 @@ func _start(vel):
 	get_node("Timer").start()
 	set_linear_velocity(vel)
 
-
 func _on_Timer_timeout():
 	queue_free()
