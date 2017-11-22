@@ -34,6 +34,11 @@ var custom_functions = [
 	["*set_a(*)*", "*set_b(*)*"],
 	["set_", "%s.set_" % parent],
 	["yield(get_node(%s + %s.PATH_TV), \"finished\")" % [path, parent]]
+],
+[
+	["*fire_gun(*)*"],
+	["fire_", "%s.fire_" % parent],
+	[]
 ]
 ]
 
@@ -53,6 +58,12 @@ var all_help_buttons = [
 	move_crate_forward(d)
 	move_crate_backward(d)
 	d = distance to move
+	"""],
+	["Fire Gun",
+	"""
+	Fire the gun using:
+	fire_gun(i)
+	i = the number of bullets fired
 	"""]
 	]
 
@@ -122,7 +133,8 @@ func match_custom_func(line, tab):
 		for str_match in custom_func[MATCH_NAME]:
 			if line.match(str_match):
 				str_append += line.replace(custom_func[MATCH_REPLACE][0], custom_func[MATCH_REPLACE][1]) + "\n"
-				str_append += tab + custom_func[MATCH_YIELD][0] + "\n"
+				if custom_func[MATCH_YIELD].size() == 1:
+					str_append += tab + custom_func[MATCH_YIELD][0] + "\n"
 	return str_append
 
 # Simple parse from player input to runnable code
