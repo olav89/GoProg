@@ -78,6 +78,8 @@ func gravity_timer_finished():
 func won():
 	is_level_won = true
 	get_node(PATH_PLAYER).journal.change_journal("Level complete. Proceed to the elevator.")
+	get_node(PATH_PLAYER).get_node("SamplePlayer").play_sample_ding()
+	
 
 func is_won():
 	return is_level_won

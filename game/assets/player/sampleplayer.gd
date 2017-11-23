@@ -9,6 +9,9 @@ func play_sample_walking():
 func play_sample_typing():
 	play("typing")
 	
+func play_sample_ding():
+	play("ding")
+
 func disableSound():
 	AudioServer.set_fx_global_volume_scale(0)
 
