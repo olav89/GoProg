@@ -7,13 +7,9 @@
 extends KinematicBody
 
 # Paths
-const PATH_INGAME_MENU = "IngameMenu"
-const PATH_HELP_MENU = "HelpMenu"
-const PATH_SETTINGS_MENU = "Settings"
 const PATH_SAMPLE_PLAYER = "SamplePlayer"
 const PATH_CAMERA = "Camera"
 const PATH_AREA = "Camera/Area"
-const PATH_TUTORIAL = "Level11"
 
 # Node references
 var level = null
