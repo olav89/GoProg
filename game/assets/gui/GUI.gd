@@ -38,7 +38,6 @@ func _input(event):
 				node_menu._hide()
 				node_help._hide()
 				node_settings._hide()
-			# HIDE TUTORIAL LEVEL
 		else:
 			# Open menu
 			if Input.is_action_pressed("ingame_menu") and node_menu.is_hidden():
@@ -48,14 +47,15 @@ func set_journal_text(text):
 	node_journal.get_node("Text").set_bbcode("[u]" + text + "[/u]")
 
 func change_notification(notification, time):
-	node_notification.get_node("Label").set_text(notification)
 	if notification_timer == null:
 		notification_timer = node_notification.get_node("Timer")
 		notification_timer.connect("timeout",self,"notification_timeout")
 		notification_timer.set_one_shot(true)
-	notification_timer.set_wait_time(time)
-	notification_timer.start()
-	node_notification.show()
+	if notification_timer.get_time_left() < 0.1:
+		node_notification.get_node("Label").set_text(notification)
+		notification_timer.set_wait_time(time)
+		notification_timer.start()
+		node_notification.show()
 
 func notification_timeout():
 	node_notification.hide()

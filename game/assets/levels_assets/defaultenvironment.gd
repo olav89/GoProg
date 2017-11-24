@@ -150,7 +150,6 @@ func run_script(input):
 # Errors are unrecognized code, but it may still work.
 #
 func fix_code():
-	pc_node = get_node(PATH_PLAYER).pc_node # last visited PC
 	if pc_node == null:
 		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
 		return

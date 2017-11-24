@@ -178,7 +178,7 @@ func _on_Area_body_enter( body ):
 	elif gui == null:
 		get_node("/root/logger").log_error("gui undefined in player.gd")
 	elif level.is_pc(body) or body.has_method("player_interact"):
-		gui.change_notification("Press E to interact", 2)
+		gui.change_notification("Interact: E", 2)
 
 # Collision object no longer colliding
 func _on_Area_body_exit( body ):

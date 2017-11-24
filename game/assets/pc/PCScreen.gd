@@ -82,7 +82,7 @@ func _on_btnEnter_pressed():
 	get_node("/root/logger").log_debug("PC Screen code built")
 	_hide()
 	if gui != null:
-		gui.change_notification("Press F to activate your code", 5)
+		gui.change_notification("Activate Code: F", 5)
 	else:
 		get_node("/root/logger").log_error("gui undefined in PCScreen.gd")
 
