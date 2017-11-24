@@ -14,7 +14,7 @@ script/script = ExtResource( 1 )
 
 [node name="Crate" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0403, 1.46929, -2.06026 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50575, 1.46929, 13.4836 )
 
 [node name="Gun" type="Spatial" parent="."]
 

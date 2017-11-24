@@ -76,14 +76,15 @@ func gravity_timer_finished():
 
 # Call this when a level is completed
 func won():
-	is_level_won = true
-	get_node(PATH_PLAYER).journal.change_journal("Level complete. Proceed to the elevator.")
-	get_node(PATH_PLAYER).get_node("SamplePlayer").play_sample_ding()
-	if get_node(DEFAULT + "Door").has_method("open"):
-		get_node(DEFAULT + "Door").open()
-		get_node(DEFAULT + "Door1").open()
-	else:
-		get_node("/root/logger").log_error("Doors does not have method open")
+	if !is_level_won:
+		is_level_won = true
+		get_node(PATH_PLAYER).journal.change_journal("Level complete. Proceed to the elevator.")
+		
+		if get_node(DEFAULT + "Door").has_method("open"):
+			get_node(DEFAULT + "Door").open()
+			get_node(DEFAULT + "Door1").open()
+		else:
+			get_node("/root/logger").log_error("Doors does not have method open")
 
 
 func is_won():
