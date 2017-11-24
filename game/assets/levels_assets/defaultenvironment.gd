@@ -2,6 +2,7 @@ extends Spatial
 
 const DEFAULT = "defaultenviroment/"
 const PATH_PLAYER = DEFAULT + "Player"
+const PATH_GUI = DEFAULT + "GUI"
 var journal_text
 var PATH_PAD
 var PATHS_PC
@@ -32,10 +33,11 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func run_setup():
-	get_node(PATH_PLAYER).setup(get_node("."), journal_text)
+	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_GUI))
 	set_help_buttons()
 	for pc in PATHS_PC:
-		get_node(pc).get_screen().setup(get_node(PATH_PLAYER), help_buttons)
+		get_node(pc).get_screen().setup(get_node(PATH_GUI), help_buttons)
+	get_node(PATH_GUI).set_journal_text(journal_text)
 
 func set_help_buttons():
 	var all_buttons = get_node("/root/execute").get_help_buttons()
@@ -122,7 +124,6 @@ func is_player(node):
 # group_execute_code function
 # this is what triggers when something wants to execute code
 func execute_code():
-	pc_node = get_node(PATH_PLAYER).pc_node # last visited PC
 	if pc_node == null:
 		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
 		return
