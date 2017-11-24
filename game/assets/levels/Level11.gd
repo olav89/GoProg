@@ -28,7 +28,6 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	# setup variables
-	PATH_PAD = "Crate/VictoryPad"
 	PATH_CRATE = "Crate"
 	PATHS_PC = [DEFAULT + "PC"]
 	journal_text = " .. \n"

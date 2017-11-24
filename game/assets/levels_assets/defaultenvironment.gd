@@ -4,7 +4,6 @@ const DEFAULT = "defaultenviroment/"
 const PATH_PLAYER = DEFAULT + "Player"
 const PATH_GUI = DEFAULT + "GUI"
 var journal_text
-var PATH_PAD
 var PATHS_PC
 var PATH_CRATE
 var PATH_TV
@@ -114,13 +113,6 @@ func save_game():
 		savegame.store_line(savestr)
 		savegame.close()
 	get_node("/root/logger").log_info("Game Saved")
-
-
-# Help function checking if a node is the victory pad
-func is_victory_pad(node):
-	if PATH_PAD == null or get_node(PATH_PAD) == null:
-		return false
-	return (get_node(PATH_PAD).get_instance_ID() == node.get_instance_ID())
 
 func is_crate(node):
 	if PATH_CRATE == null or get_node(PATH_CRATE) == null:
