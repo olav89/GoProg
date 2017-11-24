@@ -80,17 +80,41 @@ func gravity_timer_finished():
 func won():
 	if !is_level_won:
 		is_level_won = true
-		get_node(PATH_PLAYER).journal.change_journal("Level complete. Proceed to the elevator.")
 		
 		if get_node(DEFAULT + "Door").has_method("open"):
 			get_node(DEFAULT + "Door").open()
 			get_node(DEFAULT + "Door1").open()
 		else:
 			get_node("/root/logger").log_error("Doors does not have method open")
-
+		save_game()
 
 func is_won():
 	return is_level_won
+
+#saves name of solved lvl to file 
+func save_game():
+	var saved = false
+	var savestr = get_name() + "\n"
+	var savegame = File.new()
+	if(!savegame.file_exists("user://savegame.save")):
+		get_node("/root/logger").log_error("No savegame file")
+		return null
+	var currline={}
+	savegame.open("user://savegame.save",File.READ)
+	currline = savegame.get_line()
+	while(!savegame.eof_reached()):
+		var lvlhelp = currline
+		if(currline == get_name()):
+			saved = true
+		savestr += lvlhelp
+		currline = savegame.get_line()
+	savegame.close()
+	if(!saved):
+		savegame.open("user://savegame.save",File.WRITE)
+		savegame.store_line(savestr)
+		savegame.close()
+	get_node("/root/logger").log_info("Game Saved")
+
 
 # Help function checking if a node is the victory pad
 func is_victory_pad(node):
