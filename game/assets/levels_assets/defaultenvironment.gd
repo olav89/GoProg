@@ -2,8 +2,8 @@ extends Spatial
 
 const DEFAULT = "defaultenviroment/"
 const PATH_PLAYER = DEFAULT + "Player"
+const PATH_GUI = DEFAULT + "GUI"
 var journal_text
-var PATH_PAD
 var PATHS_PC
 var PATH_CRATE
 var PATH_TV
@@ -32,10 +32,11 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func run_setup():
-	get_node(PATH_PLAYER).setup(get_node("."), journal_text)
+	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_GUI))
 	set_help_buttons()
 	for pc in PATHS_PC:
-		get_node(pc).get_screen().setup(get_node(PATH_PLAYER), help_buttons)
+		get_node(pc).get_screen().setup(get_node(PATH_GUI), help_buttons)
+	get_node(PATH_GUI).set_journal_text(journal_text)
 
 func set_help_buttons():
 	var all_buttons = get_node("/root/execute").get_help_buttons()
@@ -78,23 +79,40 @@ func gravity_timer_finished():
 func won():
 	if !is_level_won:
 		is_level_won = true
-		get_node(PATH_PLAYER).journal.change_journal("Level complete. Proceed to the elevator.")
 		
 		if get_node(DEFAULT + "Door").has_method("open"):
 			get_node(DEFAULT + "Door").open()
 			get_node(DEFAULT + "Door1").open()
 		else:
 			get_node("/root/logger").log_error("Doors does not have method open")
-
+		save_game()
 
 func is_won():
 	return is_level_won
 
-# Help function checking if a node is the victory pad
-func is_victory_pad(node):
-	if PATH_PAD == null or get_node(PATH_PAD) == null:
-		return false
-	return (get_node(PATH_PAD).get_instance_ID() == node.get_instance_ID())
+#saves name of solved lvl to file 
+func save_game():
+	var saved = false
+	var savestr = get_name() + "\n"
+	var savegame = File.new()
+	if(!savegame.file_exists("user://savegame.save")):
+		get_node("/root/logger").log_error("No savegame file")
+		return null
+	var currline={}
+	savegame.open("user://savegame.save",File.READ)
+	currline = savegame.get_line()
+	while(!savegame.eof_reached()):
+		var lvlhelp = currline
+		if(currline == get_name()):
+			saved = true
+		savestr += lvlhelp
+		currline = savegame.get_line()
+	savegame.close()
+	if(!saved):
+		savegame.open("user://savegame.save",File.WRITE)
+		savegame.store_line(savestr)
+		savegame.close()
+	get_node("/root/logger").log_info("Game Saved")
 
 func is_crate(node):
 	if PATH_CRATE == null or get_node(PATH_CRATE) == null:
@@ -122,7 +140,6 @@ func is_player(node):
 # group_execute_code function
 # this is what triggers when something wants to execute code
 func execute_code():
-	pc_node = get_node(PATH_PLAYER).pc_node # last visited PC
 	if pc_node == null:
 		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
 		return
@@ -149,7 +166,6 @@ func run_script(input):
 # Errors are unrecognized code, but it may still work.
 #
 func fix_code():
-	pc_node = get_node(PATH_PLAYER).pc_node # last visited PC
 	if pc_node == null:
 		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
 		return

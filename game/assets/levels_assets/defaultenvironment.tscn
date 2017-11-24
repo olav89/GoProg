@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tres" type="Environment" id=1]
 [ext_resource path="res://assets/player/player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/objects_scns/Table.scn" type="PackedScene" id=5]
 [ext_resource path="res://assets/objects_scns/Chocofur_free_27_light_cycles.scn" type="PackedScene" id=6]
 [ext_resource path="res://assets/pc/pc.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/gui/GUI.tscn" type="PackedScene" id=8]
 
 [node name="defaultenviroment" type="WorldEnvironment"]
 
@@ -108,5 +109,7 @@ params/radius = 562.463
 params/attenuation = 1.0
 params/spot_angle = 90.0
 params/spot_attenuation = 1.0
+
+[node name="GUI" parent="." instance=ExtResource( 8 )]
 
 

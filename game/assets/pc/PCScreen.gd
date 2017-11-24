@@ -11,12 +11,12 @@ const PATH_DEBUG = "Panel/Debug"
 const PATH_HELP_GROUP = "Panel/btnHelpGroup"
 const PATH_HELP_LABEL = "Panel/lblHelp"
 
-var player_node = null
+var gui = null
 
 var focus_timer
 
-func setup(player, help_buttons):
-	player_node = player
+func setup(gui_node, help_buttons):
+	gui = gui_node
 	for help in help_buttons:
 		var b = Button.new()
 		b.set_text(help[0])
@@ -81,10 +81,10 @@ func _hide():
 func _on_btnEnter_pressed():
 	get_node("/root/logger").log_debug("PC Screen code built")
 	_hide()
-	if player_node != null:
-		player_node.status_bar.change_status_activate() # notify player node to change status
+	if gui != null:
+		gui.change_notification("Activate Code: F", 5)
 	else:
-		get_node("/root/logger").log_error("player_node undefined in PCScreen.gd")
+		get_node("/root/logger").log_error("gui undefined in PCScreen.gd")
 
 # Event for the Clear button
 func _on_btnClear_pressed():

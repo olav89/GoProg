@@ -26,19 +26,14 @@ func _ready():
 	set_process_input(true)
 	set_process(true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	get_node("defaultenviroment/Player")._set_is_in_menu(true)
 	
 	# setup variables
-	PATH_PAD = "Crate/VictoryPad"
 	PATH_CRATE = "Crate"
 	PATHS_PC = [DEFAULT + "PC"]
-	
+	journal_text = " .. \n"
 	# setup scripts
 	run_setup()
 
-	journal_text = "- Find the green button and press it.\n"
-	journal_text += "- Interact with the PC by pressing E.\n"
-	
 
 func _input(event):
 	if (event.type == InputEvent.MOUSE_MOTION):
@@ -69,13 +64,13 @@ func _process(delta):
 		get_node("TutorialStartScreen/Panel/lblGoJournal").hide()
 		get_node("TutorialStartScreen/Panel/lblGoPc").show()
 	
-	if get_node("defaultenviroment/Player").is_in_pc_screen and not tcheck3 and tcheck2 and tcheck1:
+	if pc_node != null and pc_node.get_screen().is_visible() and not tcheck3 and tcheck2 and tcheck1:
 		tcheck3 = true
 		get_node("TutorialStartScreen")._show()
 		get_node("TutorialStartScreen/Panel/lblGoPc").hide()
 		get_node("TutorialStartScreen/Panel/lblInPc").show()
 	
-	if tcheck3 and not get_node("defaultenviroment/Player").is_in_pc_screen and not tcheck4 and tcheck2 and tcheck1:
+	if tcheck3 and pc_node != null and pc_node.get_screen().is_hidden() and not tcheck4 and tcheck2 and tcheck1:
 		tcheck4 = true
 		get_node("TutorialStartScreen")._show()
 		get_node("TutorialStartScreen/Panel/lblInPc").hide()
