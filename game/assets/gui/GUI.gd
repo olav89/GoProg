@@ -14,7 +14,7 @@ var node_crosshair
 var notification_timer
 
 func _ready():
-	node_notification = get_node("CenterContainerTop/Notification")
+	node_notification = get_node("CenterContainerMiddle/Notification")
 	node_journal = get_node("Journal")
 	node_menu = get_node("IngameMenu")
 	node_help = get_node("HelpMenu")
@@ -60,7 +60,7 @@ func change_notification(notification, time, override=false):
 		notification_timer.connect("timeout",self,"notification_timeout")
 		notification_timer.set_one_shot(true)
 	if notification_timer.get_time_left() < 0.1 or override: # must wait for notification to run out of time, or override it
-		node_notification.get_node("Label").set_text(notification)
+		node_notification.set_text(notification)
 		notification_timer.set_wait_time(time)
 		notification_timer.start()
 		node_notification.show()
