@@ -46,12 +46,12 @@ func _input(event):
 func set_journal_text(text):
 	node_journal.get_node("Text").set_bbcode("[u]" + text + "[/u]")
 
-func change_notification(notification, time):
+func change_notification(notification, time, override=false):
 	if notification_timer == null:
 		notification_timer = node_notification.get_node("Timer")
 		notification_timer.connect("timeout",self,"notification_timeout")
 		notification_timer.set_one_shot(true)
-	if notification_timer.get_time_left() < 0.1:
+	if notification_timer.get_time_left() < 0.1 or override:
 		node_notification.get_node("Label").set_text(notification)
 		notification_timer.set_wait_time(time)
 		notification_timer.start()

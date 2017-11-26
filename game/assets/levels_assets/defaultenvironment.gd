@@ -79,7 +79,7 @@ func gravity_timer_finished():
 func won():
 	if !is_level_won:
 		is_level_won = true
-		
+		get_node(DEFAULT + "GUI").change_notification("Level Finished", 20, true)
 		if get_node(DEFAULT + "Door").has_method("open"):
 			get_node(DEFAULT + "Door").open()
 			get_node(DEFAULT + "Door1").open()
