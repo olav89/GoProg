@@ -15,7 +15,7 @@ var gui = null
 # Timer for focus on editor
 var focus_timer
 
-func setup(gui_node, help_buttons):
+func setup(gui_node, help_buttons, pre_text = ""):
 	gui = gui_node
 	for help in help_buttons: # add help buttons
 		var b = Button.new()
@@ -26,6 +26,9 @@ func setup(gui_node, help_buttons):
 	# Move camera to PC
 	get_node("Panel/Control/Viewport/Camera").set_translation(get_node("../../PC").get_translation())
 	get_node("Panel/Control/Viewport/Camera").translate(Vector3(0,2,0))
+	
+	if pre_text != "":
+		set_editor_text(pre_text)
 
 func _ready():
 	get_node(PATH_EDITOR).set_wrap(true)

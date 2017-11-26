@@ -5,6 +5,7 @@ const PATH_PLAYER = DEFAULT + "Player"
 const PATH_GUI = DEFAULT + "GUI"
 var journal_text
 var PATH_PC = DEFAULT + "PC"
+var editor_text = ""
 var PATH_CRATE
 var PATH_TV
 
@@ -33,7 +34,7 @@ func _ready():
 func run_setup():
 	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_GUI))
 	set_help_buttons()
-	get_node(PATH_PC).get_screen().setup(get_node(PATH_GUI), help_buttons)
+	get_node(PATH_PC).get_screen().setup(get_node(PATH_GUI), help_buttons, editor_text)
 	get_node(PATH_GUI).set_journal_text(journal_text)
 
 func set_help_buttons():
@@ -174,25 +175,25 @@ func invert_gravity_player():
 func invert_gravity_room():
 	gravity_direction_room *= -1
 
-func move_crate_left(dist=1):
+func move_crate_left(dist=0):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
 		get_node(PATH_CRATE).set_target(Vector3(0,0,dist))
 
-func move_crate_right(dist=1):
+func move_crate_right(dist=0):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
 		get_node(PATH_CRATE).set_target(Vector3(0,0,-dist))
 
-func move_crate_forward(dist=1):
+func move_crate_forward(dist=0):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
 		get_node(PATH_CRATE).set_target(Vector3(-dist,0,0))
 
-func move_crate_backward(dist=1):
+func move_crate_backward(dist=0):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenvironment.gd")
 	else:
