@@ -1,14 +1,17 @@
-#
 # Simple logging functionality
 # Script is loaded with AutoLoader
 #
 
 extends Node
 
+# Output file
 var file
+
+# Options
 var debug = false
 var print_log = false
 
+# Opens file
 func _ready():
 	file = File.new()
 	file.open("res://log.log", File.WRITE)
@@ -23,20 +26,21 @@ func set_debug(enable):
 func set_print(enable):
 	print_log = enable
 
+# Called when quitting
 func _exit_tree():
 	log_info("Quit...")
-	file.close()
+	file.close() # close file
 
+# Writes a string to file
 func write_to_file(s):
 	if file != null:
 		file.store_string(s + "\n")
 	if print_log:
 		print(s)
 
-func get_time_string():
-	var time = OS.get_time()
-	return str(time.hour) + ":" + str(time.minute) + ":" + str(time.second)
-	
+# All log functions
+# Each adds a tag to input before writing it to file
+
 func log_info(s):
 	write_to_file("INFO:" + s)
 func log_warning(s):

@@ -1,4 +1,3 @@
-#
 # Script for the level menu
 # The loading is done as the tutorial at: 
 # http://docs.godotengine.org/en/latest/learning/features/misc/background_loading.html
@@ -7,12 +6,15 @@ extends TextureFrame
 
 const PATH_LEVELS = "res://assets/levels/Level"
 
+# Number of levels
 var num_levels = 30
 
+# The loader used to get new scene
 var loader
 
+# Adds buttons to the scene and connect them
 func _ready():
-	var box = get_node("Levels") # Vertical Box Container
+	var box = get_node("Levels")
 	var svg = loadSaveGame()
 	var icon = load("res://assets/art/button_texture/Pressed_lift_button.tex")
 	for i in range(1, num_levels + 1):
@@ -28,8 +30,9 @@ func _ready():
 func button_pressed(pressed):
 	var btn_text = pressed.get_text()
 	goto_scene(PATH_LEVELS + btn_text + ".tscn")
-	
-func goto_scene(path): # game requests to switch to this scene
+
+# Loads a new scene
+func goto_scene(path): 
 	loader = ResourceLoader.load_interactive(path)
 	if loader == null: # check for errors
 		get_node("/root/logger").log_error("Loading failed to start: " + path)
@@ -39,12 +42,13 @@ func goto_scene(path): # game requests to switch to this scene
 	get_node("/root/logger").log_info("Loading start: " + path)
 	
 
+# Poll loader and check outcome
 func _process(time):
 	if loader == null:
 		# no need to process anymore
 		set_process(false)
 		return
-	# poll your loader
+	# poll loader
 	var err = loader.poll()
 	
 	if err == ERR_FILE_EOF: # load finished
@@ -57,10 +61,12 @@ func _process(time):
 		get_node("/root/logger").log_error("Loading error.")
 		loader = null
 
+# Updates the progress bar
 func update_progress():
 	var progress = 100*(float(loader.get_stage() + 1) / float(loader.get_stage_count()))
 	get_node("ProgressBar").set_value(progress)
 
+# Add loaded scene into tree and remove current scene
 func set_new_scene(scene_resource):
 	var current = get_tree().get_root().get_child( get_tree().get_root().get_child_count() -1 )
 	current.queue_free()
@@ -68,6 +74,7 @@ func set_new_scene(scene_resource):
 	get_tree().get_root().add_child(current)
 	get_tree().set_current_scene(current)
 	get_node("/root/logger").log_info("Loading complete.")
+
 #loads compleeted lvls and returns array if savegame exists
 func loadSaveGame():
 	var savegame = File.new()

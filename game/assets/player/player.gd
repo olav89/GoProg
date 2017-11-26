@@ -1,8 +1,4 @@
-#
-#
 # Script for the player
-#
-#
 
 extends KinematicBody
 
@@ -37,6 +33,7 @@ var view_sensitivity = 0.2
 var yaw = 0
 var pitch = 0
 
+# Setup nodes
 func setup(level, gui):
 	self.level = level
 	self.gui = gui
@@ -48,8 +45,10 @@ func _ready():
 	sample_player = get_node(PATH_SAMPLE_PLAYER)
 
 func _process(delta):
-	if jump_cd > 0:
+	if jump_cd > 0: # jump cooldown
 		jump_cd -= delta
+	
+	# Check if in menu or not
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and !is_captured:
 		is_captured = true
 	elif Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE and is_captured:
@@ -138,7 +137,7 @@ func _input(event):
 	if (event.type == InputEvent.MOUSE_BUTTON):
 		pass
 	# Handles key events besides the player movement
-	if (event.type == InputEvent.KEY) and is_captured:
+	if (event.type == InputEvent.KEY) and is_captured: # not in menu
 		# Interactions
 		if Input.is_action_pressed("interact"):
 			var is_pc = false
@@ -160,7 +159,7 @@ func _input(event):
 			get_node("/root/execute").execute_code()
 		
 
-
+# Checks if a collision node is self
 func is_player(body):
 	if self.get_instance_ID() == body.get_instance_ID():
 		return true
@@ -168,14 +167,15 @@ func is_player(body):
 
 # Collision in front of player
 func _on_Area_body_enter( body ):
-	touchable_objects.append(body)
+	touchable_objects.append(body) # add body to touchable objects
 	if level == null:
 		get_node("/root/logger").log_error("level undefined in player.gd")
 	elif gui == null:
 		get_node("/root/logger").log_error("gui undefined in player.gd")
 	elif level.is_pc(body) or body.has_method("player_interact"):
+		# If body is interactable with alert player of it
 		gui.change_notification("Interact: E", 2)
 
 # Collision object no longer colliding
 func _on_Area_body_exit( body ):
-	touchable_objects.erase(body)
+	touchable_objects.erase(body) # remove from touchable objects

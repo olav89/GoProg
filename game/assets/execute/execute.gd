@@ -1,10 +1,19 @@
+# Execution script
+# Modifies player code to make it runnable
+
 extends Node
 
+# Activation Cooldown
 var activation_cd = 0
 
+# Path and function for parent (The Level node)
+var parent = "get_parent()"
+var path = "\"../\""
+
+# Variable for saving function names
 var func_names
-var parent = "get_parent()" # get parent node
-var path = "\"../\"" # path to parent
+
+# The order of arrays for custom functions
 const MATCH_NAME = 0
 const MATCH_REPLACE = 1
 const MATCH_YIELD = 2
@@ -42,7 +51,8 @@ var custom_functions = [
 ]
 ]
 
-# Append help buttons
+# All help buttons
+# Append in arrays with title for the button, and a description
 var all_help_buttons = [
 	["Gravity",
 	"""
@@ -67,71 +77,80 @@ var all_help_buttons = [
 	"""]
 	]
 
-func get_help_buttons():
-	return all_help_buttons
-
 func _ready():
 	set_process(true)
 
 func _process(delta):
+	# Countdown for activation cooldown
 	if activation_cd > 0:
 		activation_cd -= delta
 
+# Gets all help buttons
+func get_help_buttons():
+	return all_help_buttons
+
+# Function called for executing code
 func execute_code():
 	if activation_cd <= 0:
+		# Call execute_code_group when cooldown is over
 		get_tree().call_group(0, "execute_code_group", "execute_code")
 		activation_cd = 1.5
 
+# Takes an array of codelines and returns an executable string
 func make_executable(eval_array):
-	var eval_str = ""
+	var eval_str = "" # the string to be returned
 	
-	make_func_names(eval_array) # extract names of functions
+	make_func_names(eval_array) # find all functions
 	
 	var non_empty_lines = 0
 	for line in eval_array:
+		# if a line is not empty add to counter
 		if line != "":
 			non_empty_lines += 1
 		eval_str += match_code(line) # matches code and modifies with paths and yields
 	if non_empty_lines == 0:
+		# if all lines were empty add pass to not crash
 		eval_str += "pass"
 		get_node("/root/logger").log_debug("Empty code exchanged with pass for execution")
 	
-	eval_str = make_function(eval_str)
+	eval_str = make_function(eval_str) # put all code in functions
 	return eval_str
 
+# Checks an array of codelines for errors (matching only)
 func get_error_information(eval_array):
 	var res = "Unrecognized code on line(s) \n"
 	
-	var line_number = 1
+	var line_number = 1 # counter for which line we are checking
 	var errors = 0
 	make_func_names(eval_array)
 	for line in eval_array:
 		if !match_code(line, true):
+			# If code was not matched add the line number to error message
 			res += str(line_number) + ", "
 			errors += 1
 		line_number += 1
-	res = res.substr(0, res.length() - 2)
+	res = res.substr(0, res.length() - 2) # remove last comma and space
 	if errors == 0:
 		res = "No errors found"
 	return res
-	
 
 # Extract function names for checking function calls
 func make_func_names(eval_array):
 	func_names = []
 	for s in eval_array:
-		if s.match("*func*(*):*"):
-			var start = s.find("func") + 5
-			var end = s.find("(") - 1
-			func_names.append(s.substr(start, end-start + 1))
+		if s.match("*func*(*):*"): # matches function definition
+			var start = s.find("func") + 5 # start of function name
+			var end = s.find("(") - 1 # end of function name
+			func_names.append(s.substr(start, end-start + 1)) # append string of function name
 
-
+# Matches custom functions for a codeline
 func match_custom_func(line, tab):
 	var str_append = ""
 	
-	for custom_func in custom_functions:
-		for str_match in custom_func[MATCH_NAME]:
+	for custom_func in custom_functions: # for each custom function
+		for str_match in custom_func[MATCH_NAME]: # for all possible matchings
 			if line.match(str_match):
+				# if a match is found replace for pathing and add a yield
 				str_append += line.replace(custom_func[MATCH_REPLACE][0], custom_func[MATCH_REPLACE][1]) + "\n"
 				if custom_func[MATCH_YIELD].size() == 1:
 					str_append += tab + custom_func[MATCH_YIELD][0] + "\n"
@@ -145,7 +164,7 @@ func match_code(line, error_check = false):
 	
 	var tab = leading_spaces(line) # get the indentation
 	
-	var str_custom_func = match_custom_func(line, tab)
+	var str_custom_func = match_custom_func(line, tab) # match custom functions first
 	if str_custom_func != "":
 		res += str_custom_func
 	elif line.match("*var*=*"):
@@ -166,15 +185,15 @@ func match_code(line, error_check = false):
 		res += line + "\n"
 	elif line.match("*(*)*"): # function call
 		var found = false
-		for f in func_names:
+		for f in func_names: # try matching with known functions first
 			if line.match("*%s(*)*" % f):
 				res += line + "\n"
 				found = true
-		if !found:
+		if !found: # if not found yet, let it be but return as error
 			res += line + "\n"
 			if error_check:
 				return false
-	elif line == "":
+	elif line == "": # remove empty lines
 		pass
 	else:
 		res += line + "\n"
@@ -186,8 +205,8 @@ func match_code(line, error_check = false):
 
 # Makes functions outside of the main script function eval()
 func make_function(input):
-	var eval = "func eval(): \n"
-	var functions = ""
+	var eval = "func eval(): \n" # our evaluation function
+	var functions = "" # string for saving the players functions
 	var i = 0
 	var input_array = input.split("\n", false) # dont allow empty
 	
@@ -195,14 +214,18 @@ func make_function(input):
 	var line
 	while i < input_array.size():
 		line = input_array[i]
+		
 		if line.find("func") > -1:
+			# If a function is found save its indentation
 			func_indent = leading_spaces(line).length()
 			functions +=  line + "\n"
 			i +=1
 		elif func_indent > -1 and func_indent < leading_spaces(line).length():
+			# If function indentation is 0 or more, and less than current line
+			# Add code to the function
 			functions +=  line + "\n"
 			i +=1
-		else:
+		else: # all other code goes into the eval function
 			eval += "\t" + line + "\n"
 			i += 1
 			func_indent = -1

@@ -1,9 +1,8 @@
-#
 # Script for the ingame menu
 # Event methods are linked to buttons through Godot
-#
 extends Control
 
+# Paths
 var PATH_MAIN_MENU = "res://assets/menu/mainmenu.tscn"
 var PATH_HELP_MENU = "res://assets/menu/helpmenu.tscn"
 var PATH_LVL_SELECT = "res://assets/menu/levelmenu.tscn"
@@ -11,11 +10,13 @@ var PATH_LVL_SELECT = "res://assets/menu/levelmenu.tscn"
 func _ready():
 	pass
 
+# Custom show function that also changes mouse mode
 func _show():
 	show()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_node("/root/logger").log_debug("Ingame Menu active")
 
+# Custom hide function that also changes mouse mode
 func _hide():
 	hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -24,14 +25,12 @@ func _hide():
 # Event for the Reset button
 func _on_btnReset_pressed():
 	get_node("/root/logger").log_info("Resetting scene.")
-	# Reloads scene, but beware of changes to physics engine and such
-	get_tree().reload_current_scene()
+	get_tree().reload_current_scene() # reload scene
 
 # Event for the Exit button
 func _on_btnExit_pressed():
 	get_node("/root/logger").log_info("Loading Main Menu.")
-	# Changes the scene to main menu
-	get_tree().change_scene(PATH_MAIN_MENU)
+	get_tree().change_scene(PATH_MAIN_MENU) # changes scene to main menu
 
 # Event for the Continue button
 func _on_btnContinue_pressed():
@@ -45,7 +44,7 @@ func _on_btnHelp_pressed():
 
 #Event for the Select Level button
 func _on_btnSelectlvl_pressed():
-	get_tree().change_scene(PATH_LVL_SELECT)
+	get_tree().change_scene(PATH_LVL_SELECT) # changes scene to level select
 
 #Event for the Settings button
 func _on_btnSettings_pressed():

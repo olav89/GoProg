@@ -1,10 +1,8 @@
-#
 # Script for Main Menu
-#
-#
 
 extends TextureFrame
 
+# Paths
 const PATH_LEVEL_MENU = "res://assets/menu/levelmenu.tscn"
 
 func _ready():
