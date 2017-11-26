@@ -4,7 +4,7 @@ const DEFAULT = "defaultenviroment/"
 const PATH_PLAYER = DEFAULT + "Player"
 const PATH_GUI = DEFAULT + "GUI"
 var journal_text
-var PATHS_PC
+var PATH_PC = DEFAULT + "PC"
 var PATH_CRATE
 var PATH_TV
 
@@ -12,7 +12,6 @@ var eval_node
 
 var is_level_won = false
 
-var pc_node = null
 var help_buttons
 var help_button_selection
 
@@ -34,8 +33,7 @@ func _ready():
 func run_setup():
 	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_GUI))
 	set_help_buttons()
-	for pc in PATHS_PC:
-		get_node(pc).get_screen().setup(get_node(PATH_GUI), help_buttons)
+	get_node(PATH_PC).get_screen().setup(get_node(PATH_GUI), help_buttons)
 	get_node(PATH_GUI).set_journal_text(journal_text)
 
 func set_help_buttons():
@@ -121,12 +119,9 @@ func is_crate(node):
 
 # Help function checking if a node is a PC
 func is_pc(node):
-	if PATHS_PC == null:
+	if PATH_PC == null:
 		return false
-	for pc in PATHS_PC:
-		if (get_node(pc).is_pc(node)):
-			return true
-	return false
+	return get_node(PATH_PC).is_pc(node)
 
 # Help function checking if a node is a player
 func is_player(node):
@@ -140,10 +135,7 @@ func is_player(node):
 # group_execute_code function
 # this is what triggers when something wants to execute code
 func execute_code():
-	if pc_node == null:
-		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
-		return
-	var eval_array = pc_node.get_screen().get_editor_text() # collects editor text in an array
+	var eval_array = get_node(PATH_PC).get_screen().get_editor_text() # collects editor text in an array
 	var executable_str = get_node("/root/execute").make_executable(eval_array)
 	get_node("/root/logger").log_debug("Executing code")
 	run_script(executable_str)
@@ -166,13 +158,10 @@ func run_script(input):
 # Errors are unrecognized code, but it may still work.
 #
 func fix_code():
-	if pc_node == null:
-		get_node("/root/logger").log_debug("Tried to execute code but no PC has been visited")
-		return
-	var eval_array = pc_node.get_screen().get_editor_text()
+	var eval_array = get_node(PATH_PC).get_screen().get_editor_text()
 	var error_information = get_node("/root/execute").get_error_information(eval_array)
 	get_node("/root/logger").log_debug("Player built code: " + error_information)
-	pc_node.get_screen().set_editor_debug_text(error_information)
+	get_node(PATH_PC).get_screen().set_editor_debug_text(error_information)
 
 #
 # Place all methods called by the player here
@@ -180,8 +169,7 @@ func fix_code():
 
 func invert_gravity_player():
 	gravity_direction_player *= -1
-	for pc in PATHS_PC:
-		get_node(pc).get_screen()._invert()
+	get_node(PATH_PC).get_screen()._invert()
 
 func invert_gravity_room():
 	gravity_direction_room *= -1
@@ -222,3 +210,14 @@ func set_b(tall):
 		get_node("/root/logger").log_warning("Attempted to use TV when not defined in defaultenvironment.gd")
 	else:
 		set_b(tall)
+
+func fire_gun(bullets=1):
+	if bullets > 20:
+		bullets = 20
+	elif bullets < 1:
+		bullets = 1
+	for i in range(bullets):
+		var projectile = load("res://assets/objects/projectile.tscn").instance()
+		get_node("Gun").add_child(projectile)
+		projectile._start(Vector3(0,0,40))
+		projectile.get_node("Area").connect("body_enter", self, "gun_hit")

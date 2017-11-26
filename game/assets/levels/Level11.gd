@@ -29,7 +29,6 @@ func _ready():
 	
 	# setup variables
 	PATH_CRATE = "Crate"
-	PATHS_PC = [DEFAULT + "PC"]
 	journal_text = " .. \n"
 	# setup scripts
 	run_setup()
@@ -64,13 +63,13 @@ func _process(delta):
 		get_node("TutorialStartScreen/Panel/lblGoJournal").hide()
 		get_node("TutorialStartScreen/Panel/lblGoPc").show()
 	
-	if pc_node != null and pc_node.get_screen().is_visible() and not tcheck3 and tcheck2 and tcheck1:
+	if get_node(PATH_PC).get_screen().is_visible() and not tcheck3 and tcheck2 and tcheck1:
 		tcheck3 = true
 		get_node("TutorialStartScreen")._show()
 		get_node("TutorialStartScreen/Panel/lblGoPc").hide()
 		get_node("TutorialStartScreen/Panel/lblInPc").show()
 	
-	if tcheck3 and pc_node != null and pc_node.get_screen().is_hidden() and not tcheck4 and tcheck2 and tcheck1:
+	if tcheck3 and get_node(PATH_PC).get_screen().is_hidden() and not tcheck4 and tcheck2 and tcheck1:
 		tcheck4 = true
 		get_node("TutorialStartScreen")._show()
 		get_node("TutorialStartScreen/Panel/lblInPc").hide()

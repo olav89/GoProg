@@ -146,7 +146,6 @@ func _input(event):
 				if level.is_pc(obj):
 					is_pc = true
 					var pc = obj.get_node("../../..")
-					level.pc_node = pc
 					pc.get_screen()._show()
 			if !is_pc:
 				for obj in touchable_objects:
