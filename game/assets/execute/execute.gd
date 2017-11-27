@@ -167,7 +167,7 @@ func match_code(line, error_check = false):
 	var str_custom_func = match_custom_func(line, tab) # match custom functions first
 	if str_custom_func != "":
 		res += str_custom_func
-	elif line.match("*var*=*"):
+	elif line.match("*var*"):
 		res += line + "\n"
 	elif line.match("*for*:*"):
 		res += line + "\n"
@@ -195,6 +195,10 @@ func match_code(line, error_check = false):
 				return false
 	elif line == "": # remove empty lines
 		pass
+	elif line.match("*#*"): # comments
+		res += line + "\n"
+	elif line.match("*=*"): # assign
+		res += line + "\n"
 	else:
 		res += line + "\n"
 		if error_check:
