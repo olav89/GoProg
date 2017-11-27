@@ -8,8 +8,7 @@ func _ready():
 move_crate_left()
 move_crate_forward()
 move_crate_backward()
-fire_gun(10)
-	"""
+fire_gun(10)"""
 	# setup scripts
 	run_setup()
 

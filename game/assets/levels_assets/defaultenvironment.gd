@@ -212,6 +212,7 @@ func set_b(tall):
 	else:
 		set_b(tall)
 
+# Fires projectiles from a Gun object
 func fire_gun(bullets=1):
 	if bullets > 20:
 		bullets = 20
@@ -222,3 +223,7 @@ func fire_gun(bullets=1):
 		get_node("Gun").add_child(projectile)
 		projectile._start(Vector3(0,0,40))
 		projectile.get_node("Area").connect("body_enter", self, "gun_hit")
+
+# Empty function, implement on a level by level basis
+func gun_hit(body):
+	pass
