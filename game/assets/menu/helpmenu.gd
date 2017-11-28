@@ -10,6 +10,7 @@ func _ready():
 #Event for Controls button
 func _on_btnControls_pressed():
 	get_node("ControlScreen")._show()
+	
 
 #Event for Victory Help button
 func _on_btnVC_pressed():

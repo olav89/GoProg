@@ -1,6 +1,9 @@
 
 extends "res://assets/levels_assets/defaultenvironment.gd"
 
+
+# bools for staging logic of GUI
+# to display lables in correct order
 var movedw = false
 var moveds = false
 var moveda = false
@@ -16,6 +19,7 @@ var tcheck5 = false
 var tcheck6 = false
 var jcheck = false
 var jcheck2 = false
+
 
 func set_jcheck(set):
 	jcheck = set

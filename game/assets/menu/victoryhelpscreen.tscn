@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://assets/menu/victoryhelpscreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/background/ingame-menu-bg.tex" type="Texture" id=2]
-[ext_resource path="res://assets/art/texture/victory_pad/victory_pad_50_200_50.tex" type="Texture" id=3]
 
 [node name="VictoryHelp" type="Control"]
 
@@ -38,11 +37,17 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 13.0
 margin/top = 15.0
-margin/right = 479.0
-margin/bottom = 63.0
+margin/right = 670.0
+margin/bottom = 131.0
 text = "Welcome to GoProg. 
 
-The Objective of the game is to beat each lvl by locating the victory pad. "
+The Objective of the game is to complete each lvl by 
+interacting with the world through the computer. 
+It contains lists of available functions that may help 
+you with achieving victory. 
+
+If you are unsure about the objective for your lvl, have a look in the journal
+"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -53,44 +58,15 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 19.0
-margin/top = 237.0
-margin/right = 31.0
-margin/bottom = 257.0
+margin/left = 16.0
+margin/top = 270.0
+margin/right = 58.0
+margin/bottom = 290.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Back"
 flat = false
-
-[node name="TextureFrame" type="TextureFrame" parent="Panel"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 27.0
-margin/top = 84.0
-margin/right = 67.0
-margin/bottom = 124.0
-texture = ExtResource( 3 )
-stretch_mode = 0
-
-[node name="Text2" type="Label" parent="Panel"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 92.0
-margin/top = 99.0
-margin/right = 245.0
-margin/bottom = 130.0
-text = "This is what it looks like
-"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="Text3" type="Label" parent="Panel"]
 
@@ -98,10 +74,10 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 19.0
-margin/top = 153.0
-margin/right = 442.0
-margin/bottom = 218.0
+margin/left = 18.0
+margin/top = 168.0
+margin/right = 441.0
+margin/bottom = 233.0
 text = "We highly recomend you to try and learn something along the way
  instead of mashing buttons at random.
 

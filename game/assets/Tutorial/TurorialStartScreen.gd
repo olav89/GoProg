@@ -1,4 +1,7 @@
 extends Control
+# Contains controls for the tutorial GUI 
+# Visibility and button controls here
+# Logic for lvl is found in the lvl scene
 
 func _ready():
 	pass
