@@ -105,7 +105,7 @@ func save_game():
 		if(currline == get_name()):
 			saved = true
 		savestr += lvlhelp
-		currline = savegame.get_line()
+		currline = savegame.get_line() + " \n"
 	savegame.close()
 	if(!saved):
 		savegame.open("user://savegame.save",File.WRITE)
