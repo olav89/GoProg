@@ -1,26 +1,36 @@
+# This script contains reusable code for levels
+# Levels extends this script and can override functions
+# Calling this scripts functions from overridden functions is done with .function()
+
 extends Spatial
 
+# Paths
 const DEFAULT = "defaultenviroment/"
 const PATH_PLAYER = DEFAULT + "Player"
 const PATH_GUI = DEFAULT + "GUI"
-var journal_text
 var PATH_PC = DEFAULT + "PC"
-var editor_text = ""
 var PATH_CRATE
 var PATH_TV
 
+# Text strings
+var journal_text
+var editor_text = ""
+
+# Node used for evaluations
 var eval_node
 
+# Level progress variables
 var is_level_won = false
 
+# Help buttons for PC Screen
 var help_buttons
 var help_button_selection
 
+# Gravity
 var gravity_direction_room = -1
 var gravity_direction_room_old = 0
 var gravity_direction_player = -1
 var gravity_direction_player_old = 0
-
 var gravity_timer
 signal gravity_finished
 
@@ -28,15 +38,17 @@ func _ready():
 	# adds to group so it gets notified when player wants to execute code
 	add_to_group("execute_code_group")
 	set_fixed_process(true)
-	#set_process(true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+# Setup function 
 func run_setup():
 	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_GUI))
 	set_help_buttons()
 	get_node(PATH_PC).get_screen().setup(get_node(PATH_GUI), help_buttons, editor_text)
 	get_node(PATH_GUI).set_journal_text(journal_text)
 
+# Finds all help buttons to be used
+# If no buttons have been selected every button is used
 func set_help_buttons():
 	var all_buttons = get_node("/root/execute").get_help_buttons()
 	help_buttons = []
@@ -44,6 +56,7 @@ func set_help_buttons():
 		if help_button_selection == null or help_button_selection.find(i) > -1:
 			help_buttons.append(all_buttons[i])
 
+# Physics process
 func _fixed_process(delta):
 	set_gravity()
 
@@ -54,11 +67,11 @@ func set_gravity():
 		PhysicsServer.AREA_PARAM_GRAVITY_VECTOR,
 		Vector3(0, gravity_direction_room, 0))
 		gravity_direction_room_old = gravity_direction_room
-		add_gravity_timer()
+		add_gravity_timer() # for yielding
 	elif gravity_direction_player != gravity_direction_player_old:
 		get_node(PATH_PLAYER).gravity_direction = gravity_direction_player
 		gravity_direction_player_old = gravity_direction_player
-		add_gravity_timer()
+		add_gravity_timer() # for yielding
 
 # Adds a timer when gravity changes so effects can happen before next code execution
 func add_gravity_timer():
@@ -74,7 +87,7 @@ func add_gravity_timer():
 func gravity_timer_finished():
 	emit_signal("gravity_finished")
 
-# Call this when a level is completed
+# Called when a level is won
 func won():
 	if !is_level_won:
 		is_level_won = true
@@ -86,6 +99,7 @@ func won():
 			get_node("/root/logger").log_error("Doors does not have method open")
 		save_game()
 
+# To check if a level is completed
 func is_won():
 	return is_level_won
 
@@ -113,6 +127,7 @@ func save_game():
 		savegame.close()
 	get_node("/root/logger").log_info("Game Saved")
 
+# Checks if a node is a crate
 func is_crate(node):
 	if PATH_CRATE == null or get_node(PATH_CRATE) == null:
 		return false
@@ -154,19 +169,17 @@ func run_script(input):
 	eval_node.set_script(script)
 	eval_node.eval()
 
-#
 # Allows users to "Build" the code and see if there are any errors
 # Errors are unrecognized code, but it may still work.
-#
 func fix_code():
 	var eval_array = get_node(PATH_PC).get_screen().get_editor_text()
 	var error_information = get_node("/root/execute").get_error_information(eval_array)
 	get_node("/root/logger").log_debug("Player built code: " + error_information)
 	get_node(PATH_PC).get_screen().set_editor_debug_text(error_information)
 
-#
-# Place all methods called by the player here
-#
+###############################################
+# Place all methods called by the player here #
+###############################################
 
 func invert_gravity_player():
 	gravity_direction_player *= -1

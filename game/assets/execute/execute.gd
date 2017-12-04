@@ -52,7 +52,7 @@ var custom_functions = [
 ]
 
 # All help buttons
-# Append in arrays with title for the button, and a description
+# Title, Description, [button texts]
 var all_help_buttons = [
 	["Gravity",
 	"Gravity Functions:",
