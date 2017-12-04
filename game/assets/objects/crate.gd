@@ -8,6 +8,8 @@ extends RigidBody
 var target_trans
 var cur_trans
 
+var speed = 0.1
+
 # Yield variables
 var notify = false
 signal finished
@@ -32,11 +34,12 @@ func set_target(target):
 func _fixed_process(delta):
 	# Translate self until close to target translation
 	if target_trans != null and cur_trans.distance_to(target_trans) > 0.05:
-		var x = target_trans.x / 50
-		var z = target_trans.z / 50
-		cur_trans.x += x
-		cur_trans.z += z
-		translate(Vector3(x,0,z))
+		var x = target_trans.x
+		var z = target_trans.z
+		var move = Vector3(x,0,z).normalized()
+		move = move * speed
+		cur_trans += move
+		translate(move)
 	# When close to target translation emit a signal (once) to finish the yield
 	elif notify:
 		notify = false
