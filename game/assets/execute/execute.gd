@@ -55,26 +55,18 @@ var custom_functions = [
 # Append in arrays with title for the button, and a description
 var all_help_buttons = [
 	["Gravity",
-	"""
-	Gravity Functions:
-	invert_gravity_room()
-	invert_gravity_player()
-	"""],
+	"Gravity Functions:",
+	["invert_gravity_room()",
+	"invert_gravity_player()"]],
 	["Moving Crate",
-	"""
-	Movement Functions:
-	move_crate_left(d)
-	move_crate_right(d)
-	move_crate_forward(d)
-	move_crate_backward(d)
-	d = distance to move
-	"""],
+	"Movement Functions: (d = distance)",
+	["move_crate_left(d)",
+	"move_crate_right(d)",
+	"move_crate_forward(d)",
+	"move_crate_backward(d)"]],
 	["Fire Gun",
-	"""
-	Fire the gun using:
-	fire_gun(i)
-	i = the number of bullets fired
-	"""]
+	"Fire the gun: (i = bullets)",
+	["fire_gun(i)"]]
 	]
 
 func _ready():

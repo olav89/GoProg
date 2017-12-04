@@ -199,20 +199,43 @@ transform/pos = Vector2( 57.6428, 85.6347 )
 transform/scale = Vector2( 0.239243, 0.254919 )
 viewport = NodePath("../Viewport")
 
-[node name="lblHelp" type="Label" parent="Panel"]
+[node name="HelpDetail" type="Control" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 483.0
+margin/top = 22.0
+margin/right = 754.0
+margin/bottom = 197.0
+
+[node name="lblHelpDetail" type="Label" parent="Panel/HelpDetail"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 499.0
-margin/top = 29.0
-margin/right = 740.0
-margin/bottom = 170.0
+margin/left = 16.0
+margin/top = 7.0
+margin/right = 257.0
+margin/bottom = 48.0
 autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="btnHelpDetail" type="VBoxContainer" parent="Panel/HelpDetail"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 5.0
+margin/top = 49.0
+margin/right = 263.0
+margin/bottom = 168.0
+alignment = 0
 
 [connection signal="pressed" from="Panel/btnEnter" to="." method="_on_btnEnter_pressed"]
 
