@@ -11,6 +11,7 @@ const PATH_GUI = DEFAULT + "GUI"
 var PATH_PC = DEFAULT + "PC"
 var PATH_CRATE
 var PATH_TV
+var PATH_LIGHTBOARD
 
 # Text strings
 var journal_text
@@ -240,3 +241,9 @@ func fire_gun(bullets=1):
 # Empty function, implement on a level by level basis
 func gun_hit(body):
 	pass
+
+func light_switch(id):
+	if PATH_LIGHTBOARD == null:
+		get_node("/root/logger").log_warning("Attempted to use Lightboard when not defined in defaultenvironment.gd")
+	else:
+		get_node(PATH_LIGHTBOARD).blink(id)

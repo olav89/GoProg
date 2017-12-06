@@ -76,6 +76,10 @@ func get_editor_text():
 			res.append("")
 	return res
 
+# Gets editor text in a string
+func get_editor_text_plain():
+	return get_node(PATH_EDITOR).get_text()
+
 # Set editor text
 func set_editor_text(s):
 	get_node(PATH_EDITOR).set_text(s)

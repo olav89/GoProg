@@ -48,6 +48,11 @@ var custom_functions = [
 	["*fire_gun(*)*"],
 	["fire_", "%s.fire_" % parent],
 	[]
+],
+[
+	["*light_switch(*)*"],
+	["light_switch", "%s.light_switch" % parent],
+	["yield(get_node(%s + %s.PATH_LIGHTBOARD), \"blink_finished\" )" % [path, parent]]
 ]
 ]
 
@@ -66,7 +71,10 @@ var all_help_buttons = [
 	"move_crate_backward(d)"]],
 	["Fire Gun",
 	"Fire the gun: (i = bullets)",
-	["fire_gun(i)"]]
+	["fire_gun(i)"]],
+	["Light Switch",
+	"Turn on a light: (i = light number)",
+	["light_switch(i)"]]
 	]
 
 func _ready():
