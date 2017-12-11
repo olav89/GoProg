@@ -235,7 +235,7 @@ func fire_gun(bullets=1):
 	for i in range(bullets):
 		var projectile = load("res://assets/objects/projectile.tscn").instance()
 		get_node("Gun").add_child(projectile)
-		projectile._start(Vector3(0,0,40))
+		projectile._start(Vector3(0,0,80))
 		projectile.get_node("Area").connect("body_enter", self, "gun_hit")
 
 # Empty function, implement on a level by level basis
