@@ -116,11 +116,11 @@ func save_game():
 	savegame.open("user://savegame.save",File.READ)
 	currline = savegame.get_line()
 	while(!savegame.eof_reached()):
-		var lvlhelp = currline
 		if(currline == get_name()):
 			saved = true
-		savestr += lvlhelp
-		currline = savegame.get_line() + " \n"
+		if(!saved):
+			savestr += currline +"\n"
+		currline = savegame.get_line()
 	savegame.close()
 	if(!saved):
 		savegame.open("user://savegame.save",File.WRITE)
