@@ -6,12 +6,24 @@ extends TextureFrame
 
 const PATH_LEVEL_MENU = "res://assets/menu/levelmenu.tscn"
 const PATH_LEVELS = "res://assets/levels/Level"
+const PATH_TIP = "lblTip"
 
 # Number of levels
 var num_levels = 30
 
 # The loader used to get new scene
 var loader
+
+# Text tips to draw randomly from
+var tips = [
+"Levels can often be solved with many different strategies!",
+"Creativity is critical!",
+"Variables never forget your birthday!",
+"If you keep repeating the same lines of code try a loop!",
+"The reviews are in, and everyone hates these messages!",
+"If you're happy and you know it, make a func!",
+"Damages caused by cannons will be taken out of your paycheck!"
+]
 
 # Adds buttons to the scene and connect them
 func _ready():
@@ -26,6 +38,8 @@ func _ready():
 		if svg != null:
 			if svg[i-1]==1:
 				b.set_button_icon(icon)
+	var tip_index = floor(rand_range(0, tips.size()))
+	get_node(PATH_TIP).set_text("\"" + tips[tip_index] + "\"")
 
 # Event for loading a new scene
 func button_pressed(pressed):
