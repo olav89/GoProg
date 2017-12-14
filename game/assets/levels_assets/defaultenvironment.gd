@@ -22,6 +22,7 @@ var eval_node
 
 # Level progress variables
 var is_level_won = false
+var is_level_lost = false
 
 # Help buttons for PC Screen
 var help_buttons
@@ -90,7 +91,7 @@ func gravity_timer_finished():
 
 # Called when a level is won
 func won():
-	if !is_level_won:
+	if !is_level_won and !is_level_lost:
 		is_level_won = true
 		get_node(DEFAULT + "GUI").change_notification("Level Finished", 20, true)
 		if get_node(DEFAULT + "Door").has_method("open"):
@@ -99,6 +100,22 @@ func won():
 		else:
 			get_node("/root/logger").log_error("Doors does not have method open")
 		save_game()
+
+func lost():
+	if !is_level_won:
+		is_level_lost = true
+		get_node(DEFAULT + "GUI").change_notification("Level Failed, reset in 3 seconds", 3, true)
+		
+		var reset_timer = Timer.new()
+		reset_timer.connect("timeout",self,"reset_level")
+		reset_timer.set_one_shot(true)
+		add_child(reset_timer)
+		reset_timer.set_wait_time( 3 )
+		reset_timer.start()
+
+func reset_level():
+	get_node("/root/logger").log_info("Resetting scene.")
+	get_tree().reload_current_scene() # reload scene
 
 # To check if a level is completed
 func is_won():
@@ -128,7 +145,7 @@ func save_game():
 		savegame.close()
 	get_node("/root/logger").log_info("Game Saved")
 
-# Checks if a node is a crate
+# Checks if a node is the moveable crate
 func is_crate(node):
 	if PATH_CRATE == null or get_node(PATH_CRATE) == null:
 		return false

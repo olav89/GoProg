@@ -10,6 +10,10 @@ var cur_trans
 
 var speed = 0.1
 
+# Permanent Motion
+var permanent_targets
+var has_target = false
+
 # Yield variables
 var notify = false
 signal finished
@@ -26,6 +30,7 @@ func is_crate(node):
 
 # Sets a new target for translation
 func set_target(target):
+	has_target = true
 	cur_trans = Vector3(0,0,0)
 	target_trans = target
 	notify = true
@@ -44,7 +49,15 @@ func _fixed_process(delta):
 	elif notify:
 		notify = false
 		emit_signal("finished")
+		has_target = false
+	elif !has_target and permanent_targets != null:
+		set_permanent_targets(permanent_targets)
 
+func set_permanent_targets(targets):
+	permanent_targets = targets
+	for target in targets:
+		set_target(target)
+		yield(self, "finished")
 
 func player_interact():
 	pass
