@@ -4,6 +4,7 @@
 
 extends TextureFrame
 
+const PATH_LEVEL_MENU = "res://assets/menu/levelmenu.tscn"
 const PATH_LEVELS = "res://assets/levels/Level"
 
 # Number of levels
@@ -90,8 +91,21 @@ func loadSaveGame():
 	while(!savegame.eof_reached()):
 		var lvlhelp = currline.substr(5,2)
 		var lvl = lvlhelp
-		if(lvl != " "):
+		if(lvl != " " and int(lvl) >= 1):
 			res.set(int(lvl) - 1,1)
 		currline = savegame.get_line()
 	savegame.close()
 	return res
+
+
+func _on_btnReset_pressed():
+	var savegame = File.new()
+	if(!savegame.file_exists("user://savegame.save")):
+		get_node("/root/logger").log_error("No savegame file")
+		return null
+	savegame.open("user://savegame.save",File.WRITE)
+	savegame.store_line("")
+	savegame.close()
+	get_node("/root/logger").log_info("Progression reset")
+	get_node("/root/logger").log_info("Loading Level Menu.")
+	get_tree().change_scene(PATH_LEVEL_MENU)

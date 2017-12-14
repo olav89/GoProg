@@ -3,7 +3,6 @@
 [ext_resource path="res://assets/art/texture/menu/elevator_panel.tex" type="Texture" id=1]
 [ext_resource path="res://assets/menu/levelmenu.gd" type="Script" id=2]
 
-
 [node name="Background" type="TextureFrame"]
 
 focus/ignore_mouse = true
@@ -52,5 +51,24 @@ range/value = 1.0
 range/exp_edit = false
 range/rounded = false
 percent/visible = true
+
+[node name="btnReset" type="Button" parent="."]
+
+visibility/opacity = 0.43
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 589.0
+margin/top = 479.0
+margin/right = 723.0
+margin/bottom = 499.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Delete Progression"
+flat = false
+
+[connection signal="pressed" from="btnReset" to="." method="_on_btnReset_pressed"]
 
 
