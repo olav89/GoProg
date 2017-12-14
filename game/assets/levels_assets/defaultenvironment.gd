@@ -228,6 +228,7 @@ func set_b(tall):
 
 # Fires projectiles from a cannon object
 func fire_cannon(bullets=1):
+	get_node("Cannon").fire_sound()
 	if bullets > 20:
 		bullets = 20
 	elif bullets < 1:

@@ -13,6 +13,6 @@ script/script = ExtResource( 1 )
 
 [node name="Cannon" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 0.659253, 0, -0.751921, 0, 1, 0, 0.751921, 0, 0.659253, 0, 1.38512, -7.19259 )
+transform/local = Transform( 0.652487, 0, -0.7578, 0, 1, 0, 0.7578, 0, 0.652487, 0, 1.38512, -11.9278 )
 
 

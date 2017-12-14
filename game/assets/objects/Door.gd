@@ -11,3 +11,4 @@ func _ready():
 
 func open():
 	get_node("AnimationPlayer").play("open")
+	get_node("SpatialSamplePlayer").play("ding")
