@@ -45,7 +45,7 @@ var custom_functions = [
 	[]
 ],
 [
-	["*fire_gun(*)*"],
+	["*fire_cannon(*)*"],
 	["fire_", "%s.fire_" % parent],
 	[]
 ],
@@ -69,9 +69,9 @@ var all_help_buttons = [
 	"move_crate_right(d)",
 	"move_crate_forward(d)",
 	"move_crate_backward(d)"]],
-	["Fire Gun",
-	"Fire the gun: (i = bullets)",
-	["fire_gun(i)"]],
+	["Fire Cannon",
+	"Fire the cannon: (i = bullets)",
+	["fire_cannon(i)"]],
 	["Light Switch",
 	"Turn on a light: (i = light number)",
 	["light_switch(i)"]]

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/levels/Level22.gd" type="Script" id=1]
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/objects/Gun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=3]
 
 [node name="Level22" type="Spatial"]
 
@@ -11,8 +11,8 @@ script/script = ExtResource( 1 )
 
 [node name="defaultenviroment" parent="." instance=ExtResource( 2 )]
 
-[node name="Gun" parent="." instance=ExtResource( 3 )]
+[node name="Cannon" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26593, -15.2674 )
+transform/local = Transform( 0.659253, 0, -0.751921, 0, 1, 0, 0.751921, 0, 0.659253, 0, 1.38512, -7.19259 )
 
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://assets/objects/Lightboard.gd" type="Script" id=1]
-[ext_resource path="res://assets/meshes/gun.msh" type="Mesh" id=2]
+[ext_resource path="res://assets/meshes/tube.msh" type="Mesh" id=2]
 
 [sub_resource type="FixedMaterial" id=1]
 

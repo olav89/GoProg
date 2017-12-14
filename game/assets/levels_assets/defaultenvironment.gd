@@ -226,20 +226,20 @@ func set_b(tall):
 	else:
 		set_b(tall)
 
-# Fires projectiles from a Gun object
-func fire_gun(bullets=1):
+# Fires projectiles from a cannon object
+func fire_cannon(bullets=1):
 	if bullets > 20:
 		bullets = 20
 	elif bullets < 1:
 		bullets = 1
 	for i in range(bullets):
 		var projectile = load("res://assets/objects/projectile.tscn").instance()
-		get_node("Gun").add_child(projectile)
-		projectile._start(Vector3(0,0,80))
-		projectile.get_node("Area").connect("body_enter", self, "gun_hit")
+		get_node("Cannon/Exit").add_child(projectile)
+		projectile._start()
+		projectile.get_node("Area").connect("body_enter", self, "cannon_hit")
 
 # Empty function, implement on a level by level basis
-func gun_hit(body):
+func cannon_hit(body):
 	pass
 
 func light_switch(id):

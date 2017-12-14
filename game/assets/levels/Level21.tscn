@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/objects/ImmoveableCrate.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/objects_scns/Cannon.scn" type="PackedScene" id=5]
+[ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=5]
 
 [node name="Level21" type="Spatial"]
 
@@ -49,8 +49,8 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7097, 1.96173, -8.13
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4077, 2.22697, 1.21277 )
 
-[node name="Gun" parent="." instance=ExtResource( 5 )]
+[node name="Cannon" parent="." instance=ExtResource( 5 )]
 
-transform/local = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -10.5908, 1.20312, -14.4543 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.89197, 0.86347, -14.0604 )
 
 
