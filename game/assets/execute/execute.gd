@@ -179,7 +179,7 @@ func match_code(line, error_check = false):
 		res += line + "\n"
 	elif line.match("*else*:*"):
 		res += line + "\n"
-	elif line.match("*func*():*"):
+	elif line.match("*func*(*):*"):
 		res += line + "\n"
 	elif line.match("*return*:*"):
 		res += line + "\n"
@@ -209,6 +209,11 @@ func match_code(line, error_check = false):
 
 # Makes functions outside of the main script function eval()
 func make_function(input):
+	# add signals to avoid race conditions
+	var signals = ""
+	for func_name in func_names:
+		signals += "signal %s_finished" % func_name + "\n"
+	
 	var eval = "func eval(): \n" # our evaluation function
 	var functions = "" # string for saving the players functions
 	var i = 0
@@ -216,24 +221,53 @@ func make_function(input):
 	
 	var func_indent = -1
 	var line
+	var f_name = ""
+	var has_return = false
+	var func_names_return = []
+	
 	while i < input_array.size():
 		line = input_array[i]
 		
 		if line.find("func") > -1:
+			has_return = false
 			# If a function is found save its indentation
+			for func_name in func_names:
+				if line.find(func_name) > -1:
+					f_name = func_name
 			func_indent = leading_spaces(line).length()
 			functions +=  line + "\n"
 			i +=1
 		elif func_indent > -1 and func_indent < leading_spaces(line).length():
 			# If function indentation is 0 or more, and less than current line
 			# Add code to the function
+			
 			functions +=  line + "\n"
+			
+			var check_next
+			
+			if line.find("return") > -1:
+				has_return = true
+				func_names_return.append(f_name)
+			
+			
+			if i+1 < input_array.size():
+				check_next = input_array[i+1]
+			if check_next != null and func_indent > -1 and (
+			func_indent >= leading_spaces(check_next).length()) and !has_return:
+				functions += leading_spaces(line) + "emit_signal(\"%s_finished\")" % f_name + "\n"
+			
 			i +=1
 		else: # all other code goes into the eval function
 			eval += "\t" + line + "\n"
+			
+			# add yield for functions
+			for f in func_names:
+				if line.match("*%s(*)*" % f) and !func_names_return.has(f):
+					eval += "\t" + leading_spaces(line) + "yield(self, \"%s_finished\")" % f + "\n" # yield for function
+			
 			i += 1
 			func_indent = -1
-	var res = eval + " \n" + functions
+	var res = signals + eval + " \n" + functions
 	return res
 
 # Get the leading spaces and tabs

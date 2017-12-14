@@ -33,7 +33,7 @@ func execute_code():
 	var j = eval_array.size()
 	
 	for line in range(j):
-		if eval_default[line].find(eval_array[line]) == -1 and (
+		if i >= j and eval_default[line].find(eval_array[line]) == -1 and (
 		eval_default[line] != eval_array[line]):
 			edited_lines += 1
 
