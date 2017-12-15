@@ -7,8 +7,4 @@ This could be used as an educational tool for children, as well as a recruitment
 ## Game Engine
 This project utilized the game engine [Godot](https://godotengine.org/). Our use of it is detailed on the [Wiki](https://github.com/olav89/GoProg/wiki/Godot)
 
-## Software
-- [Godot](https://godotengine.org/) - game engine
-- [Blender](https://www.blender.org/) - 3D modelling
-- [yEd](http://www.yworks.com/products/yed) - graph editor for UML
-- #### - texture editor
+**Important: To run the game you need to compile a custom version of Godot found [here](https://github.com/olav89/godot/tree/bind-parser). The branch bind-parser adds functionality to GDScript and without it your game might crash.**
