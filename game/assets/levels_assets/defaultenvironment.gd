@@ -190,9 +190,8 @@ func run_script(input):
 # Allows users to "Build" the code and see if there are any errors
 # Errors are unrecognized code, but it may still work.
 func fix_code():
-	var eval_array = get_node(PATH_PC).get_screen().get_editor_text()
-	var error_information = get_node("/root/execute").get_error_information(eval_array)
-	get_node("/root/logger").log_debug("Player built code: " + error_information)
+	var eval_str = get_node(PATH_PC).get_screen().get_editor_text_plain()
+	var error_information = get_node("/root/execute").get_error_information(eval_str)
 	get_node(PATH_PC).get_screen().set_editor_debug_text(error_information)
 
 ###############################################

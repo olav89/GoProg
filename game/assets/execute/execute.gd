@@ -18,6 +18,10 @@ const MATCH_NAME = 0
 const MATCH_REPLACE = 1
 const MATCH_YIELD = 2
 
+# Parse constants
+const OK = 0
+const ERR_PARSE = 43
+
 #
 #	All custom functions go here
 #
@@ -104,44 +108,69 @@ func make_executable(eval_array):
 	
 	var non_empty_lines = 0
 	for line in eval_array:
-		# if a line is not empty add to counter
 		if line != "":
 			non_empty_lines += 1
-		eval_str += match_code(line) # matches code and modifies with paths and yields
+		
+		# match with custom functions to add yields and paths
+		# if not matched with custom function add the line
+		var str_custom_func = match_custom_func(line, leading_spaces(line))
+		if str_custom_func != "":
+			eval_str += str_custom_func
+		else:
+			eval_str += line + "\n"
 	if non_empty_lines == 0:
 		# if all lines were empty add pass to not crash
 		eval_str += "pass"
 		get_node("/root/logger").log_debug("Empty code exchanged with pass for execution")
 	
 	eval_str = make_function(eval_str) # put all code in functions
+	
 	return eval_str
 
-# Checks an array of codelines for errors (matching only)
-func get_error_information(eval_array):
-	var res = "Unrecognized code on line(s) \n"
-	
-	var line_number = 1 # counter for which line we are checking
-	var errors = 0
+# Parses the script
+func get_error_information(eval_str):
+	var res
+	var eval_array = eval_str.split("\n")
 	make_func_names(eval_array)
-	for line in eval_array:
-		if !match_code(line, true):
-			# If code was not matched add the line number to error message
-			res += str(line_number) + ", "
-			errors += 1
-		line_number += 1
-	res = res.substr(0, res.length() - 2) # remove last comma and space
-	if errors == 0:
-		res = "No errors found"
+	var script = make_function(eval_str, true) # does not add code besides eval function
+	
+	get_node("/root/logger").log_debug("Parsing code: \n" + script)
+	var error = parse(script)
+	
+	if error[0] == OK: # no errors
+		res = "Build completed."
+	elif error[0] == ERR_PARSE: # parser error
+		var err_str = error[1] # error string from parser
+		var err_line = error[2] # error line num from parser
+		#var err_col = error[3] # not using column
+		
+		var script_array = script.split("\n") # split script
+		var script_line = script_array[err_line - 1] # find the script line that failed the parse
+		script_line = script_line.strip_edges() # remove whitespace
+		
+		var real_line_found = false
+		for i in range(eval_array.size()):
+			if !real_line_found and eval_array[i].find(script_line) > -1:
+				err_line = i + 1 # the original line number
+				real_line_found = true
+		res = "%s (Line %d)" % [err_str, err_line]
+		if !real_line_found:
+			get_node("/root/logger").log_error("Parser found error, but error was not found in player code.")
+	get_node("/root/logger").log_debug("Build result: \n" + res)
 	return res
 
-# Extract function names for checking function calls
-func make_func_names(eval_array):
-	func_names = []
-	for s in eval_array:
-		if s.match("*func*(*):*"): # matches function definition
-			var start = s.find("func") + 5 # start of function name
-			var end = s.find("(") - 1 # end of function name
-			func_names.append(s.substr(start, end-start + 1)) # append string of function name
+# Parses a script
+# Returns array with error code and information for parse errors
+func parse(input):
+	var error = []
+	var parser = GDParser.new()
+	var parse = parser.parse(input, "", false, "", false)
+	error.append(parse)
+	if parse == ERR_PARSE: # parser error
+		error.append(parser.get_error())
+		error.append(parser.get_error_line())
+		error.append(parser.get_error_column())
+	return error
 
 # Matches custom functions for a codeline
 func match_custom_func(line, tab):
@@ -156,59 +185,17 @@ func match_custom_func(line, tab):
 					str_append += tab + custom_func[MATCH_YIELD][0] + "\n"
 	return str_append
 
-# Simple parse from player input to runnable code
-# Functions that take time to complete are coupled with yields
-# Add known functions even if you make no changes so they are recognized
-func match_code(line, error_check = false):
-	var res = ""
-	
-	var tab = leading_spaces(line) # get the indentation
-	
-	var str_custom_func = match_custom_func(line, tab) # match custom functions first
-	if str_custom_func != "":
-		res += str_custom_func
-	elif line.match("*var*"):
-		res += line + "\n"
-	elif line.match("*for*:*"):
-		res += line + "\n"
-	elif line.match("*while*:*"):
-		res += line + "\n"
-	elif line.match("*if*:*"):
-		res += line + "\n"
-	elif line.match("*elif*:*"):
-		res += line + "\n"
-	elif line.match("*else*:*"):
-		res += line + "\n"
-	elif line.match("*func*(*):*"):
-		res += line + "\n"
-	elif line.match("*return*:*"):
-		res += line + "\n"
-	elif line.match("*(*)*"): # function call
-		var found = false
-		for f in func_names: # try matching with known functions first
-			if line.match("*%s(*)*" % f):
-				res += line + "\n"
-				found = true
-		if !found: # if not found yet, let it be but return as error
-			res += line + "\n"
-			if error_check:
-				return false
-	elif line == "": # remove empty lines
-		pass
-	elif line.match("*#*"): # comments
-		res += line + "\n"
-	elif line.match("*=*"): # assign
-		res += line + "\n"
-	else:
-		res += line + "\n"
-		if error_check:
-			return false
-	if error_check:
-		return true
-	return res
+# Extract function names for checking function calls
+func make_func_names(eval_array):
+	func_names = []
+	for s in eval_array:
+		if s.match("*func*(*):*"): # matches function definition
+			var start = s.find("func") + 5 # start of function name
+			var end = s.find("(") - 1 # end of function name
+			func_names.append(s.substr(start, end-start + 1)) # append string of function name
 
 # Makes functions outside of the main script function eval()
-func make_function(input):
+func make_function(input, for_parse=false):
 	# add signals to avoid race conditions
 	var signals = ""
 	for func_name in func_names:
@@ -252,7 +239,7 @@ func make_function(input):
 			
 			if i+1 < input_array.size():
 				check_next = input_array[i+1]
-			if check_next != null and func_indent > -1 and (
+			if !for_parse and check_next != null and func_indent > -1 and (
 			func_indent >= leading_spaces(check_next).length()) and !has_return:
 				functions += leading_spaces(line) + "emit_signal(\"%s_finished\")" % f_name + "\n"
 			
@@ -260,14 +247,18 @@ func make_function(input):
 		else: # all other code goes into the eval function
 			eval += "\t" + line + "\n"
 			
-			# add yield for functions
-			for f in func_names:
-				if line.match("*%s(*)*" % f) and !func_names_return.has(f):
-					eval += "\t" + leading_spaces(line) + "yield(self, \"%s_finished\")" % f + "\n" # yield for function
+			if !for_parse:
+				# add yield for functions
+				for f in func_names:
+					if line.match("*%s(*)*" % f) and !func_names_return.has(f):
+						eval += "\t" + leading_spaces(line) + "yield(self, \"%s_finished\")" % f + "\n" # yield for function
 			
 			i += 1
 			func_indent = -1
-	var res = signals + eval + " \n" + functions
+	var res = ""
+	if !for_parse:
+		res += signals
+	res += eval + " \n" + functions
 	return res
 
 # Get the leading spaces and tabs
