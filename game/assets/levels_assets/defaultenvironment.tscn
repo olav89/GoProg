@@ -112,4 +112,26 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5847, 0, -16.1023 )
 
 transform/local = Transform( -1, -3.25841e-07, 0, -3.25841e-07, 1, -3.25841e-07, 1.06173e-13, -3.25841e-07, -1, 10.6999, 0, -16.0792 )
 
+[node name="OmniLight 2" type="OmniLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 48.8668, 17.7661 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 1.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.001
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+params/radius = 64.09
+params/attenuation = 1.0
+
 
