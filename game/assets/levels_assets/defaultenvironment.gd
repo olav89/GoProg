@@ -171,12 +171,12 @@ func is_player(node):
 func execute_code():
 	var eval_array = get_node(PATH_PC).get_screen().get_editor_text() # collects editor text in an array
 	var executable_str = get_node("/root/execute").make_executable(eval_array)
-	get_node("/root/logger").log_debug("Executing code")
-	run_script(executable_str)
+	if executable_str != "":
+		run_script(executable_str)
 
 # sets the source code of the designated eval-node
 func run_script(input):
-	get_node("/root/logger").log_info("Player Code:\n" + input)
+	get_node("/root/logger").log_debug("Executing code")
 	var script = GDScript.new()
 	script.set_source_code(input)
 	script.reload() # reload for changes to source code to take effect
@@ -187,8 +187,7 @@ func run_script(input):
 	eval_node.set_script(script)
 	eval_node.eval()
 
-# Allows users to "Build" the code and see if there are any errors
-# Errors are unrecognized code, but it may still work.
+# Allows users to "Build" the code and see if there are any syntax errors
 func fix_code():
 	var eval_str = get_node(PATH_PC).get_screen().get_editor_text_plain()
 	var error_information = get_node("/root/execute").get_error_information(eval_str)

@@ -1,5 +1,6 @@
 # Execution script
 # Modifies player code to make it runnable
+# Checks code for syntax errors with parsing
 
 extends Node
 
@@ -102,28 +103,29 @@ func execute_code():
 
 # Takes an array of codelines and returns an executable string
 func make_executable(eval_array):
+	get_node("/root/logger").log_debug("Making code executable")
+	
 	var eval_str = "" # the string to be returned
 	
 	make_func_names(eval_array) # find all functions
 	
-	var non_empty_lines = 0
+	# match with custom functions to add yields and paths
+	# if not matched with custom function add the unmodified line
 	for line in eval_array:
-		if line != "":
-			non_empty_lines += 1
-		
-		# match with custom functions to add yields and paths
-		# if not matched with custom function add the line
-		var str_custom_func = match_custom_func(line, leading_spaces(line))
+		var str_custom_func = match_custom_func(line)
 		if str_custom_func != "":
 			eval_str += str_custom_func
 		else:
 			eval_str += line + "\n"
-	if non_empty_lines == 0:
-		# if all lines were empty add pass to not crash
-		eval_str += "pass"
-		get_node("/root/logger").log_debug("Empty code exchanged with pass for execution")
 	
 	eval_str = make_function(eval_str) # put all code in functions
+	
+	get_node("/root/logger").log_debug("Parsing code: \n" + eval_str)
+	
+	var error = parse(eval_str)
+	if error[0] == ERR_PARSE:
+		get_node("/root/logger").log_debug("Parse Error: %s Line %d" %[error[1], error[2]])
+		return ""
 	
 	return eval_str
 
@@ -161,19 +163,20 @@ func get_error_information(eval_str):
 
 # Parses a script
 # Returns array with error code and information for parse errors
+# REQUIRES CUSTOM GODOT COMPILATION (See Wiki)
 func parse(input):
 	var error = []
 	var parser = GDParser.new()
 	var parse = parser.parse(input, "", false, "", false)
 	error.append(parse)
-	if parse == ERR_PARSE: # parser error
+	if parse == ERR_PARSE:
 		error.append(parser.get_error())
 		error.append(parser.get_error_line())
 		error.append(parser.get_error_column())
 	return error
 
 # Matches custom functions for a codeline
-func match_custom_func(line, tab):
+func match_custom_func(line):
 	var str_append = ""
 	
 	for custom_func in custom_functions: # for each custom function
@@ -182,7 +185,7 @@ func match_custom_func(line, tab):
 				# if a match is found replace for pathing and add a yield
 				str_append += line.replace(custom_func[MATCH_REPLACE][0], custom_func[MATCH_REPLACE][1]) + "\n"
 				if custom_func[MATCH_YIELD].size() == 1:
-					str_append += tab + custom_func[MATCH_YIELD][0] + "\n"
+					str_append += leading_spaces(line) + custom_func[MATCH_YIELD][0] + "\n"
 	return str_append
 
 # Extract function names for checking function calls
@@ -194,54 +197,58 @@ func make_func_names(eval_array):
 			var end = s.find("(") - 1 # end of function name
 			func_names.append(s.substr(start, end-start + 1)) # append string of function name
 
-# Makes functions outside of the main script function eval()
+# Splits code into functions
+# Adds yields and emits for functions when for_parse is false
 func make_function(input, for_parse=false):
-	# add signals to avoid race conditions
+	# add signals for all functions
 	var signals = ""
 	for func_name in func_names:
 		signals += "signal %s_finished" % func_name + "\n"
 	
-	var eval = "func eval(): \n" # our evaluation function
+	var eval = "func eval(): \n" # evaluation function
 	var functions = "" # string for saving the players functions
 	var i = 0
 	var input_array = input.split("\n", false) # dont allow empty
 	
-	var func_indent = -1
+	var func_indent = -1 # tracks function indent level
 	var line
-	var f_name = ""
+	var f_name = "" # name of last function that was defined
 	var has_return = false
-	var func_names_return = []
+	var func_names_return = [] # names of functions that uses return
 	
 	while i < input_array.size():
 		line = input_array[i]
 		
-		if line.find("func") > -1:
+		if line.find("func") > -1: # function definition
 			has_return = false
-			# If a function is found save its indentation
+			# save function name
 			for func_name in func_names:
 				if line.find(func_name) > -1:
 					f_name = func_name
+			# save indentation level
 			func_indent = leading_spaces(line).length()
 			functions +=  line + "\n"
 			i +=1
 		elif func_indent > -1 and func_indent < leading_spaces(line).length():
-			# If function indentation is 0 or more, and less than current line
-			# Add code to the function
+			# Continuation of function
 			
 			functions +=  line + "\n"
 			
-			var check_next
-			
+			# check if the line is a return
 			if line.find("return") > -1:
 				has_return = true
 				func_names_return.append(f_name)
 			
-			
+			# check if the line is the last in function
+			var check_next
 			if i+1 < input_array.size():
 				check_next = input_array[i+1]
-			if !for_parse and check_next != null and func_indent > -1 and (
-			func_indent >= leading_spaces(check_next).length()) and !has_return:
-				functions += leading_spaces(line) + "emit_signal(\"%s_finished\")" % f_name + "\n"
+			if !for_parse and !has_return:
+				# add emit if end of function and no return statement is found
+				if (check_next != null and func_indent > -1 and (
+				func_indent >= leading_spaces(check_next).length())) or (
+				check_next == null):
+					functions += leading_spaces(line) + "emit_signal(\"%s_finished\")" % f_name + "\n"
 			
 			i +=1
 		else: # all other code goes into the eval function
@@ -255,6 +262,7 @@ func make_function(input, for_parse=false):
 			
 			i += 1
 			func_indent = -1
+	# combine signals, functions and eval() 
 	var res = ""
 	if !for_parse:
 		res += signals
