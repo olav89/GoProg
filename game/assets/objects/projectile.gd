@@ -12,9 +12,9 @@ func _start():
 	
 	# get direction and multiply for speed
 	var vel = (dir.get_global_transform().origin - exit.get_global_transform().origin).normalized()
-	vel *= 40
+	vel *= 30
 	
-	get_node("Timer").set_wait_time(2) # set timer to 2s
+	get_node("Timer").set_wait_time(3) # set timer to 2s
 	get_node("Timer").start() # start timer
 	set_linear_velocity(vel) # set velocity
 	

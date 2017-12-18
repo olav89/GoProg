@@ -12,6 +12,7 @@ var PATH_PC = DEFAULT + "PC"
 var PATH_CRATE
 var PATH_TV
 var PATH_LIGHTBOARD
+var PATH_CANNON
 
 # Text strings
 var journal_text
@@ -245,6 +246,9 @@ func set_b(tall):
 
 # Fires projectiles from a cannon object
 func fire_cannon(bullets=1):
+	if PATH_CANNON == null:
+		get_node("/root/logger").log_warning("PATH_CANNON not defined")
+		return
 	get_node("Cannon").fire_sound()
 	if bullets > 20:
 		bullets = 20
@@ -259,6 +263,12 @@ func fire_cannon(bullets=1):
 # Empty function, implement on a level by level basis
 func cannon_hit(body):
 	pass
+
+func angle_cannon(angle=0):
+	if PATH_CANNON == null:
+		get_node("/root/logger").log_warning("PATH_CANNON not defined")
+	else:
+		get_node(PATH_CANNON).rotate(Vector3(1,0,0), deg2rad(angle))
 
 func light_switch(id):
 	if PATH_LIGHTBOARD == null:

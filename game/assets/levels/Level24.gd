@@ -9,8 +9,9 @@ var crates = [
 
 func _ready():
 	# setup variables
-	journal_text = "Shoot the crate without colliding with other objects.\n"
+	journal_text = "Shoot the crate without having it collide with other crates.\n"
 	PATH_CRATE = "Crate"
+	PATH_CANNON = "Cannon"
 	get_node(PATH_CRATE).connect("body_enter", self, "crate_hit")
 	
 	# setup scripts

@@ -53,6 +53,11 @@ var custom_functions = [
 	["*light_switch(*)*"],
 	["light_switch", "%s.light_switch" % parent],
 	["yield(get_node(%s + %s.PATH_LIGHTBOARD), \"blink_finished\" )" % [path, parent]]
+],
+[
+	["*angle_cannon(*)*"],
+	["angle_cannon", "%s.angle_cannon" % parent],
+	[]
 ]
 ]
 
@@ -60,21 +65,24 @@ var custom_functions = [
 # Title, Description, [button texts]
 var all_help_buttons = [
 	["Gravity",
-	"Gravity Functions:",
+	"Gravity Functions.",
 	["invert_gravity_room()",
 	"invert_gravity_player()"]],
 	["Moving Crate",
-	"Movement Functions: (d = distance)",
-	["move_crate_left(d)",
-	"move_crate_right(d)",
-	"move_crate_forward(d)",
-	"move_crate_backward(d)"]],
+	"Movement Functions. Parameter: integer",
+	["move_crate_left()",
+	"move_crate_right()",
+	"move_crate_forward()",
+	"move_crate_backward()"]],
 	["Fire Cannon",
-	"Fire the cannon: (i = bullets)",
-	["fire_cannon(i)"]],
+	"Fire the cannon. Parameter: integer",
+	["fire_cannon()"]],
 	["Light Switch",
-	"Turn on a light: (i = light number)",
-	["light_switch(i)"]]
+	"Turn on a light. Parameter: integer (1-4)",
+	["light_switch()"]],
+	["Angle Cannon",
+	"Angle the cannon. Parameter: integer",
+	["angle_cannon()"]]
 	]
 
 func _ready():
