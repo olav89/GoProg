@@ -268,7 +268,7 @@ func angle_cannon(angle=0):
 	if PATH_CANNON == null:
 		get_node("/root/logger").log_warning("PATH_CANNON not defined")
 	else:
-		get_node(PATH_CANNON).rotate(Vector3(1,0,0), deg2rad(angle))
+		get_node(PATH_CANNON)._rotate(angle)
 
 func light_switch(id):
 	if PATH_LIGHTBOARD == null:

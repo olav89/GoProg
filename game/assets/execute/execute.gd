@@ -57,7 +57,7 @@ var custom_functions = [
 [
 	["*angle_cannon(*)*"],
 	["angle_cannon", "%s.angle_cannon" % parent],
-	[]
+	["yield(get_node(%s + %s.PATH_CANNON), \"finished\" )" % [path, parent]]
 ]
 ]
 
@@ -74,15 +74,13 @@ var all_help_buttons = [
 	"move_crate_right()",
 	"move_crate_forward()",
 	"move_crate_backward()"]],
-	["Fire Cannon",
-	"Fire the cannon. Parameter: integer",
-	["fire_cannon()"]],
+	["Cannon",
+	"Fire or angle the cannon. Parameter: integer",
+	["fire_cannon()",
+	"angle_cannon()"]],
 	["Light Switch",
 	"Turn on a light. Parameter: integer (1-4)",
-	["light_switch()"]],
-	["Angle Cannon",
-	"Angle the cannon. Parameter: integer",
-	["angle_cannon()"]]
+	["light_switch()"]]
 	]
 
 func _ready():
