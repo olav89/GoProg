@@ -24,6 +24,8 @@ var tips = [
 "If you're happy and you know it, make a func!",
 "Damages caused by cannons will be taken out of your paycheck!"
 ]
+var tip_opacity = 0.2
+var tip_delta = 0.01
 
 # Adds buttons to the scene and connect them
 func _ready():
@@ -40,6 +42,13 @@ func _ready():
 				b.set_button_icon(icon)
 	var tip_index = floor(rand_range(0, tips.size()))
 	get_node(PATH_TIP).set_text("\"" + tips[tip_index] + "\"")
+	set_fixed_process(true)
+
+func _fixed_process(delta):
+	tip_opacity += tip_delta
+	if tip_opacity <= 0.2 or tip_opacity >= 1.0:
+		tip_delta *= -1
+	get_node(PATH_TIP).set_opacity(tip_opacity)
 
 # Event for loading a new scene
 func button_pressed(pressed):

@@ -52,6 +52,7 @@ func _input(event):
 # Sets the text in journal
 func set_journal_text(text):
 	node_journal.get_node("Text").set_bbcode("[u]" + text + "[/u]")
+	change_notification("Goal: " + text, 5, true)
 
 # Changes notification
 func change_notification(notification, time, override=false):
