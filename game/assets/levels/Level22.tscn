@@ -31,6 +31,6 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3614, 6.50004, 5.408
 
 [node name="Crate" parent="." instance=ExtResource( 5 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7608, 1.13811, 6.57976 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7608, 1.13811, 9.57238 )
 
 
