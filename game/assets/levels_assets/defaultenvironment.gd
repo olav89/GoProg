@@ -173,6 +173,8 @@ func execute_code():
 	var executable_str = get_node("/root/execute").make_executable(eval_array)
 	if executable_str != "":
 		run_script(executable_str)
+	else:
+		get_node(PATH_GUI).change_notification("Code Compiling Failed", 2, true)
 
 # sets the source code of the designated eval-node
 func run_script(input):
