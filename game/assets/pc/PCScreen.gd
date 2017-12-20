@@ -115,7 +115,6 @@ func _hide():
 
 # Event for the Enter button (exit screen)
 func _on_btnEnter_pressed():
-	get_node("/root/logger").log_debug("PC Screen code built")
 	_hide()
 	if gui != null:
 		gui.change_notification("Activate Code: F", 5)

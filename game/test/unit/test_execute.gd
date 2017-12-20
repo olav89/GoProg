@@ -2,6 +2,8 @@ extends "res://addons/gut/test.gd"
 
 var level = load("res://assets/levels/Level1.tscn").instance()
 var execute
+const OK = 0
+const ERR_PARSE = 43
 
 func setup():
 	gut.p("ran setup", 2)
@@ -40,45 +42,19 @@ func test_make_simple_function():
 	assert_true(eval_str.match("*func eval():*test()*func test():*print(2)*"),
 	"test_make_simple_function")
 
-# Test that common code is recognized
-func test_match_misc_identifiers():
-	assert_true(execute.match_code("var a = 2", true), "var")
-	assert_true(execute.match_code("for i in range(20):", true), "for")
-	assert_true(execute.match_code("while a < 2:", true), "while")
-	assert_true(execute.match_code("if a != b:", true), "if")
-	assert_true(execute.match_code("elif a == b:", true), "elif")
-	assert_true(execute.match_code("else:", true), "else")
-	assert_true(execute.match_code("func test():", true), "func")
+func test_parser_oneliners():
+	var func_def = "func test():\n\t"
+	assert_eq(execute.parse(func_def + "print(20)")[0], OK) # func calls
+	assert_eq(execute.parse(func_def + "var a = 2")[0], OK) # number vars
+	assert_eq(execute.parse(func_def + "var b = \"test\"")[0], OK) # string vars
+	assert_eq(execute.parse(func_def + "var a = some_func()")[0], OK) # regression
+	
+	assert_eq(execute.parse(func_def + "var a = some _func()")[0], ERR_PARSE) # wrong space
+	assert_eq(execute.parse(func_def + func_def)[0], ERR_PARSE) # func inside func
 
 func test_leading_spaces():
 	assert_eq(execute.leading_spaces("  twospaces"), "  ", "two spaces")
 	assert_eq(execute.leading_spaces("\ttest"), "\t", "one tab")
 	assert_eq(execute.leading_spaces("\t  test"), "\t  ", "one tab two spaces")
 	assert_eq(execute.leading_spaces("  \ttest"), "  \t", "two spaces one tab")
-
-# Test that all crate functions are recognized
-func test_crate_functions_recognized():
-	assert_true(execute.match_code("move_crate_left()", true),
-	"move crate left")
-	assert_true(execute.match_code("move_crate_left(2)", true),
-	"move crate left 2")
-	assert_true(execute.match_code("move_crate_right()", true),
-	"move crate right")
-	assert_true(execute.match_code("move_crate_right(2)", true),
-	"move crate right 2")
-	assert_true(execute.match_code("move_crate_forward()", true),
-	"move crate forward")
-	assert_true(execute.match_code("move_crate_forward(2)", true),
-	"move crate forward 2")
-	assert_true(execute.match_code("move_crate_backward()", true),
-	"move crate backward")
-	assert_true(execute.match_code("move_crate_backward(2)", true),
-	"move crate backward 2")
-
-# Test that all gravity functions are recognized
-func test_gravity_functions_recognized():
-	assert_true(execute.match_code("invert_gravity_room()", true),
-	"invert gravity room")
-	assert_true(execute.match_code("invert_gravity_player()", true),
-	"invert gravity player")
 
