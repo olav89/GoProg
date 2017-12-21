@@ -13,3 +13,6 @@ func _ready():
 	get_node("defaultenviroment/Table").set_translation(Vector3(-13.0,0.0,15.0))
 	get_node(PATH_PC).set_translation(Vector3(-12.0,1.8,14.5))
 	get_node(PATH_CRATE).set_scale(Vector3(2.0,2.0,2.0))
+	
+func _process(delta):
+	#get_node(PATH_PLAYER)

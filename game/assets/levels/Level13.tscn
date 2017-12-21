@@ -120,4 +120,84 @@ gravity_scale = 0.0
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25123, 2.43812, -13.8178 )
 gravity_scale = 0.0
 
+[node name="Crate 24" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3808, 2.75846, -4.2745 )
+gravity_scale = 0.0
+
+[node name="Crate 25" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.92614, 2.19899, -4.3454 )
+gravity_scale = 0.0
+
+[node name="Crate 26" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.59832, 2.94574, 11.1987 )
+gravity_scale = 0.0
+
+[node name="Crate 27" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.30338, 2.15473, 8.46711 )
+
+[node name="Crate 28" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38591, 1.89549, 6.14652 )
+gravity_scale = -1.0
+
+[node name="Crate 29" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.72123, 2.09181, 3.90075 )
+gravity_scale = 0.0
+
+[node name="Crate 30" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53619, 1.74741, 1.06135 )
+
+[node name="Crate 31" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.82138, 1.9065, 2.63809 )
+gravity_scale = -1.0
+
+[node name="Crate 32" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72219, -4.43308 )
+gravity_scale = 0.0
+
+[node name="Crate 33" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87542, -8.1214 )
+
+[node name="Crate 34" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.21633, 1.47928, -13.0032 )
+gravity_scale = -1.0
+
+[node name="Crate 35" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39216, 1.69987, -9.10724 )
+gravity_scale = 0.0
+
+[node name="Crate 36" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.60097, 2.16497, -2.98314 )
+
+[node name="Crate 37" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.95442, 1.69815, -5.9118 )
+gravity_scale = -1.0
+
+[node name="Crate 38" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95691, 1.38104, 0 )
+gravity_scale = 0.0
+
+[node name="Crate 39" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.87978, 1.73542, 5.6009 )
+
+[node name="Crate 40" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89794, 6.65206 )
+gravity_scale = -1.0
+
 
