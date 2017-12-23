@@ -211,7 +211,7 @@ func make_function(input, for_parse=false):
 	for func_name in func_names:
 		signals += "signal %s_finished" % func_name + "\n"
 	
-	var eval = "func eval(): \n" # evaluation function
+	var eval = "func eval():\n" # evaluation function
 	var functions = "" # string for saving the players functions
 	var i = 0
 	var input_array = input.split("\n", false) # dont allow empty
@@ -272,7 +272,7 @@ func make_function(input, for_parse=false):
 	var res = ""
 	if !for_parse:
 		res += signals
-	res += eval + " \n" + functions
+	res += eval + "\n" + functions
 	return res
 
 # Get the leading spaces and tabs
