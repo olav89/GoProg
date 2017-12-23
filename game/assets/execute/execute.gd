@@ -66,27 +66,7 @@ var custom_functions = [
 ]
 ]
 
-# All help buttons
-# Title, Description, [button texts]
-var all_help_buttons = [
-	["Gravity",
-	"Gravity Functions.",
-	["invert_gravity_room()",
-	"invert_gravity_player()"]],
-	["Moving Crate",
-	"Movement Functions. Parameter: integer",
-	["move_crate_left()",
-	"move_crate_right()",
-	"move_crate_forward()",
-	"move_crate_backward()"]],
-	["Cannon",
-	"Fire or angle the cannon. Parameter: integer",
-	["fire_cannon()",
-	"angle_cannon()"]],
-	["Light Switch",
-	"Turn on a light. Parameter: integer (1-4)",
-	["light_switch()"]]
-	]
+
 
 func _ready():
 	set_process(true)
@@ -95,10 +75,6 @@ func _process(delta):
 	# Countdown for activation cooldown
 	if activation_cd > 0:
 		activation_cd -= delta
-
-# Gets all help buttons
-func get_help_buttons():
-	return all_help_buttons
 
 # Function called for executing code
 func execute_code():

@@ -26,8 +26,27 @@ var is_level_won = false
 var is_level_lost = false
 
 # Help buttons for PC Screen
-var help_buttons
-var help_button_selection
+var help_button_selection = []
+# Title, Description, [button texts]
+var help_buttons = [
+	["Gravity",
+	"Gravity Functions.",
+	["invert_gravity_room()",
+	"invert_gravity_player()"]],
+	["Moving Crate",
+	"Movement Functions. Parameter: integer",
+	["move_crate_left()",
+	"move_crate_right()",
+	"move_crate_forward()",
+	"move_crate_backward()"]],
+	["Cannon",
+	"Fire or angle the cannon. Parameter: integer",
+	["fire_cannon()",
+	"angle_cannon()"]],
+	["Light Switch",
+	"Turn on a light. Parameter: integer (1-4)",
+	["light_switch()"]]
+	]
 
 # Gravity
 var gravity_direction_room = -1
@@ -46,18 +65,26 @@ func _ready():
 # Setup function 
 func run_setup():
 	get_node(PATH_PLAYER).setup(get_node("."), get_node(PATH_GUI))
-	set_help_buttons()
-	get_node(PATH_PC).get_screen().setup(get_node(PATH_GUI), help_buttons, editor_text)
+	
+	if help_button_selection.size() == 0:
+		set_all_help_buttons()
+	get_node(PATH_PC).get_screen().setup(get_node(PATH_GUI), help_button_selection, editor_text)
 	get_node(PATH_GUI).set_journal_text(journal_text)
 
-# Finds all help buttons to be used
-# If no buttons have been selected every button is used
-func set_help_buttons():
-	var all_buttons = get_node("/root/execute").get_help_buttons()
-	help_buttons = []
-	for i in range(all_buttons.size()):
-		if help_button_selection == null or help_button_selection.find(i) > -1:
-			help_buttons.append(all_buttons[i])
+# Adds help buttons
+func set_help_buttons(names):
+	for name in names:
+		var found = false
+		for btn in help_buttons:
+			if btn[0].find(name) > -1:
+				help_button_selection.append(btn)
+				found = true
+		if !found:
+			get_node("/root/logger").log_debug("Could not find help button for: %s" % name)
+
+# Selects all help buttons
+func set_all_help_buttons():
+	help_button_selection = help_buttons
 
 # Physics process
 func _fixed_process(delta):
