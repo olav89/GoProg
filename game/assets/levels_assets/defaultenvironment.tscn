@@ -16,7 +16,7 @@ environment = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
-transform/local = Transform( -1.3, 0, -1.1365e-07, 0, 1.3, 0, 1.1365e-07, 0, -1.3, 0.720807, 4.56406, -11.271 )
+transform/local = Transform( -1.3, 0, -1.1365e-07, 0, 1.3, 0, 1.1365e-07, 0, -1.3, 11.6751, 2.02745, -14.2973 )
 
 [node name="TheUltimateRoom" parent="." instance=ExtResource( 3 )]
 
