@@ -5,6 +5,7 @@ func _ready():
 	PATH_CANNON = "Cannon"
 	PATH_CRATE = "Crate"
 	journal_text = "Hit the crate with the cannon.\n"
+	set_help_buttons(["Cannon", "Crate", "Gravity"])
 	# setup scripts
 	run_setup()
 

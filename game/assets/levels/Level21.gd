@@ -5,7 +5,11 @@ func _ready():
 	PATH_CRATE = "Crate"
 	PATH_CANNON = "Cannon"
 	journal_text = "Fire the cannon at the crate.\n"
-	set_help_buttons(["Cannon", "Crate", "Gravity", "Candy"])
+	set_help_buttons(["Cannon", "Crate", "Gravity"])
+	editor_text = """# Helpful measurements: (Or maybe you can think of another way?)
+var a = 13
+var b = 17
+var c = 5"""
 	# setup scripts
 	run_setup()
 
