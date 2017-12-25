@@ -28,4 +28,4 @@ func _rotate(angle):
 	notify = true
 
 func fire_sound():
-	get_node("SpatialSamplePlayer").play("cannon2")
+	get_node("SpatialSamplePlayer").play("cannon")
