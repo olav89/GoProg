@@ -271,6 +271,21 @@ func set_b(tall):
 	else:
 		set_b(tall)
 
+#Level 13 crate help functions
+func change_crate(cratenmb):
+	if PATH_CRATE == null:
+		get_node("/root/logger").log_warning("PATH_CRATE = null")
+	else:
+		var chelp = DEFAULT + "Crate " + str(cratenmb)
+		print(chelp)
+		if has_node(chelp):
+			PATH_CRATE = chelp
+		elif cratenmb == 1:
+			PATH_CRATE = "Crate"
+		else:
+			get_node("/root/logger").log_warning("Attemoted to use Crate when not defined in defaultenviroment.gd")
+			
+
 # Fires projectiles from a cannon object
 func fire_cannon(bullets=1):
 	if PATH_CANNON == null:

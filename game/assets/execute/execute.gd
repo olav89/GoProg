@@ -63,6 +63,11 @@ var custom_functions = [
 	["*angle_cannon(*)*"],
 	["angle_cannon", "%s.angle_cannon" % parent],
 	["yield(get_node(%s + %s.PATH_CANNON), \"finished\" )" % [path, parent]]
+],
+[
+	["*change_crate(*)*"],
+	["change_crate","%s.change_crate" % parent],
+	[]
 ]
 ]
 
