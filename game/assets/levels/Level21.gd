@@ -1,5 +1,15 @@
 extends "res://assets/levels_assets/defaultenvironment.gd"
 
+# Problem:
+#	Fire a cannon at a crate
+#	Obstacles separate crate from cannon
+#	
+# Main Solutions:
+#	Move crate around obstacles to cannon
+#	Invert gravity, move crate, invert gravity
+#	Angle cannon to shoot over obstacles
+
+
 func _ready():
 	# setup variables
 	PATH_CRATE = "Crate"

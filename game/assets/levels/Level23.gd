@@ -1,5 +1,12 @@
 extends "res://assets/levels_assets/defaultenvironment.gd"
 
+# Problem:
+#	Write a program that enters a code to lightbox
+#	Code is 0123, but a random number is selected to be repeated
+#	Ex: 00123
+# Main Solutions:
+#	Any solution is accepted as long as the code is entered correctly.
+
 var light_ids = []
 var correct_ids = []
 var num = -1

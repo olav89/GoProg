@@ -1,5 +1,14 @@
 extends "res://assets/levels_assets/defaultenvironment.gd"
 
+# Problem:
+#	Fire a cannon at a crate
+#	Other crates are moving
+#	Collision between crates is a failure
+# Main Solutions:
+#	Find safe path, move, invert gravity and shoot
+#	Shoot crates out of the way
+#	Collide with crates as player to move them away
+
 var crates = [
 "Crate1",
 "Crate2",
