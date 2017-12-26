@@ -48,6 +48,11 @@ var help_buttons = [
 	["light_switch()"]]
 	]
 
+var HELP_GRAVITY = help_buttons[0][0]
+var HELP_CRATE = help_buttons[1][0]
+var HELP_CANNON = help_buttons[2][0]
+var HELP_LIGHT = help_buttons[3][0]
+
 # Gravity
 var gravity_direction_room = -1
 var gravity_direction_room_old = 0

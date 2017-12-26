@@ -76,7 +76,6 @@ margin/bottom = 32.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 align = 1
 autowrap = true
-uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
