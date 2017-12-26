@@ -10,7 +10,7 @@ var fname = "res://log.log"
 var mode = File.WRITE
 
 # Buffer
-var buffer = [10]
+var buffer = []
 var b_ind = 0
 
 # Options
@@ -19,6 +19,7 @@ var print_log = false
 
 # Opens file
 func _ready():
+	buffer.resize(10)
 	file = File.new()
 	file.open(fname, mode)
 	if file != null:
