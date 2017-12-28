@@ -28,6 +28,7 @@ var is_level_lost = false
 # Help buttons for PC Screen
 var help_button_selection = []
 # Title, Description, [button texts]
+# WARNING: APPEND NEW BUTTONS!!!
 var help_buttons = [
 	["Gravity",
 	"Gravity Functions.",
@@ -45,13 +46,46 @@ var help_buttons = [
 	"angle_cannon()"]],
 	["Light Switch",
 	"Turn on a light. Parameter: integer (1-4)",
-	["light_switch()"]]
+	["light_switch()"]],
+	["If sentences",
+	"Sample if sentences.",
+	["""if exp: 
+	# code""",
+	"""if exp: 
+	# code 
+elif exp2: 
+	# code""",
+	"""if exp: 
+	# code 
+else: 
+	# code"""
+	]],
+	["Loops",
+	"Sample loops.",
+	["""for i in range(n): 
+	# code""",
+	"""var i = 0 
+while i < 20: 
+	# code"""
+	]],
+	["Comparisons",
+	"Sample comparisons.",
+	["a == b",
+	"a != b",
+	"a > b",
+	"a < b",
+	"a >= b",
+	"a <= b"
+	]]
 	]
 
 var HELP_GRAVITY = help_buttons[0][0]
 var HELP_CRATE = help_buttons[1][0]
 var HELP_CANNON = help_buttons[2][0]
 var HELP_LIGHT = help_buttons[3][0]
+var HELP_IF = help_buttons[4][0]
+var HELP_LOOP = help_buttons[5][0]
+var HELP_COMPARE = help_buttons[6][0]
 
 # Gravity
 var gravity_direction_room = -1

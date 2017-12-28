@@ -1,6 +1,6 @@
 extends "res://assets/levels_assets/defaultenvironment.gd"
 
-# Problem:
+# Problem (Loops and conditionals):
 #	Write a program that enters a code to lightbox
 #	Code is 0123, but a random number is selected to be repeated
 #	Ex: 00123
@@ -28,8 +28,9 @@ func _ready():
 
 var num = randi()%4 # select random number
 
-for ?:
+for i in range(?):
 	light_switch(?)
+	?
 """
 	journal_text = "Fire the cannon.\n"
 	set_help_buttons([HELP_CANNON, HELP_GRAVITY, HELP_CRATE, HELP_LIGHT])

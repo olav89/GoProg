@@ -1,6 +1,6 @@
 extends "res://assets/levels_assets/defaultenvironment.gd"
 
-# Problem:
+# Problem (Simple function calls):
 #	Fire cannon at a crate
 #	Obstacles blocks shot at the start
 #	Crate cannot be moved to the cannon
