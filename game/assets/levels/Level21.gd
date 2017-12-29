@@ -16,7 +16,6 @@ func _ready():
 	PATH_CANNON = "Cannon"
 	journal_text = "Fire the cannon at the crate.\n"
 	set_help_buttons(["Cannon", "Crate", "Gravity"])
-	get_help_buttons()
 	editor_text = """# Helpful measurements: (Or maybe you can think of another way?)
 var a = 13
 var b = 17
