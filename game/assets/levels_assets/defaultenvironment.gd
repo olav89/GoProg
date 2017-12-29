@@ -25,68 +25,6 @@ var eval_node
 var is_level_won = false
 var is_level_lost = false
 
-# Help buttons for PC Screen
-var help_button_selection = []
-# Title, Description, [button texts]
-# WARNING: APPEND NEW BUTTONS!!!
-var help_buttons = [
-	["Gravity",
-	"Gravity Functions.",
-	["invert_gravity_room()",
-	"invert_gravity_player()"]],
-	["Moving Crate",
-	"Movement Functions. Parameter: integer",
-	["move_crate_left()",
-	"move_crate_right()",
-	"move_crate_forward()",
-	"move_crate_backward()"]],
-	["Cannon",
-	"Fire or angle the cannon. Parameter: integer",
-	["fire_cannon()",
-	"angle_cannon()"]],
-	["Light Switch",
-	"Turn on a light. Parameter: integer (1-4)",
-	["light_switch()"]],
-	["If sentences",
-	"Sample if sentences.",
-	["""if exp: 
-	# code""",
-	"""if exp: 
-	# code 
-elif exp2: 
-	# code""",
-	"""if exp: 
-	# code 
-else: 
-	# code"""
-	]],
-	["Loops",
-	"Sample loops.",
-	["""for i in range(n): 
-	# code""",
-	"""var i = 0 
-while i < 20: 
-	# code"""
-	]],
-	["Comparisons",
-	"Sample comparisons.",
-	["a == b",
-	"a != b",
-	"a > b",
-	"a < b",
-	"a >= b",
-	"a <= b"
-	]]
-	]
-
-var HELP_GRAVITY = help_buttons[0][0]
-var HELP_CRATE = help_buttons[1][0]
-var HELP_CANNON = help_buttons[2][0]
-var HELP_LIGHT = help_buttons[3][0]
-var HELP_IF = help_buttons[4][0]
-var HELP_LOOP = help_buttons[5][0]
-var HELP_COMPARE = help_buttons[6][0]
-
 # Gravity
 var gravity_direction_room = -1
 var gravity_direction_room_old = 0
@@ -95,9 +33,14 @@ var gravity_direction_player_old = 0
 var gravity_timer
 signal gravity_finished
 
+# Help buttons
+var help_buttons = []
+var help_button_selection = []
+
 func _ready():
 	# adds to group so it gets notified when player wants to execute code
 	add_to_group("execute_code_group")
+	get_help_buttons()
 	set_fixed_process(true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -124,6 +67,40 @@ func set_help_buttons(names):
 # Selects all help buttons
 func set_all_help_buttons():
 	help_button_selection = help_buttons
+
+func get_help_buttons():
+	var btn_file = File.new()
+	btn_file.open("res://assets/levels_assets/help_buttons.gd", File.READ)
+	
+	var index = -1
+	var btn_index = 0
+	var line
+	var can_paste = false
+	
+	while !btn_file.eof_reached():
+		line = btn_file.get_line()
+		if line.match("main_title"): # new category
+			index += 1 # move to new space
+			can_paste = false
+			help_buttons.resize(index + 1) # make space
+			btn_index = 0
+			
+			line = btn_file.get_line()
+			help_buttons[index] = [null, null, []]
+			help_buttons[index][0] = line
+		elif line.match("main_desc"): # category description
+			line = btn_file.get_line()
+			help_buttons[index][1] = line
+		elif line.match("title"): # button
+			line = btn_file.get_line()
+			help_buttons[index][2].append([line, ""])
+		elif line.match("paste"): # paste-code
+			if can_paste:
+				btn_index += 1
+			can_paste = true
+		elif can_paste and line.length() > 0: # add paste-code
+			help_buttons[index][2][btn_index][1] += line
+	btn_file.close()
 
 # Physics process
 func _fixed_process(delta):

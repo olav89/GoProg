@@ -9,7 +9,6 @@ const PATH_DEBUG = "Panel/Debug"
 const PATH_HELP_GROUP = "Panel/btnHelpGroup"
 const PATH_HELP_DETAIL_LBL = "Panel/HelpDetail/lblHelpDetail"
 const PATH_HELP_DETAIL_BTN = "Panel/HelpDetail/btnHelpDetail"
-var buttons = []
 
 # Ref to gui node
 var gui = null
@@ -19,10 +18,10 @@ var focus_timer
 
 func setup(gui_node, help_buttons, pre_text = ""):
 	gui = gui_node
-	for help in help_buttons: # add help buttons
+	for btn in help_buttons: # add help buttons
 		var b = Button.new()
-		b.set_text(help[0])
-		b.connect("pressed", self, "help_pressed", [b, help])
+		b.set_text(btn[0]) # title of help category
+		b.connect("pressed", self, "help_pressed", [btn]) # send help button info 
 		get_node(PATH_HELP_GROUP).add_child(b)
 	
 	# Move camera to PC
@@ -46,23 +45,24 @@ func _invert():
 		set_pos(Vector2(0,0))
 
 # Event handler for pressing help buttons
-func help_pressed(b, help):
+func help_pressed(btn):
 	var lbl = get_node(PATH_HELP_DETAIL_LBL)
 	var btn_group = get_node(PATH_HELP_DETAIL_BTN)
-	for btn in btn_group.get_children():
-		btn.queue_free()
+	for button in btn_group.get_children():
+		button.queue_free()
 	
-	var description = help[1]
-	var buttons = help[2]
+	var description = btn[1]
 	lbl.set_text(description)
-	for btn_string in buttons:
+	
+	var buttons = btn[2] # arrays of title, paste
+	for button in buttons:
 		var b = Button.new()
-		b.set_text(btn_string)
-		b.connect("pressed", self, "help_detail_pressed", [b, btn_string])
+		b.set_text(button[0])
+		b.connect("pressed", self, "help_detail_pressed", [button[1]])
 		btn_group.add_child(b)
 
-func help_detail_pressed(b, text):
-	get_node(PATH_EDITOR).insert_text_at_cursor(text + "\n")
+func help_detail_pressed(paste):
+	get_node(PATH_EDITOR).insert_text_at_cursor(paste.c_unescape())
 
 # Gets editor text in an array
 func get_editor_text():
