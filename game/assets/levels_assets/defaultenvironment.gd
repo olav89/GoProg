@@ -292,7 +292,7 @@ func change_crate(cratenmb):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("PATH_CRATE = null")
 	else:
-		var chelp = DEFAULT + "Crate " + str(cratenmb)
+		var chelp ="Crate " + str(cratenmb)
 		print(chelp)
 		if has_node(chelp):
 			PATH_CRATE = chelp
