@@ -26,6 +26,7 @@ transform/local = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 12.5542, 0, 2.1334
 
 [node name="Chocofur_free_27_light_cycles" parent="." instance=ExtResource( 5 )]
 
+editor/display_folded = true
 transform/local = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 5.21846, 0 )
 
 [node name="SpotLight" type="SpotLight" parent="Chocofur_free_27_light_cycles"]
