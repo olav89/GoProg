@@ -25,9 +25,9 @@ paste
 invert_gravity_player() \n
 
 main_title
-Moving Crate
+Crate
 main_desc
-Movement Functions.
+Crate functions.
 title
 left, P: integer
 paste

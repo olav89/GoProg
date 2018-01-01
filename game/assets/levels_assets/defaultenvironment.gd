@@ -36,6 +36,13 @@ signal gravity_finished
 # Help buttons
 var help_buttons = []
 var help_button_selection = []
+const HELP_GRAVITY = "Gravity"
+const HELP_CRATE = "Crate"
+const HELP_CANNON = "Cannon"
+const HELP_LIGHTBOARD = "Light Switch"
+const HELP_IF = "If sentences"
+const HELP_LOOP = "Loops"
+const HELP_COMPARISON = "Comparisons"
 
 func _ready():
 	# adds to group so it gets notified when player wants to execute code

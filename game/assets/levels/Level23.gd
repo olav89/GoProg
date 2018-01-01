@@ -33,7 +33,7 @@ for i in range(?):
 	?
 """
 	journal_text = "Fire the cannon.\n"
-	set_help_buttons([HELP_CANNON, HELP_GRAVITY, HELP_CRATE, HELP_LIGHT])
+	set_help_buttons([HELP_CANNON, HELP_GRAVITY, HELP_CRATE, HELP_LIGHTBOARD])
 	# setup scripts
 	run_setup()
 
