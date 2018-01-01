@@ -292,14 +292,13 @@ func change_crate(cratenmb):
 	if PATH_CRATE == null:
 		get_node("/root/logger").log_warning("PATH_CRATE = null")
 	else:
-		var chelp ="Crate " + str(cratenmb)
-		print(chelp)
+		var chelp = "Crate " + str(cratenmb + 1) # add 1 since duplication goes Crate, Crate 2, ...
 		if has_node(chelp):
 			PATH_CRATE = chelp
-		elif cratenmb == 1:
+		elif cratenmb == 0:
 			PATH_CRATE = "Crate"
 		else:
-			get_node("/root/logger").log_warning("Attemoted to use Crate when not defined in defaultenviroment.gd")
+			get_node("/root/logger").log_warning("Attempted to use Crate when not defined in defaultenviroment.gd")
 			
 
 # Fires projectiles from a cannon object

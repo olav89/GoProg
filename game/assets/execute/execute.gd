@@ -52,7 +52,7 @@ var custom_functions = [
 [
 	["*fire_cannon(*)*"],
 	["fire_", "%s.fire_" % parent],
-	[]
+	["yield(get_node(%s + %s.PATH_CANNON), \"fire_finished\" )" % [path, parent]]
 ],
 [
 	["*light_switch(*)*"],
