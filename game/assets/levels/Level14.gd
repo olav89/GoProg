@@ -7,7 +7,9 @@ var hit3 = false
 var crates = [
 "Crate",
 "Crate 2",
-"Crate 3"
+"Crate 3",
+"Crate 4",
+"Crate 5",
 ]
 
 
@@ -25,6 +27,7 @@ func _ready():
 #The objective is to make a function
 #to fire the gun, change wich crate to controll,
 #and move the next crate up in front of the gun
+# use a if loop to only shoot the first, third and last crate
 
 func test(a):
 	fire_cannon() 
@@ -60,9 +63,9 @@ func cannon_hit(body):
 		if(what_crate(body) == "Crate"):
 			hit1 = true
 			print("1")
-		elif(what_crate(body) == "Crate 2"):
+		elif(what_crate(body) == "Crate 3"):
 			hit2 = true
 			print("2")
-		elif(what_crate(body) == "Crate 3"):
+		elif(what_crate(body) == "Crate 5"):
 			hit3 = true
 			print("3")
