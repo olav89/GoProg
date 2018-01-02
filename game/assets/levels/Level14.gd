@@ -29,15 +29,15 @@ func _ready():
 #and move the next crate up in front of the gun
 # use a if loop to only shoot the first, third and last crate
 
-func test(a):
-	fire_cannon() 
-	change_crate(a+1)
-	move_crate_forward(a+3)
-	if(a==2):
-		fire_cannon()
+for i in range(5):
+	fire_cannon()
+	change_crate(i+1)
+	if(i==1||i==3):
+		move_crate_forward(i+4)
+	else:
+		move_crate_left(5)
 
-for i in range(4):
-	test(i) """
+ """
 
 	
 	# setup scripts

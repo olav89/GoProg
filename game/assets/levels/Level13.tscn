@@ -22,10 +22,10 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60222, 4.49991 )
 
 [node name="Crate 2" parent="." instance=ExtResource( 4 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76103, 1.49013, 4.61828 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.41861, 1.49013, 4.61828 )
 
 [node name="Crate 3" parent="." instance=ExtResource( 4 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5262, 1.46541, 4.57734 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.37405, 1.46541, 4.57734 )
 
 

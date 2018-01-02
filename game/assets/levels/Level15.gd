@@ -25,6 +25,8 @@ func _ready():
 #The objective is to make a function
 #to fire the gun, change wich crate to controll,
 #and move the next crate up in front of the gun
+#either change gravity or change the angle of the 
+#gun to hit the one in the roof
 
 func test(a):
 	fire_cannon() 

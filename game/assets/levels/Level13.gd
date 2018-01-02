@@ -30,10 +30,9 @@ func test(a):
 	fire_cannon() 
 	change_crate(a+1)
 	move_crate_forward(a+3)
-	if(a==2):
-		fire_cannon()
+	
 
-for i in range(2):
+for i in range(3):
 	test(i) """
 
 	

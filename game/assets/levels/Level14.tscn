@@ -14,23 +14,23 @@ script/script = ExtResource( 1 )
 
 [node name="Crate" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.12148, 1.12031, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.79967, 1.12031, 0 )
 
 [node name="Crate 2" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.50161, 1.07819, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.15948, 1.07819, 0 )
 
 [node name="Crate 3" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05822, 1.04523, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.16708, 1.04523, 0 )
 
 [node name="Crate 4" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.36151, 1.20269, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368533, 1.09992, 0.0715356 )
 
 [node name="Crate 5" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.79873, 1.23299, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52803, 1.02247, 0 )
 
 [node name="Cannon" parent="." instance=ExtResource( 4 )]
 
