@@ -51,7 +51,6 @@ func _process(delta):
 func is_a_crate(body):
 	for crate in crates:
 		if body.get_name() == crate:
-			print("true rate")
 			return true
 	return false
 	
@@ -62,10 +61,7 @@ func cannon_hit(body):
 	if is_a_crate(body):
 		if(what_crate(body) == "Crate"):
 			hit1 = true
-			print("1")
 		elif(what_crate(body) == "Crate 3"):
 			hit2 = true
-			print("2")
 		elif(what_crate(body) == "Crate 5"):
 			hit3 = true
-			print("3")
