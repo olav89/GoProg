@@ -58,10 +58,7 @@ func cannon_hit(body):
 	if is_a_crate(body):
 		if(what_crate(body) == "Crate"):
 			hit1 = true
-			print("1")
 		elif(what_crate(body) == "Crate 2"):
 			hit2 = true
-			print("2")
 		elif(what_crate(body) == "Crate 3"):
 			hit3 = true
-			print("3")
