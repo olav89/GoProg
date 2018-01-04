@@ -5,7 +5,7 @@
 extends TextureFrame
 
 const PATH_LEVEL_MENU = "res://assets/menu/levelmenu.tscn"
-const PATH_LEVELS = "res://assets/levels/Level"
+const PATH_LEVELS = "res://assets/levels/"
 const PATH_TIP = "lblTip"
 
 # Number of levels
@@ -22,7 +22,8 @@ var tips = [
 "If you keep repeating the same lines of code try a loop!",
 "The reviews are in, and everyone hates these messages!",
 "If you're happy and you know it, make a func!",
-"Damages caused by cannons will be taken out of your paycheck!"
+"Damages caused by cannons will be taken out of your paycheck!",
+"no crates were hurt in the making of this game"
 ]
 var tip_opacity = 0.2
 var tip_delta = 0.01
@@ -32,6 +33,7 @@ func _ready():
 	var box = get_node("Levels")
 	var svg = loadSaveGame()
 	var icon = load("res://assets/art/button_texture/Pressed_lift_button.tex")
+	num_levels = _num_lvls()
 	for i in range(1, num_levels + 1):
 		var b = Button.new()
 		b.set_text(str(i))
@@ -43,6 +45,7 @@ func _ready():
 	var tip_index = floor(rand_range(0, tips.size()))
 	get_node(PATH_TIP).set_text("\"" + tips[tip_index] + "\"")
 	set_fixed_process(true)
+	
 
 func _fixed_process(delta):
 	tip_opacity += tip_delta
@@ -52,8 +55,44 @@ func _fixed_process(delta):
 
 # Event for loading a new scene
 func button_pressed(pressed):
-	var btn_text = pressed.get_text()
-	goto_scene(PATH_LEVELS + btn_text + ".tscn")
+	
+	var btn_text = pressed.get_text()	
+	var lvls=[]
+	for i in range(num_lvls_of("var")):
+		lvls.append("var")
+	for i in range(num_lvls_of("for")):
+		lvls.append("for")
+	for i in range(num_lvls_of("ifl")):
+		lvls.append("ifl")
+	for i in range(num_lvls_of("oth")):
+		lvls.append("oth")
+	
+	if(lvls[int(btn_text)-1] == "var"):
+		goto_scene( PATH_LEVELS + "var_" + btn_text + ".tscn")
+	elif(lvls[int(btn_text)-1] == "for"):
+		goto_scene( PATH_LEVELS + "for_" + str(int(btn_text)-lvls.find("for")) + ".tscn")
+	elif(lvls[int(btn_text)-1] == "ifl"):
+		goto_scene( PATH_LEVELS + "ifl_" + str(int(btn_text)-lvls.find("ifl"))  + ".tscn")
+	elif(lvls[int(btn_text)-1] == "oth"):
+		goto_scene( PATH_LEVELS + "oth_" + str(int(btn_text)-lvls.find("oth"))  + ".tscn")
+	
+func num_lvls_of(type):
+	var files = []
+	var dir = Directory.new()
+	dir.open("res://assets/levels")
+	dir.list_dir_begin()
+	
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			if file.begins_with(type):
+				if file.ends_with(".gd"):
+					files.append(file)
+		
+	dir.list_dir_end()
+	return files.size()
 
 # Loads a new scene
 func goto_scene(path): 
@@ -64,7 +103,23 @@ func goto_scene(path):
 	set_process(true)
 	get_node("ProgressBar").show()
 	get_node("/root/logger").log_info("Loading start: " + path)
+
+func _num_lvls():
+	var files = []
+	var dir = Directory.new()
+	dir.open("res://assets/levels")
+	dir.list_dir_begin()
 	
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			if file.ends_with(".gd"):
+				files.append(file)
+	
+	dir.list_dir_end()
+	return files.size()
 
 # Poll loader and check outcome
 func _process(time):

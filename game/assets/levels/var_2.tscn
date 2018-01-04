@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://assets/levels/Level16.gd" type="Script" id=1]
+[ext_resource path="res://assets/levels/var_2.gd" type="Script" id=1]
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/objects/Lightboard.tscn" type="PackedScene" id=5]
+
 
 [node name="Level16" type="Spatial"]
 
