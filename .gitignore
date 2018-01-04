@@ -1,4 +1,4 @@
 .fscache
 game/*.log
-.llvm
-.exe
+*.llvm
+*.exe
