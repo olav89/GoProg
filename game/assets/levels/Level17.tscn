@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/objects/Lightboard.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=4]
+
+[node name="Level17" type="Spatial"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="defaultenviroment" parent="." instance=ExtResource( 1 )]
+
+[node name="Cannon" parent="." instance=ExtResource( 2 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53189, -12.1136 )
+
+[node name="Lightboard" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88338, 1.5596, -15.0656 )
+
+[node name="Crate" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196228, 1.38281, 0 )
+
+
