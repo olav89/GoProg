@@ -31,21 +31,55 @@ var tip_delta = 0.01
 # Adds buttons to the scene and connect them
 func _ready():
 	var box = get_node("Levels")
-	var svg = loadSaveGame()
-	var icon = load("res://assets/art/button_texture/Pressed_lift_button.tex")
+
 	num_levels = _num_lvls()
 	for i in range(1, num_levels + 1):
 		var b = Button.new()
 		b.set_text(str(i))
 		box.add_child(b) # add button to box, no need to adjust positions
 		b.connect("pressed", self, "button_pressed", [b])
-		if svg != null:
-			if svg[i-1]==1:
-				b.set_button_icon(icon)
+		
 	var tip_index = floor(rand_range(0, tips.size()))
 	get_node(PATH_TIP).set_text("\"" + tips[tip_index] + "\"")
 	set_fixed_process(true)
-	
+
+func checkSaved(b,i):
+	b.set_text(str(i))
+	var icon = load("res://assets/art/button_texture/Pressed_lift_button.tex")
+	var btn_text = b.get_text()
+	var lvls=[]
+	for i in range(num_lvls_of("var")):
+		lvls.append("var")
+	for i in range(num_lvls_of("for")):
+		lvls.append("for")
+	for i in range(num_lvls_of("ifl")):
+		lvls.append("ifl")
+	for i in range(num_lvls_of("oth")):
+		lvls.append("oth")
+	print("running after lvls")
+	var check
+
+	if(lvls[int(btn_text)-1] == "var"):
+		check= "var_" + btn_text
+	elif(lvls[int(btn_text)-1] == "for"):
+		 check= "for_" + str(int(btn_text)-lvls.find("for"))
+	elif(lvls[int(btn_text)-1] == "ifl"):
+		check = "ifl_" + str(int(btn_text)-lvls.find("ifl"))
+	elif(lvls[int(btn_text)-1] == "oth"):
+		check = "oth_" + str(int(btn_text)-lvls.find("oth"))
+	print("running after elif")
+	var svg = loadSaveGame()
+	print(svg.size())
+	if(svg!=null):
+		for i in range(svg.size()):
+			print("range" + i )
+			if svg[i] == check:
+				b.set_button_icon(icon)
+				print(b)
+				return b
+	else:
+		print(b)
+		return b
 
 func _fixed_process(delta):
 	tip_opacity += tip_delta
@@ -162,18 +196,13 @@ func loadSaveGame():
 		return null
 	var currline={}
 	savegame.open("user://savegame.save", File.READ)
+	var saves=[]
 	currline = savegame.get_line()
-	var res = IntArray()
-	for i in range(100):
-		res.append(0)
 	while(!savegame.eof_reached()):
-		var lvlhelp = currline.substr(5,2)
-		var lvl = lvlhelp
-		if(lvl != " " and int(lvl) >= 1):
-			res.set(int(lvl) - 1,1)
+		saves.append(currline)
 		currline = savegame.get_line()
 	savegame.close()
-	return res
+	return saves
 
 
 func _on_btnReset_pressed():
