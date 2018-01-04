@@ -10,15 +10,12 @@ var crates = [
 "Crate 3"
 ]
 
-
-
-	
 func _ready():
 	# setup variables
 	set_process(true)
 	PATH_CRATE = "Crate"
 	PATH_CANNON = "Cannon"
-	journal_text = "- Move Crate using a for loop and shoot them all \n"
+	journal_text = "- Move the Crates using a for loop and shoot them all \n"
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
 	editor_text=""" 
