@@ -2,6 +2,7 @@ extends "res://addons/gut/test.gd"
 
 var level = load("res://assets/levels/Level13.tscn").instance()
 
+
 func setup():
 	gut.p("ran setup", 2)
 	
@@ -16,4 +17,4 @@ func prerun_setup():
 func postrun_teardown():
 	gut.p("ran run teardown", 2)
 	level.get_node("defaultenviroment/Player").translate(Vector3(0,0,-10))
-	level.get_node("defaultenviroment").
+	
