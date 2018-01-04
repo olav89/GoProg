@@ -6,8 +6,7 @@
 [ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/objects/Lightboard.tscn" type="PackedScene" id=5]
 
-
-[node name="Level16" type="Spatial"]
+[node name="var_2" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )

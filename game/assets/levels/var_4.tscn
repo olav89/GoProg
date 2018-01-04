@@ -6,8 +6,7 @@
 [ext_resource path="res://assets/objects/ImmoveableCrate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=5]
 
-
-[node name="Level21" type="Spatial"]
+[node name="var_4" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )

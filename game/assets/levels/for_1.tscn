@@ -5,8 +5,7 @@
 [ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=4]
 
-
-[node name="Level13" type="Spatial"]
+[node name="for_1" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )

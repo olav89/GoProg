@@ -4,8 +4,7 @@
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/tv/tv.tscn" type="PackedScene" id=3]
 
-
-[node name="Level12" type="Spatial"]
+[node name="var_1" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )
