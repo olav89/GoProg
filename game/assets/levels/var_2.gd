@@ -7,7 +7,7 @@ func _ready():
 	PATH_CRATE = "Crate"
 	PATH_CANNON = "Cannon"
 	PATH_LIGHTBOARD = "Lightboard"
-	journal_text = "- Access the PC and learn about variables\n"
+	journal_text = "- Access the PC to learn\n"
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
 	
@@ -26,7 +26,7 @@ for i in range(d):
 fire_cannon(c)
 
 move_crate_forward(b)
-move_crate_back(a)
+move_crate_backward(a)
 
 #when you are ready to try to advance to the next lvl, 
 #manipulate the variables so that the crates moves in front
