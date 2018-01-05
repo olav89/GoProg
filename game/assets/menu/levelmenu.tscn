@@ -86,6 +86,20 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="lblLvlTypes" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 749.0
+margin/top = 197.0
+margin/right = 996.0
+margin/bottom = 437.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [connection signal="pressed" from="btnReset" to="." method="_on_btnReset_pressed"]
 
 

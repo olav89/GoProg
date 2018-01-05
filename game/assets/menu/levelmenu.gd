@@ -7,6 +7,7 @@ extends TextureFrame
 const PATH_LEVEL_MENU = "res://assets/menu/levelmenu.tscn"
 const PATH_LEVELS = "res://assets/levels/"
 const PATH_TIP = "lblTip"
+const PATH_TYPES = "lblLvlTypes"
 
 # Number of levels
 var num_levels = 30
@@ -45,6 +46,23 @@ func _ready():
 	var tip_index = floor(rand_range(0, tips.size()))
 	get_node(PATH_TIP).set_text("\"" + tips[tip_index] + "\"")
 	set_fixed_process(true)
+	set_lvlTypes()
+
+
+func set_lvlTypes():
+	var lvls=[]
+	for i in range(num_lvls_of("var")):
+		lvls.append("var")
+	for i in range(num_lvls_of("for")):
+		lvls.append("for")
+	for i in range(num_lvls_of("ifl")):
+		lvls.append("ifl")
+	for i in range(num_lvls_of("oth")):
+		lvls.append("oth")
+	get_node(PATH_TYPES).set_text("Var: " + str(lvls.find("var") +1 ) + " - " + str(lvls.find_last("var") +1 ) + "\n"
+	+ "for: " + str(lvls.find("for") +1 ) + " - " + str(lvls.find_last("for") + 1) + "\n"
+	+ "if: " + str(lvls.find("ifl") +1 ) + " - " + str(lvls.find_last("ifl") +1 ) + "\n"
+	+ "other: " + str(lvls.find("oth") +1 ) + " - " + str(lvls.find_last("oth") +1 ) + "\n")
 
 func checkSaved(b):
 	
@@ -69,13 +87,11 @@ func checkSaved(b):
 	elif(lvls[int(btn_text)-1] == "oth"):
 		check = "oth_" + str(int(btn_text)-lvls.find("oth"))
 	var svg = loadSaveGame()
-	print(svg.size())
 	if(svg!=null):
 		for i in range(svg.size()):
 			if svg[i] == check:
 				return true
 	else:
-		print(b)
 		return false
 
 func _fixed_process(delta):

@@ -42,4 +42,3 @@ func fire_sound():
 
 func fire_timeout():
 	emit_signal("fire_finished")
-	print("fire timout signal")
