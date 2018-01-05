@@ -12,9 +12,6 @@ var crates = [
 "Crate 5",
 ]
 
-
-
-	
 func _ready():
 	# setup variables
 	set_process(true)
@@ -29,20 +26,18 @@ func _ready():
 #and move the next crate up in front of the gun
 # use a if loop to only shoot the first, third and last crate
 
-for i in range(5):
+for i in range(?):
 	fire_cannon()
-	change_crate(i+1)
-	if(i==1||i==3):
-		move_crate_forward(i+4)
+	change_crate(?+1)
+	if(i==?||i==?):
+		move_crate_forward(?+?)
 	else:
-		move_crate_left(5)
+		move_crate_left(?)
 
  """
 
-	
 	# setup scripts
 	run_setup()
-	
 	
 func _process(delta):
 	if(hit1 && hit2 && hit3):

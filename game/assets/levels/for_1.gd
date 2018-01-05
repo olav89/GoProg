@@ -15,21 +15,22 @@ func _ready():
 	set_process(true)
 	PATH_CRATE = "Crate"
 	PATH_CANNON = "Cannon"
-	journal_text = "- Move the Crates using a for loop and shoot them all \n"
+	journal_text = "- Move the Crates using a for loop  \n"
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
 	editor_text=""" 
 #The objective is to make a function
-#to fire the gun, change wich crate to controll,
+#to fire the gun, change which crate to controll,
 #and move the next crate up in front of the gun
+#
 
-func test(a):
+func test(?):
 	fire_cannon() 
-	change_crate(a+1)
-	move_crate_forward(a+3)
+	change_crate(?+1)
+	move_crate_forward(?+?)
 	
 
-for i in range(3):
+for i in range(?):
 	test(i) """
 
 	

@@ -1,6 +1,6 @@
 extends "res://addons/gut/test.gd"
 
-var level = load("res://assets/levels/Level1.tscn").instance()
+var level = load("res://assets/levels/oth_2.tscn").instance()
 var execute
 const OK = 0
 const ERR_PARSE = 43

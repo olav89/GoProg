@@ -1,6 +1,6 @@
 extends "res://addons/gut/test.gd"
 
-var level = load("res://assets/levels/Level13.tscn").instance()
+var level = load("res://assets/levels/for_1.tscn").instance()
 
 
 func setup():

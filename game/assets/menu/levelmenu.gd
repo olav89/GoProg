@@ -50,15 +50,7 @@ func _ready():
 
 
 func set_lvlTypes():
-	var lvls=[]
-	for i in range(num_lvls_of("var")):
-		lvls.append("var")
-	for i in range(num_lvls_of("for")):
-		lvls.append("for")
-	for i in range(num_lvls_of("ifl")):
-		lvls.append("ifl")
-	for i in range(num_lvls_of("oth")):
-		lvls.append("oth")
+	var lvls=get_lvl_array()
 	get_node(PATH_TYPES).set_text("Var: " + str(lvls.find("var") +1 ) + " - " + str(lvls.find_last("var") +1 ) + "\n"
 	+ "for: " + str(lvls.find("for") +1 ) + " - " + str(lvls.find_last("for") + 1) + "\n"
 	+ "if: " + str(lvls.find("ifl") +1 ) + " - " + str(lvls.find_last("ifl") +1 ) + "\n"
@@ -78,7 +70,6 @@ func get_lvl_array():
 
 
 func checkSaved(b):
-	
 	var btn_text = b.get_text()
 	var lvls = get_lvl_array()
 	var check
@@ -109,15 +100,7 @@ func _fixed_process(delta):
 func button_pressed(pressed):
 	
 	var btn_text = pressed.get_text()	
-	var lvls=[]
-	for i in range(num_lvls_of("var")):
-		lvls.append("var")
-	for i in range(num_lvls_of("for")):
-		lvls.append("for")
-	for i in range(num_lvls_of("ifl")):
-		lvls.append("ifl")
-	for i in range(num_lvls_of("oth")):
-		lvls.append("oth")
+	var lvls=get_lvl_array()
 	
 	if(lvls[int(btn_text)-1] == "var"):
 		goto_scene( PATH_LEVELS + "var_" + btn_text + ".tscn")

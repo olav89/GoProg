@@ -1,6 +1,6 @@
 extends "res://addons/gut/test.gd"
 
-var level = load("res://assets/levels/Level22.tscn").instance()
+var level = load("res://assets/levels/var_5.tscn").instance()
 
 func setup():
 	gut.p("ran setup", 2)
@@ -17,8 +17,8 @@ func postrun_teardown():
 	gut.p("ran run teardown", 2)
 
 func test_win():
-	var code = """invert_gravity_room()
-angle_cannon(6)
+	var code = """
+angle_cannon(10)
 fire_cannon()"""
 	level.get_node(level.PATH_PC).get_screen().set_editor_text(code)
 	get_node("/root/execute").execute_code()
