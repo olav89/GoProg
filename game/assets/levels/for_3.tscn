@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://assets/levels/for_3.gd" type="Script" id=1]
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/objects_scns/Cannon-stand.scn" type="PackedScene" id=5]
 
 [node name="for_3" type="Spatial"]
 
@@ -26,6 +27,10 @@ gravity_scale = -1.0
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.594483, 1.132, 0 )
 
 [node name="Cannon" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11957, 1.74174, -10.3582 )
+
+[node name="Cannon-stand" parent="." instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11957, 1.74174, -10.3582 )
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://assets/levels/oth_1.gd" type="Script" id=1]
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/objects/ImmoveableCrate.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/objects_scns/Cannon-stand.scn" type="PackedScene" id=5]
+[ext_resource path="res://assets/objects/ImmoveableCrate.tscn" type="PackedScene" id=6]
 
 [node name="oth_1" type="Spatial"]
 
@@ -33,19 +34,23 @@ transform/local = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.8601, 4.59228, -13.7429 )
 
-[node name="ImmoveableCrate" parent="." instance=ExtResource( 5 )]
+[node name="Cannon-stand" parent="." instance=ExtResource( 5 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.8601, 4.59228, -13.7429 )
+
+[node name="ImmoveableCrate" parent="." instance=ExtResource( 6 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6397, 1.17751, -13.8398 )
 
-[node name="ImmoveableCrate1" parent="." instance=ExtResource( 5 )]
+[node name="ImmoveableCrate1" parent="." instance=ExtResource( 6 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6397, 1.17751, -9.9372 )
 
-[node name="ImmoveableCrate 2" parent="." instance=ExtResource( 5 )]
+[node name="ImmoveableCrate 2" parent="." instance=ExtResource( 6 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.019, 0.124874, 0 )
 
-[node name="ImmoveableCrate3" parent="." instance=ExtResource( 5 )]
+[node name="ImmoveableCrate3" parent="." instance=ExtResource( 6 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.48, 6.02301, 7.25959 )
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://assets/levels/var_4.gd" type="Script" id=1]
 [ext_resource path="res://assets/levels_assets/defaultenvironment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/objects/crate.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/objects/ImmoveableCrate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/objects/Cannon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/objects_scns/Cannon-stand.scn" type="PackedScene" id=6]
 
 [node name="var_4" type="Spatial"]
 
@@ -50,6 +51,10 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7097, 1.96173, -8.13
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4077, 2.22697, 1.21277 )
 
 [node name="Cannon" parent="." instance=ExtResource( 5 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.89197, 0.86347, -14.0604 )
+
+[node name="Cannon-stand" parent="." instance=ExtResource( 6 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.89197, 0.86347, -14.0604 )
 
