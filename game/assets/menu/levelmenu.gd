@@ -64,9 +64,7 @@ func set_lvlTypes():
 	+ "if: " + str(lvls.find("ifl") +1 ) + " - " + str(lvls.find_last("ifl") +1 ) + "\n"
 	+ "other: " + str(lvls.find("oth") +1 ) + " - " + str(lvls.find_last("oth") +1 ) + "\n")
 
-func checkSaved(b):
-	
-	var btn_text = b.get_text()
+func get_lvl_array():
 	var lvls=[]
 	for i in range(num_lvls_of("var")):
 		lvls.append("var")
@@ -76,6 +74,13 @@ func checkSaved(b):
 		lvls.append("ifl")
 	for i in range(num_lvls_of("oth")):
 		lvls.append("oth")
+	return lvls
+
+
+func checkSaved(b):
+	
+	var btn_text = b.get_text()
+	var lvls = get_lvl_array()
 	var check
 
 	if(lvls[int(btn_text)-1] == "var"):
