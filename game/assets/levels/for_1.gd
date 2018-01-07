@@ -18,8 +18,7 @@ func _ready():
 	journal_text = "- Move the Crates using a for loop  \n"
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
-	editor_text=""" 
-# The objective is to make a function which
+	editor_text="""# The objective is to make a function which
 # fire the gun, change which crate to controll,
 # and move the next crate up in front of the gun
 

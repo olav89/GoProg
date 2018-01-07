@@ -10,9 +10,6 @@ var crates = [
 "Crate 3"
 ]
 
-
-
-	
 func _ready():
 	# setup variables
 	set_process(true)
@@ -21,18 +18,15 @@ func _ready():
 	journal_text = "- Move Crate using a for loop and shoot them all \n"
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
-	editor_text=""" 
-#The objective is to make a function
-#to fire the gun, change wich crate to controll,
-#and move the next crate up in front of the gun
-#either change gravity or change the angle of the 
-#gun to hit the one in the roof
+	editor_text="""# The objective is to make a function
+# to fire the gun, change wich crate to controll,
+# and move the next crate up in front of the gun
+# either change gravity or change the angle of the 
+# gun to hit the one in the roof
 
 for i in range(3):
 	#fire
 	#change
-	
-
 """
 	
 	# setup scripts

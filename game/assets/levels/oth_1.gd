@@ -23,6 +23,7 @@ func _ready():
 	PATH_CANNON = "Cannon"
 	get_node(PATH_CRATE).connect("body_enter", self, "crate_hit")
 	
+	editor_text = """# "Shoot the crate without having it collide with other crates."""
 	# setup scripts
 	run_setup()
 	

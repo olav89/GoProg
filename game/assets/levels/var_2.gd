@@ -11,9 +11,8 @@ func _ready():
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
 	
-	editor_text = """   
-#Here you can test out the effect diffrent variables have on items. 
-#The Variables a - d are imputs in diffrent functions. see for yourself
+	editor_text = """# Here you can test out the effect diffrent variables have on items. 
+# The Variables a - d are imputs in diffrent functions. see for yourself
 	
 var a = 1
 var b = 2

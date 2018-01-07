@@ -28,6 +28,6 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.26351, 1.45789, 0 )
 
 [node name="Lightboard" parent="." instance=ExtResource( 6 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89045, -15.6434 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89045, -15.7108 )
 
 
