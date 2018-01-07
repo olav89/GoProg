@@ -15,8 +15,7 @@ func _ready():
 	
 	TEXT_TV = " a + b = 5 \n a>0 \n b>0 \n a= \n b= "
 	get_node("defaultenviroment/Tv/Viewport/TextureFrame/Label").set_text(TEXT_TV)
-	editor_text = """
-# use set_a(?) and set_b(?) and exchange the ? with your answers for a and b 
+	editor_text = """# use set_a(?) and set_b(?) and exchange the ? with your answers for a and b 
 # press either build and then exit the computer and rund the code with f-button 
 # or just hit the execute button
 	

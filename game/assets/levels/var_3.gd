@@ -11,15 +11,12 @@ func _ready():
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
 	
-	editor_text = """   
-#in This level you may try to use the following setup to move 
-#the crate in front of the gun, you may however need to 
-#change something
+	editor_text = """# in This level you may try to use the following setup to move 
+# the crate in front of the gun, you may however need to 
+# change something
 
 var bool1 = true
 var bool2 = false
-
-
 
 if(bool2):
 	move_crate_forward(1)
@@ -33,7 +30,6 @@ if(bool2):
 	
 	# setup scripts
 	run_setup()
-	
 	
 func _process(delta):
 	pass

@@ -18,11 +18,9 @@ func _ready():
 	journal_text = "- Move the Crates using a for loop  \n"
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
-	editor_text=""" 
-#The objective is to make a function
-#to fire the gun, change which crate to controll,
-#and move the next crate up in front of the gun
-#
+	editor_text="""# The objective is to make a function which
+# fire the gun, change which crate to controll,
+# and move the next crate up in front of the gun
 
 func test(?):
 	fire_cannon() 
@@ -31,7 +29,8 @@ func test(?):
 	
 
 for i in range(?):
-	test(i) """
+	test(i) 
+"""
 
 	
 	# setup scripts

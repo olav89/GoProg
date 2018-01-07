@@ -14,6 +14,8 @@ func _ready():
 	PATH_CRATE = "Crate"
 	journal_text = "Hit the crate with the cannon.\n"
 	set_help_buttons([HELP_CANNON, HELP_GRAVITY, HELP_CRATE])
+	editor_text = """# Hit the crate with the cannon """
+	
 	# setup scripts
 	run_setup()
 
