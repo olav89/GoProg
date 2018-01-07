@@ -21,9 +21,9 @@ func _ready():
 	journal_text += "- Interact with the PC by pressing E.\n"
 	
 	editor_text=""" 
-#The objective is to make a function
-#to fire the gun, change wich crate to controll,
-#and move the next crate up in front of the gun
+# The objective is to make a function
+# to fire the gun, change wich crate to controll,
+# and move the next crate up in front of the gun
 # use a if loop to only shoot the first, third and last crate
 
 for i in range(?):
@@ -33,7 +33,8 @@ for i in range(?):
 		move_crate_forward(?+?)
 	else:
 		move_crate_left(?)
-
+	if(i == 3):
+		move_crate_forward(2)
  """
 
 	# setup scripts
