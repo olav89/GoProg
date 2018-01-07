@@ -179,7 +179,8 @@ func save_game():
 	var savegame = File.new()
 	if(!savegame.file_exists("user://savegame.save")):
 		get_node("/root/logger").log_error("No savegame file")
-		return null
+		savegame.open("user://savegame.save",File.WRITE)
+		savegame.close()
 	var currline={}
 	savegame.open("user://savegame.save",File.READ)
 	currline = savegame.get_line()
