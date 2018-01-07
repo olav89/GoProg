@@ -33,7 +33,7 @@ var tip_delta = 0.01
 func _ready():
 	var box = get_node("Levels")
 
-	num_levels = _num_lvls()
+	num_levels = 11
 	for i in range(1, num_levels + 1):
 		var b = Button.new()
 		var icon = load("res://assets/art/button_texture/Pressed_lift_button.tex")
@@ -58,13 +58,13 @@ func set_lvlTypes():
 
 func get_lvl_array():
 	var lvls=[]
-	for i in range(num_lvls_of("var")):
+	for i in range(5):
 		lvls.append("var")
-	for i in range(num_lvls_of("for")):
+	for i in range(4):
 		lvls.append("for")
-	for i in range(num_lvls_of("ifl")):
+	for i in range(1):
 		lvls.append("ifl")
-	for i in range(num_lvls_of("oth")):
+	for i in range(1):
 		lvls.append("oth")
 	return lvls
 
